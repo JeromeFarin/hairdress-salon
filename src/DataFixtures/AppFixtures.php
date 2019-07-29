@@ -3,15 +3,17 @@
 namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
 
-class AppFixtures extends Fixture
+abstract class AppFixtures extends Fixture
 {
-    public function load(ObjectManager $manager)
+    public function many(string $className, int $count, callable $factory)
     {
-        // $product = new Product();
-        // $manager->persist($product);
-
-        // $manager->flush();
+        for ($i = 0; $i < $count; $i++) {
+            $entity = new $className();
+            $factory($entity, $i);
+            $this->manager->persist($entity);
+            // store for usage later as App\Entity\ClassName_#COUNT#
+            $this->addReference($className . '_' . $i, $entity);
+        }
     }
 }

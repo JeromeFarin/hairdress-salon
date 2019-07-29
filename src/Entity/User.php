@@ -51,11 +51,6 @@ class User implements UserInterface
     private $gender;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $score;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $avatar;
@@ -64,11 +59,6 @@ class User implements UserInterface
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="staffId")
-     */
-    private $comments;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Indisponibility", mappedBy="staffId")
@@ -87,7 +77,6 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $this->comments = new ArrayCollection();
         $this->indisponibilities = new ArrayCollection();
         $this->reservations = new ArrayCollection();
         $this->createdAt = new \DateTime();
@@ -208,18 +197,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getScore(): ?int
-    {
-        return $this->score;
-    }
-
-    public function setScore(?int $score): self
-    {
-        $this->score = $score;
-
-        return $this;
-    }
-
     public function getAvatar(): ?string
     {
         return $this->avatar;
@@ -240,37 +217,6 @@ class User implements UserInterface
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Comment[]
-     */
-    public function getComments(): Collection
-    {
-        return $this->comments;
-    }
-
-    public function addComment(Comment $comment): self
-    {
-        if (!$this->comments->contains($comment)) {
-            $this->comments[] = $comment;
-            $comment->setStaffId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeComment(Comment $comment): self
-    {
-        if ($this->comments->contains($comment)) {
-            $this->comments->removeElement($comment);
-            // set the owning side to null (unless already changed)
-            if ($comment->getStaffId() === $this) {
-                $comment->setStaffId(null);
-            }
-        }
 
         return $this;
     }

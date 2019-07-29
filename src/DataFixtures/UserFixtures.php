@@ -2,24 +2,25 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Faker\Factory;
 
-class UserFixtures extends Fixture
+class UserFixtures extends AppFixtures
 {
     private $encoder;
+    private $faker;
+    protected $manager;
 
     public function __construct(UserPasswordEncoderInterface $encoder) {
         $this->encoder = $encoder;
+        $this->faker = Factory::create('fr_FR');
     }
 
     public function load(ObjectManager $manager)
     {
-        $faker = Factory::create('fr_FR');
-
+        $this->manager = $manager;
         $user = new User();
         $user->setEmail('j.farin38@gmail.com')
              ->setRoles(['ROLE_ADMIN'])
@@ -30,19 +31,33 @@ class UserFixtures extends Fixture
              ->setPhone('0644079372');
         $manager->persist($user);
 
-        for ($i=1; $i < 10; $i++) { 
-            $user = new User();
-            $user->setEmail($faker->unique()->email)
-                 ->setRoles([$faker->randomElement(['ROLE_USER','ROLE_STAFF'])])
-                 ->setPassword($this->encoder->encodePassword($user, $faker->password))
-                 ->setGender($faker->numberBetween(1,2))
-                 ->setFirstName(($user->getGender() == 1) ? $faker->firstNameMale : $faker->firstNameFemale )
-                 ->setLastName($faker->lastName)
-                 ->setAvatar($faker->word . '.' . $faker->fileExtension)
-                 ->setPhone($faker->phoneNumber)
-                 ->setScore(($user->getRoles() == ['ROLE_USER']) ? null : $faker->numberBetween(1,5));
-            $manager->persist($user);
-        }        
+        $this->many(User::class, 10, function(User $user){
+            $user->setEmail($this->faker->email)
+                 ->setRoles([$this->faker->randomElement(['ROLE_USER','ROLE_STAFF'])])
+                 ->setPassword($this->encoder->encodePassword($user, $this->faker->password))
+                 ->setGender($this->faker->numberBetween(1,2))
+                 ->setFirstName(($user->getGender() == 1) ? $this->faker->firstNameMale : $this->faker->firstNameFemale )
+                 ->setLastName($this->faker->lastName)
+                 ->setAvatar($this->faker->word . '.' . $this->faker->fileExtension)
+                 ->setPhone($this->faker->phoneNumber)
+                 ->setScore(($user->getRoles() == ['ROLE_USER']) ? null : $this->faker->numberBetween(1,5));
+        });     
+
+        // for ($i=0; $i < 10; $i++) { 
+        //     $user = new User();
+
+        //     $user->setEmail($this->faker->email)
+        //          ->setRoles([$this->faker->randomElement(['ROLE_USER','ROLE_STAFF'])])
+        //          ->setPassword($this->encoder->encodePassword($user, $this->faker->password))
+        //          ->setGender($this->faker->numberBetween(1,2))
+        //          ->setFirstName(($user->getGender() == 1) ? $this->faker->firstNameMale : $this->faker->firstNameFemale )
+        //          ->setLastName($this->faker->lastName)
+        //          ->setAvatar($this->faker->word . '.' . $this->faker->fileExtension)
+        //          ->setPhone($this->faker->phoneNumber)
+        //          ->setScore(($user->getRoles() == ['ROLE_USER']) ? null : $this->faker->numberBetween(1,5));
+
+        //     $manager->persist($user);
+        // }
 
         $manager->flush();
     }
