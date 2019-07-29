@@ -12,6 +12,8 @@ class UserFixtures extends AppFixtures
     private $encoder;
     private $faker;
     protected $manager;
+    protected $countUser = 1;
+    protected $countStaff = 1;
 
     public function __construct(UserPasswordEncoderInterface $encoder) {
         $this->encoder = $encoder;
@@ -29,36 +31,31 @@ class UserFixtures extends AppFixtures
              ->setFirstName('Jérôme')
              ->setLastName('Farin')
              ->setPhone('0644079372');
-        $manager->persist($user);
+        $manager->persist($user);  
 
-        $this->many(User::class, 10, function(User $user, $i){
+        for ($i=0; $i < 10; $i++) { 
+            $user = new User();
+
             $user->setEmail(('email+'.$i.'@email.com'))
-                 ->setRoles([$this->faker->randomElement(['ROLE_USER','ROLE_STAFF'])])
+                 ->setRoles([$this->faker->randomElement(['ROLE_STAFF','ROLE_CLIENT'])])
                  ->setPassword($this->encoder->encodePassword($user, 'password'))
                  ->setGender($this->faker->numberBetween(1,2))
                  ->setFirstName(($user->getGender() == 1) ? $this->faker->firstNameMale : $this->faker->firstNameFemale )
                  ->setLastName($this->faker->lastName)
                  ->setAvatar($this->faker->word . '.' . $this->faker->fileExtension)
-                 ->setPhone($this->faker->phoneNumber)
-                 ->setScore(($user->getRoles() == ['ROLE_USER']) ? null : $this->faker->numberBetween(1,5));
-        });     
+                 ->setPhone($this->faker->phoneNumber);
 
-        // for ($i=0; $i < 10; $i++) { 
-        //     $user = new User();
+            $manager->persist($user);
 
-        //     $user->setEmail($this->faker->email)
-        //          ->setRoles([$this->faker->randomElement(['ROLE_USER','ROLE_STAFF'])])
-        //          ->setPassword($this->encoder->encodePassword($user, $this->faker->password))
-        //          ->setGender($this->faker->numberBetween(1,2))
-        //          ->setFirstName(($user->getGender() == 1) ? $this->faker->firstNameMale : $this->faker->firstNameFemale )
-        //          ->setLastName($this->faker->lastName)
-        //          ->setAvatar($this->faker->word . '.' . $this->faker->fileExtension)
-        //          ->setPhone($this->faker->phoneNumber)
-        //          ->setScore(($user->getRoles() == ['ROLE_USER']) ? null : $this->faker->numberBetween(1,5));
-
-        //     $manager->persist($user);
-        // }
-
+            if (in_array('ROLE_STAFF',$user->getRoles())) {
+                $this->addReference('staff_'.$this->countStaff, $user);
+                $this->countStaff = $this->countStaff + 1;
+            } else {
+                $this->addReference('client_'.$this->countUser, $user);
+                $this->countUser = $this->countUser + 1;
+            }
+        }
+        
         $manager->flush();
     }
 }

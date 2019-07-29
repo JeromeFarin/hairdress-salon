@@ -5,9 +5,10 @@ namespace App\DataFixtures;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\Unavailability;
 use Faker\Factory;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use App\Entity\User;
 
-class UnavailabilityFixtures extends AppFixtures
+class UnavailabilityFixtures extends AppFixtures implements DependentFixtureInterface
 {
     protected $faker;
 
@@ -17,19 +18,22 @@ class UnavailabilityFixtures extends AppFixtures
 
     public function load(ObjectManager $manager)
     {
-        // $unavailable = new Unavailability();
-        // $unavailable->setStaffId($this->getReference(User::class.'_5'))
-        //         ->setStart($faker->dateTime)
-        //         ->setEnd($faker->dateTimeBetween($unavailable->getStart(),$unavailable->getStart()->add(new \DateInterval('P10D'))));
-
-        // $manager->persist($unavailable);
-
-        $this->many(Unavailability::class, 5, function (Unavailability $unavailable) {
-            $unavailable->setStaffId($this->getReference(User::class.'_1'))
+        for ($i=0; $i < 10; $i++) {
+            $unavailable = new Unavailability();
+            $unavailable->setStaff($this->getReference('staff_'.mt_rand(1,4)))
                     ->setStart($this->faker->dateTime)
                     ->setEnd($this->faker->dateTimeBetween($unavailable->getStart(),$unavailable->getStart()->add(new \DateInterval('P10D'))));
-        });
+    
+            $manager->persist($unavailable);
+        }
 
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return array(
+            UserFixtures::class,
+        );
     }
 }

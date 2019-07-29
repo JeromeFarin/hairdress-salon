@@ -18,7 +18,7 @@ class PrestationFixtures extends Fixture
 
             $prestation->setName($faker->word)
                        ->setMakeTime($faker->numberBetween(5,60))
-                       ->setPriceHT($faker->numberBetween(5,150));
+                       ->setPrice($faker->numberBetween(5,150));
     
             $manager->persist($prestation);
         }
