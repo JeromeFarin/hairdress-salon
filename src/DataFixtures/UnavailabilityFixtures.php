@@ -21,7 +21,7 @@ class UnavailabilityFixtures extends AppFixtures implements DependentFixtureInte
         for ($i=0; $i < 10; $i++) {
             $unavailable = new Unavailability();
             $unavailable->setStaff($this->getReference('staff_'.mt_rand(1,4)))
-                    ->setStart($this->faker->dateTime)
+                    ->setStart($this->faker->dateTime('+3 months'))
                     ->setEnd($this->faker->dateTimeBetween($unavailable->getStart(),$unavailable->getStart()->add(new \DateInterval('P10D'))));
     
             $manager->persist($unavailable);
