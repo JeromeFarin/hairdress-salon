@@ -80,11 +80,18 @@ class User implements UserInterface
      */
     private $reservations;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $phone;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->indisponibilities = new ArrayCollection();
         $this->reservations = new ArrayCollection();
+        $this->createdAt = new \DateTime();
+        $this->avatar = 'default.png';
     }
 
     public function getId(): ?int
@@ -326,6 +333,18 @@ class User implements UserInterface
                 $reservation->setClientId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
 
         return $this;
     }
