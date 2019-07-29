@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Indisponibility;
+use App\Entity\Unavailability;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method Indisponibility|null find($id, $lockMode = null, $lockVersion = null)
- * @method Indisponibility|null findOneBy(array $criteria, array $orderBy = null)
- * @method Indisponibility[]    findAll()
- * @method Indisponibility[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Unavailability|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Unavailability|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Unavailability[]    findAll()
+ * @method Unavailability[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class IndisponibilityRepository extends ServiceEntityRepository
+class UnavailabilityRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Indisponibility::class);
+        parent::__construct($registry, Unavailability::class);
     }
 
     // /**
-    //  * @return Indisponibility[] Returns an array of Indisponibility objects
+    //  * @return Unavailability[] Returns an array of Unavailability objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class IndisponibilityRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Indisponibility
+    public function findOneBySomeField($value): ?Unavailability
     {
         return $this->createQueryBuilder('i')
             ->andWhere('i.exampleField = :val')

@@ -31,10 +31,10 @@ class UserFixtures extends AppFixtures
              ->setPhone('0644079372');
         $manager->persist($user);
 
-        $this->many(User::class, 10, function(User $user){
-            $user->setEmail($this->faker->email)
+        $this->many(User::class, 10, function(User $user, $i){
+            $user->setEmail(('email+'.$i.'@email.com'))
                  ->setRoles([$this->faker->randomElement(['ROLE_USER','ROLE_STAFF'])])
-                 ->setPassword($this->encoder->encodePassword($user, $this->faker->password))
+                 ->setPassword($this->encoder->encodePassword($user, 'password'))
                  ->setGender($this->faker->numberBetween(1,2))
                  ->setFirstName(($user->getGender() == 1) ? $this->faker->firstNameMale : $this->faker->firstNameFemale )
                  ->setLastName($this->faker->lastName)

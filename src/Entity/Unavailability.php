@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\IndisponibilityRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\UnavailabilityRepository")
  */
-class Indisponibility
+class Unavailability
 {
     /**
      * @ORM\Id()
@@ -17,10 +17,10 @@ class Indisponibility
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="indisponibilities")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="unavailabilities")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $staffId;
+    private $staff;
 
     /**
      * @ORM\Column(type="datetime")
@@ -37,14 +37,14 @@ class Indisponibility
         return $this->id;
     }
 
-    public function getStaffId(): ?User
+    public function getStaff(): ?User
     {
-        return $this->staffId;
+        return $this->staff;
     }
 
-    public function setStaffId(?User $staffId): self
+    public function setStaff(?User $staff): self
     {
-        $this->staffId = $staffId;
+        $this->staff = $staff;
 
         return $this;
     }

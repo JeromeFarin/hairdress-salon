@@ -61,9 +61,9 @@ class User implements UserInterface
     private $createdAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Indisponibility", mappedBy="staffId")
+     * @ORM\OneToMany(targetEntity="App\Entity\Unavailability", mappedBy="staff")
      */
-    private $indisponibilities;
+    private $unavailabilities;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="clientId")
@@ -77,7 +77,7 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $this->indisponibilities = new ArrayCollection();
+        $this->unavailabilities = new ArrayCollection();
         $this->reservations = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->avatar = 'default.png';
@@ -222,30 +222,30 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Indisponibility[]
+     * @return Collection|Unavailability[]
      */
-    public function getIndisponibilities(): Collection
+    public function getUnavailabilities(): Collection
     {
-        return $this->indisponibilities;
+        return $this->unavailabilities;
     }
 
-    public function addIndisponibility(Indisponibility $indisponibility): self
+    public function addUnavailability(Unavailability $unavailability): self
     {
-        if (!$this->indisponibilities->contains($indisponibility)) {
-            $this->indisponibilities[] = $indisponibility;
-            $indisponibility->setStaffId($this);
+        if (!$this->unavailabilities->contains($unavailability)) {
+            $this->unavailabilities[] = $unavailability;
+            $unavailability->setStaffId($this);
         }
 
         return $this;
     }
 
-    public function removeIndisponibility(Indisponibility $indisponibility): self
+    public function removeUnavailability(Unavailability $unavailability): self
     {
-        if ($this->indisponibilities->contains($indisponibility)) {
-            $this->indisponibilities->removeElement($indisponibility);
+        if ($this->unavailabilities->contains($unavailability)) {
+            $this->unavailabilities->removeElement($unavailability);
             // set the owning side to null (unless already changed)
-            if ($indisponibility->getStaffId() === $this) {
-                $indisponibility->setStaffId(null);
+            if ($unavailability->getStaffId() === $this) {
+                $unavailability->setStaffId(null);
             }
         }
 
