@@ -31,7 +31,7 @@ class Prestation
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $priceHT;
+    private $price;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ReservationInfo", mappedBy="prestation")
@@ -72,14 +72,14 @@ class Prestation
         return $this;
     }
 
-    public function getPriceHT(): ?string
+    public function getPrice(): ?string
     {
-        return $this->priceHT;
+        return $this->price;
     }
 
-    public function setPriceHT(string $priceHT): self
+    public function setPrice(string $price): self
     {
-        $this->priceHT = $priceHT;
+        $this->price = $price;
 
         return $this;
     }

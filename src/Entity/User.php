@@ -66,9 +66,14 @@ class User implements UserInterface
     private $unavailabilities;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="clientId")
+     * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="client")
      */
-    private $reservations;
+    private $clientReservations;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="staff")
+     */
+    private $staffReservations;
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -78,7 +83,8 @@ class User implements UserInterface
     public function __construct()
     {
         $this->unavailabilities = new ArrayCollection();
-        $this->reservations = new ArrayCollection();
+        $this->clientReservations = new ArrayCollection();
+        $this->staffReservations = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->avatar = 'default.png';
     }
@@ -255,25 +261,56 @@ class User implements UserInterface
     /**
      * @return Collection|Reservation[]
      */
-    public function getReservations(): Collection
+    public function getClientReservations(): Collection
     {
-        return $this->reservations;
+        return $this->clientReservations;
     }
 
-    public function addReservation(Reservation $reservation): self
+    public function addClientReservation(Reservation $reservation): self
     {
-        if (!$this->reservations->contains($reservation)) {
-            $this->reservations[] = $reservation;
+        if (!$this->clientReservations->contains($reservation)) {
+            $this->clientReservations[] = $reservation;
             $reservation->setClientId($this);
         }
 
         return $this;
     }
 
-    public function removeReservation(Reservation $reservation): self
+    public function removeClientReservation(Reservation $reservation): self
     {
-        if ($this->reservations->contains($reservation)) {
-            $this->reservations->removeElement($reservation);
+        if ($this->clientReservations->contains($reservation)) {
+            $this->clientReservations->removeElement($reservation);
+            // set the owning side to null (unless already changed)
+            if ($reservation->getClientId() === $this) {
+                $reservation->setClientId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Reservation[]
+     */
+    public function getStaffReservations(): Collection
+    {
+        return $this->staffReservations;
+    }
+
+    public function addStaffReservation(Reservation $reservation): self
+    {
+        if (!$this->staffReservations->contains($reservation)) {
+            $this->staffReservations[] = $reservation;
+            $reservation->setClientId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStaffReservation(Reservation $reservation): self
+    {
+        if ($this->staffReservations->contains($reservation)) {
+            $this->staffReservations->removeElement($reservation);
             // set the owning side to null (unless already changed)
             if ($reservation->getClientId() === $this) {
                 $reservation->setClientId(null);

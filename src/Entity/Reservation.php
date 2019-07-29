@@ -19,16 +19,16 @@ class Reservation
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="reservations")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="clientReservations")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $clientId;
+    private $client;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="reservations")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="staffReservations")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $staffId;
+    private $staff;
 
     /**
      * @ORM\Column(type="datetime")
@@ -66,26 +66,26 @@ class Reservation
         return $this->id;
     }
 
-    public function getClientId(): ?User
+    public function getClient(): ?User
     {
-        return $this->clientId;
+        return $this->client;
     }
 
-    public function setClientId(?User $clientId): self
+    public function setClient(?User $client): self
     {
-        $this->clientId = $clientId;
+        $this->client = $client;
 
         return $this;
     }
 
-    public function getStaffId(): ?User
+    public function getStaff(): ?User
     {
-        return $this->staffId;
+        return $this->staff;
     }
 
-    public function setStaffId(?User $staffId): self
+    public function setStaff(?User $staff): self
     {
-        $this->staffId = $staffId;
+        $this->staff = $staff;
 
         return $this;
     }
