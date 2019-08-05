@@ -80,6 +80,11 @@ class User implements UserInterface
      */
     private $phone;
 
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $code;
+
     public function __construct()
     {
         $this->unavailabilities = new ArrayCollection();
@@ -332,6 +337,18 @@ class User implements UserInterface
     public function setPhone(?string $phone): self
     {
         $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode($code): self
+    {
+        $this->code = $code;
 
         return $this;
     }

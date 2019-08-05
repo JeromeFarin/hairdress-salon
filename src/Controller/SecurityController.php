@@ -15,17 +15,21 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use App\Repository\UserRepository;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class SecurityController extends AbstractController
 {
     private $manager;
     private $encoder;
     private $userRepo;
+    private $mailer;
 
-    public function __construct(ObjectManager $manager, UserPasswordEncoderInterface $encoder, UserRepository $userRepo) {
+    public function __construct(ObjectManager $manager, UserPasswordEncoderInterface $encoder, UserRepository $userRepo, \Swift_Mailer $mailer) {
         $this->manager = $manager;
         $this->encoder = $encoder;
         $this->userRepo = $userRepo;
+        $this->mailer = $mailer;
     }
 
     /**
@@ -81,7 +85,6 @@ class SecurityController extends AbstractController
      * Reset password with known user
      *
      * @Route("/reset/{id}", name="security.reset")
-     * @return 
      */
     public function reset(Request $request, int $id)
     {
@@ -117,6 +120,58 @@ class SecurityController extends AbstractController
         return $this->redirectToRoute('home');
     }
 
+    /**
+     * Forgot password
+     *
+     * @Route("/forgot/{id}", name="security.forgot")
+     * @param Request $request
+     */ 
+    public function forgot(Request $request, int $id = null)
+    {
+        $form = $this->createFormBuilder()->getForm();
+
+        if ($id != null) {
+            $form->add('code', IntegerType::class)
+                 ->add('new_password', PasswordType::class)
+                 ->add('new_password_2', PasswordType::class, ['label' => 'Repeat Password'])
+                 ->add('submit', SubmitType::class);
+        } else {
+            $form->add('email', EmailType::class)
+                 ->add('submit', SubmitType::class);
+        }
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            if (isset($form['email'])) {
+                $user = $this->userRepo->findOneBy(['email' => $form['email']->getData()]);
+
+                $this->sendMail($user->getEmail(),'Reset password', 'email/forgot_password.html.twig', [
+                    'firstName' => $user->getFirstName(),
+                    'code' => $this->generateCode($user),
+                    'user' => $user
+                ]);
+
+                return $this->redirectToRoute('home');
+            } else {
+                $user = $this->userRepo->find($id);
+                if ($this->checkCode($user, $form['code']->getData())) {
+                    $user->setCode(null);
+                    $user->setPassword($this->encoder->encodePassword($user, $form['new_password']->getData()));
+
+                    $this->manager->persist($user);
+                    $this->manager->flush();
+
+                    return $this->redirectToRoute('security.login');
+                }
+            }
+        }
+
+        return $this->render('security/forgot_password.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
     private function resetPassword(User $user, string $password)
     {
         $user->setPassword($this->encoder->encodePassword($user, $password));
@@ -127,8 +182,6 @@ class SecurityController extends AbstractController
         return $this->redirectToRoute('security.logout');
     }
 
-
-
     private function uploadAvatar(UploadedFile $file, int $id)
     {
         $fileName = $id . '.' . $file->guessExtension();
@@ -138,5 +191,54 @@ class SecurityController extends AbstractController
         );
 
         return $fileName;
+    }
+
+    private function sendMail(string $receiver, string $title, string $body, array $option = [])
+    {
+        $message = (new \Swift_Message($title))
+            ->setFrom('hairdress@gmail.com')
+            ->setTo($receiver)
+            ->setBody(
+                $this->renderView(
+                    $body,
+                    $option
+                ),
+                'text/html'
+            )
+        ;
+
+        if ($this->mailer->send($message)) {
+            $this->addFlash('success', 'An email was send to ' . $receiver);
+            return true;
+        } else {
+            $this->addFlash('error', 'An error blocked the sending of the email, please retry later');
+            return false;
+        }
+    }
+
+    private function generateCode(User $user)
+    {
+        $code = rand(1000,9999);
+
+        $user->setCode($code . time() + 1800);
+
+        $this->manager->persist($user);
+        $this->manager->flush();
+        
+        return $code;
+    }
+
+    private function checkCode(User $user, int $code)
+    {
+        $userCode = substr($user->getCode(),0,4);
+        $validity = substr($user->getCode(),4);
+
+        if ($userCode == $code) {
+            if ($validity >= time()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
