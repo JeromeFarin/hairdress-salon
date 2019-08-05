@@ -8,8 +8,15 @@
     </head>
     <body>
         <div class="jumbotron">
-            <div class="container">
+            <div class="container d-flex justify-content-between align-items-center">
                 <h1 class="display-3">Hairdress Salon</h1>
+                <div>
+                    {% if app.user %}
+                        <p><img src="" alt=""> | <a href="{{ path('security.logout') }}">Logout</a></p>
+                    {% else %}
+                        <p><a href="{{ path('security.login') }}">Login</a> | <a href="{{ path('security.register') }}">Register</a></p>
+                    {% endif %}
+                </div>
             </div>
         </div>
         <div class="container">

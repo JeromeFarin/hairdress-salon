@@ -12,8 +12,6 @@ class UserFixtures extends AppFixtures
     private $encoder;
     private $faker;
     protected $manager;
-    protected $countUser = 1;
-    protected $countStaff = 1;
 
     public function __construct(UserPasswordEncoderInterface $encoder) {
         $this->encoder = $encoder;
@@ -22,22 +20,22 @@ class UserFixtures extends AppFixtures
 
     public function load(ObjectManager $manager)
     {
-        $this->manager = $manager;
-        $user = new User();
-        $user->setEmail('j.farin38@gmail.com')
-             ->setRoles(['ROLE_ADMIN'])
-             ->setPassword($this->encoder->encodePassword($user, '123'))
-             ->setGender(1)
-             ->setFirstName('Jérôme')
-             ->setLastName('Farin')
-             ->setPhone('0644079372');
-        $manager->persist($user);  
+        // $this->manager = $manager;
+        // $user = new User();
+        // $user->setEmail('j.farin38@gmail.com')
+        //      ->setRoles(['ROLE_ADMIN'])
+        //      ->setPassword($this->encoder->encodePassword($user, '123'))
+        //      ->setGender(1)
+        //      ->setFirstName('Jérôme')
+        //      ->setLastName('Farin')
+        //      ->setPhone('0644079372');
+        // $manager->persist($user);  
 
         for ($i=0; $i < 10; $i++) { 
             $user = new User();
 
             $user->setEmail(('email+'.$i.'@email.com'))
-                 ->setRoles([$this->faker->randomElement(['ROLE_STAFF','ROLE_CLIENT'])])
+                 ->setRoles(['ROLE_CLIENT'])
                  ->setPassword($this->encoder->encodePassword($user, 'password'))
                  ->setGender($this->faker->numberBetween(1,2))
                  ->setFirstName(($user->getGender() == 1) ? $this->faker->firstNameMale : $this->faker->firstNameFemale )
@@ -47,13 +45,24 @@ class UserFixtures extends AppFixtures
 
             $manager->persist($user);
 
-            if (in_array('ROLE_STAFF',$user->getRoles())) {
-                $this->addReference('staff_'.$this->countStaff, $user);
-                $this->countStaff = $this->countStaff + 1;
-            } else {
-                $this->addReference('client_'.$this->countUser, $user);
-                $this->countUser = $this->countUser + 1;
-            }
+            $this->addReference('client_'.$i, $user);
+        }
+
+        for ($j=0; $j < 3; $j++) { 
+            $user = new User();
+
+            $user->setEmail(('email+'.$j.$j.'@email.com'))
+                 ->setRoles(['ROLE_STAFF'])
+                 ->setPassword($this->encoder->encodePassword($user, 'password'))
+                 ->setGender($this->faker->numberBetween(1,2))
+                 ->setFirstName(($user->getGender() == 1) ? $this->faker->firstNameMale : $this->faker->firstNameFemale )
+                 ->setLastName($this->faker->lastName)
+                 ->setAvatar($this->faker->word . '.' . $this->faker->fileExtension)
+                 ->setPhone($this->faker->phoneNumber);
+
+            $manager->persist($user);
+
+            $this->addReference('staff_'.$j, $user);
         }
         
         $manager->flush();

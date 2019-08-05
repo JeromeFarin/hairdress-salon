@@ -208,9 +208,13 @@ class User implements UserInterface
         return $this->avatar;
     }
 
-    public function setAvatar(string $avatar): self
+    public function setAvatar($avatar): self
     {
-        $this->avatar = $avatar;
+        if ($avatar == null) {
+            $this->avatar = 'default.png';
+        } else {
+            $this->avatar = $avatar;
+        }
 
         return $this;
     }

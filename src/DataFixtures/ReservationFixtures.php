@@ -17,11 +17,11 @@ class ReservationFixtures extends Fixture implements DependentFixtureInterface
         for ($i=0; $i < 20; $i++) {
             $reservation = new Reservation();
     
-            $reservation->setClient($this->getReference('client_'.mt_rand(1,5)))
-                        ->setStaff($this->getReference('staff_'.mt_rand(1,5)))
-                        ->setStart($faker->dateTime('+1 months'))
-                        ->setEnd($faker->dateTimeBetween($reservation->getStart(),'+1 months'))
-                        ->setCreatedAt($faker->dateTimeBetween('-3 months', $reservation->getStart()))
+            $reservation->setClient($this->getReference('client_'.mt_rand(0,9)))
+                        ->setStaff($this->getReference('staff_'.mt_rand(0,2)))
+                        ->setEnd(new \DateTime())
+                        ->setStart(new \DateTime())
+                        ->setCreatedAt($faker->dateTimeBetween('-3 days', $reservation->getStart()))
                         ->setStatus($this->getReference('status_'.mt_rand(1,5)));
             
             $manager->persist($reservation);
