@@ -94,6 +94,13 @@ class User implements UserInterface
         $this->avatar = 'default.png';
     }
 
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
