@@ -255,7 +255,7 @@ class User implements UserInterface
     {
         if (!$this->unavailabilities->contains($unavailability)) {
             $this->unavailabilities[] = $unavailability;
-            $unavailability->setStaffId($this);
+            $unavailability->setStaff($this);
         }
 
         return $this;
@@ -266,8 +266,8 @@ class User implements UserInterface
         if ($this->unavailabilities->contains($unavailability)) {
             $this->unavailabilities->removeElement($unavailability);
             // set the owning side to null (unless already changed)
-            if ($unavailability->getStaffId() === $this) {
-                $unavailability->setStaffId(null);
+            if ($unavailability->getStaff() === $this) {
+                $unavailability->setStaff(null);
             }
         }
 
@@ -286,7 +286,7 @@ class User implements UserInterface
     {
         if (!$this->clientReservations->contains($reservation)) {
             $this->clientReservations[] = $reservation;
-            $reservation->setClientId($this);
+            $reservation->setClient($this);
         }
 
         return $this;
@@ -297,8 +297,8 @@ class User implements UserInterface
         if ($this->clientReservations->contains($reservation)) {
             $this->clientReservations->removeElement($reservation);
             // set the owning side to null (unless already changed)
-            if ($reservation->getClientId() === $this) {
-                $reservation->setClientId(null);
+            if ($reservation->getClient() === $this) {
+                $reservation->setClient(null);
             }
         }
 
@@ -317,7 +317,7 @@ class User implements UserInterface
     {
         if (!$this->staffReservations->contains($reservation)) {
             $this->staffReservations[] = $reservation;
-            $reservation->setClientId($this);
+            $reservation->setClient($this);
         }
 
         return $this;
@@ -328,8 +328,8 @@ class User implements UserInterface
         if ($this->staffReservations->contains($reservation)) {
             $this->staffReservations->removeElement($reservation);
             // set the owning side to null (unless already changed)
-            if ($reservation->getClientId() === $this) {
-                $reservation->setClientId(null);
+            if ($reservation->getClient() === $this) {
+                $reservation->setClient(null);
             }
         }
 
