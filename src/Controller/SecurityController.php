@@ -33,7 +33,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/register", name="security.register")
+     * @Route("/register", name="security_register")
      */
     public function register(Request $request)
     {
@@ -48,7 +48,7 @@ class SecurityController extends AbstractController
             $this->manager->persist($form->getData());
             $this->manager->flush();
 
-            return $this->redirectToRoute('security.login');
+            return $this->redirectToRoute('securitylogin');
         }
 
         return $this->render('security/register.html.twig', [
@@ -57,7 +57,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/login", name="security.login")
+     * @Route("/login", name="security_login")
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -65,17 +65,17 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/logout", name="security.logout")
+     * @Route("/logout", name="security_logout")
      */
     public function logout()
     {
-        return $this->redirectToRoute('security.login');
+        return $this->redirectToRoute('security_login');
     }
 
     /**
      * Reset password with known user
      *
-     * @Route("/reset/{id}", name="security.reset")
+     * @Route("/reset/{id}", name="security_reset")
      */
     public function reset(Request $request, int $id)
     {
@@ -114,7 +114,7 @@ class SecurityController extends AbstractController
     /**
      * Forgot password
      *
-     * @Route("/forgot/{id}", name="security.forgot")
+     * @Route("/forgot/{id}", name="security_forgot")
      * @param Request $request
      */ 
     public function forgot(Request $request, int $id = null)
@@ -153,7 +153,7 @@ class SecurityController extends AbstractController
                     $this->manager->persist($user);
                     $this->manager->flush();
 
-                    return $this->redirectToRoute('security.login');
+                    return $this->redirectToRoute('security_login');
                 }
             }
         }
@@ -170,7 +170,7 @@ class SecurityController extends AbstractController
         $this->manager->persist($user);
         $this->manager->flush();
 
-        return $this->redirectToRoute('security.logout');
+        return $this->redirectToRoute('security_logout');
     }
 
     private function uploadAvatar(UploadedFile $file, int $id)

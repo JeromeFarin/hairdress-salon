@@ -12,9 +12,9 @@
                 <h1 class="display-3">Hairdress Salon</h1>
                 <div>
                     {% if app.user %}
-                        <p><img src="" alt=""> | <a href="{{ path('security.logout') }}">Logout</a></p>
+                        <p><img src="" alt=""> | <a href="{{ path('security_logout') }}">Logout</a></p>
                     {% else %}
-                        <p><a href="{{ path('security.login') }}">Login</a> | <a href="{{ path('security.register') }}">Register</a></p>
+                        <p><a href="{{ path('security_login') }}">Login</a> | <a href="{{ path('security_register') }}">Register</a></p>
                     {% endif %}
                 </div>
             </div>
