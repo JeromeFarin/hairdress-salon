@@ -9,6 +9,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\EntityListeners({"App\Listener\UserListener"})
  */
 class User implements UserInterface
 {
@@ -34,6 +35,8 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    private $plainPassword;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -92,6 +95,7 @@ class User implements UserInterface
         $this->staffReservations = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->avatar = 'default.png';
+        $this->roles[] = 'ROLE_CLIENT';
     }
 
     public function setId(int $id): self
@@ -353,9 +357,21 @@ class User implements UserInterface
         return $this->code;
     }
 
-    public function setCode($code): self
+    public function setCode(?string $code): self
     {
         $this->code = $code;
+
+        return $this;
+    }
+
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(?string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
 
         return $this;
     }
