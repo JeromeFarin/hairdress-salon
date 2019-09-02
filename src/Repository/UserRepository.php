@@ -18,4 +18,16 @@ class UserRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, User::class);
     }
+
+
+    public function uploadAvatar(UploadedFile $file, User $user)
+    {
+        $fileName = $user->getId() . '.' . $file->guessExtension();
+        $file->move(
+            '/img/avatar',
+            $fileName
+        );
+
+        return $fileName;
+    }
 }

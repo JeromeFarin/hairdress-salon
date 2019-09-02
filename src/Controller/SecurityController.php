@@ -8,15 +8,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\RegisterType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use App\Entity\User;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use App\Repository\UserRepository;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class SecurityController extends AbstractController
 {
@@ -35,9 +29,7 @@ class SecurityController extends AbstractController
      */
     public function register(Request $request)
     {
-        $form = $this->createForm(RegisterType::class);
-
-        $form->handleRequest($request);
+        $form = $this->createForm(RegisterType::class)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $form->getData()->setPassword($this->encoder->encodePassword($form->getData(), $form->getData()->getPlainPassword()));
@@ -68,15 +60,4 @@ class SecurityController extends AbstractController
      * @Route("/logout", name="security_logout")
      */
     public function logout() {}
-
-    private function uploadAvatar(UploadedFile $file, int $id)
-    {
-        $fileName = $id . '.' . $file->guessExtension();
-        $file->move(
-            '/img/avatar',
-            $fileName
-        );
-
-        return $fileName;
-    }
 }
