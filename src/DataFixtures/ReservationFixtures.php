@@ -22,7 +22,7 @@ class ReservationFixtures extends Fixture implements DependentFixtureInterface
                         ->setEnd(new \DateTime())
                         ->setStart(new \DateTime())
                         ->setCreatedAt($faker->dateTimeBetween('-3 days', $reservation->getStart()))
-                        ->setStatus($this->getReference('status_'.mt_rand(1,5)));
+                        ->setStatus($this->getReference('status_'.mt_rand(1,6)));
             
             $manager->persist($reservation);
         }

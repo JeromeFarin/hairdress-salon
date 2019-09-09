@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% for user in users %}
+        <div class="staff d-flex mb-4">
+            <div>
+                <a href="{{ path('staff_show', {id:user.id}) }}">
+                    <img width="200px" src="/img/avatar/{{user.avatar}}" alt="{{ user.firstName }}">
+                </a>
+            </div>
+            <div class="ml-3">
+                <h3>{{ user.firstName }}</h3>
+                <p>{{ user.gender }}</p>
+                <p>{{ user.age }}</p>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}

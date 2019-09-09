@@ -13,6 +13,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
+    const GENDER_MALE = 'Male';
+    const GENDER_FEMALE = 'Female';
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -87,6 +89,18 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $code;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $birthday;
+
+    private $age;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $hireDate;
 
     public function __construct()
     {
@@ -207,9 +221,13 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getGender(): ?int
+    public function getGender(): ?string
     {
-        return $this->gender;
+        if ($this->gender === 1) {
+            return self::GENDER_MALE;
+        } else {
+            return self::GENDER_FEMALE;
+        }
     }
 
     public function setGender(int $gender): self
@@ -374,5 +392,34 @@ class User implements UserInterface
         $this->plainPassword = $plainPassword;
 
         return $this;
+    }
+
+    public function getBirthday(): ?\DateTimeInterface
+    {
+        return $this->birthday;
+    }
+
+    public function setBirthday(\DateTimeInterface $birthday): self
+    {
+        $this->birthday = $birthday;
+
+        return $this;
+    }
+
+    public function getHireDate(): ?\DateTimeInterface
+    {
+        return $this->hireDate;
+    }
+
+    public function setHireDate(?\DateTimeInterface $hireDate): self
+    {
+        $this->hireDate = $hireDate;
+
+        return $this;
+    }
+
+    public function getAge(): string
+    {
+        return (new \DateTime())->diff($this->birthday)->format('%y years old.');
     }
 }

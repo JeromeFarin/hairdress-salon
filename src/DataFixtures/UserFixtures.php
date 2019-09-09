@@ -20,17 +20,6 @@ class UserFixtures extends AppFixtures
 
     public function load(ObjectManager $manager)
     {
-        // $this->manager = $manager;
-        // $user = new User();
-        // $user->setEmail('j.farin38@gmail.com')
-        //      ->setRoles(['ROLE_ADMIN'])
-        //      ->setPassword($this->encoder->encodePassword($user, '123'))
-        //      ->setGender(1)
-        //      ->setFirstName('Jérôme')
-        //      ->setLastName('Farin')
-        //      ->setPhone('0644079372');
-        // $manager->persist($user);  
-
         for ($i=0; $i < 10; $i++) { 
             $user = new User();
 
@@ -38,9 +27,11 @@ class UserFixtures extends AppFixtures
                  ->setRoles(['ROLE_CLIENT'])
                  ->setPassword($this->encoder->encodePassword($user, 'password'))
                  ->setGender($this->faker->numberBetween(1,2))
-                 ->setFirstName(($user->getGender() == 1) ? $this->faker->firstNameMale : $this->faker->firstNameFemale )
+                 ->setFirstName(($user->getGender() == 'Male') ? $this->faker->firstNameMale : $this->faker->firstNameFemale )
                  ->setLastName($this->faker->lastName)
-                 ->setPhone($this->faker->phoneNumber);
+                 ->setPhone($this->faker->phoneNumber)
+                 ->setBirthday($this->faker->dateTime());
+            
 
             $manager->persist($user);
 
@@ -54,9 +45,10 @@ class UserFixtures extends AppFixtures
                  ->setRoles(['ROLE_STAFF'])
                  ->setPassword($this->encoder->encodePassword($user, 'password'))
                  ->setGender($this->faker->numberBetween(1,2))
-                 ->setFirstName(($user->getGender() == 1) ? $this->faker->firstNameMale : $this->faker->firstNameFemale )
+                 ->setFirstName(($user->getGender() == 'Male') ? $this->faker->firstNameMale : $this->faker->firstNameFemale )
                  ->setLastName($this->faker->lastName)
-                 ->setPhone($this->faker->phoneNumber);
+                 ->setPhone($this->faker->phoneNumber)
+                 ->setBirthday($this->faker->dateTime());
 
             $manager->persist($user);
 

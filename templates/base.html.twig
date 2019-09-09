@@ -7,17 +7,22 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        <div class="jumbotron">
+        <div class="jumbotron p-4">
             <div class="container d-flex justify-content-between align-items-center">
-                <h1 class="display-3">Hairdress Salon</h1>
+                <h1 class="display-3"><a href="{{ path('home') }}">Hairdress Salon</a></h1>
                 <div>
                     {% if app.user %}
-                        <p><img src="" alt=""> | <a href="{{ path('security_logout') }}">Logout</a></p>
+                        <p><img width="20px" src="/img/avatar/{{ app.user.avatar }}" alt="{{ app.user.firstName }}"> | <a href="{{ path('security_logout') }}">Logout</a></p>
                     {% else %}
                         <p><a href="{{ path('security_login') }}">Login</a> | <a href="{{ path('security_register') }}">Register</a></p>
                     {% endif %}
                 </div>
             </div>
+            <nav class="nav justify-content-center">
+              <a class="nav-link" href="{{ path('reservation_index') }}">Reservation</a>
+              <a class="nav-link" href="{{ path('staff_index') }}">Staff</a>
+              <a class="nav-link" href="{{ path('contact') }}">Contact</a>
+            </nav>
         </div>
         <div class="container">
             {% for message in app.flashes('error') %}

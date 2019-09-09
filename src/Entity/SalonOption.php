@@ -13,21 +13,21 @@ class SalonOption
      * @ORM\Id()
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private $key;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $value;
 
-    public function getName(): ?string
+    public function getKey(): ?string
     {
-        return $this->name;
+        return $this->key;
     }
 
-    public function setName(string $name): self
+    public function setKey(string $key): self
     {
-        $this->name = $name;
+        $this->key = $key;
 
         return $this;
     }
