@@ -20,9 +20,9 @@ security:
                 authenticators:
                     - App\Security\UserAuthenticator
             logout:
-                path: security.logout
+                path: security_logout
                 # where to redirect after logout
-                target: security.login
+                target: security_login
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

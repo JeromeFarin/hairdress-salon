@@ -40,7 +40,6 @@ class UserFixtures extends AppFixtures
                  ->setGender($this->faker->numberBetween(1,2))
                  ->setFirstName(($user->getGender() == 1) ? $this->faker->firstNameMale : $this->faker->firstNameFemale )
                  ->setLastName($this->faker->lastName)
-                 ->setAvatar($this->faker->word . '.' . $this->faker->fileExtension)
                  ->setPhone($this->faker->phoneNumber);
 
             $manager->persist($user);
@@ -57,7 +56,6 @@ class UserFixtures extends AppFixtures
                  ->setGender($this->faker->numberBetween(1,2))
                  ->setFirstName(($user->getGender() == 1) ? $this->faker->firstNameMale : $this->faker->firstNameFemale )
                  ->setLastName($this->faker->lastName)
-                 ->setAvatar($this->faker->word . '.' . $this->faker->fileExtension)
                  ->setPhone($this->faker->phoneNumber);
 
             $manager->persist($user);

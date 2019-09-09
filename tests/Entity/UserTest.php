@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\Entity;
 
 use App\Entity\Reservation;
 use App\Entity\Unavailability;
@@ -233,13 +233,32 @@ class UserTest extends TestCase
     /**
      * @depends testSetCode
      */
+    public function testSetPlainPassword($obj)
+    {
+        $this->assertInstanceOf(User::class, $obj->setPlainPassword('1234'));
+
+        return $obj;
+    }
+
+
+    /**
+     * @depends testSetPlainPassword
+     */
+    public function testGetPlainPassword($obj)
+    {
+        $this->assertIsString($obj->getPlainPassword());
+    }
+
+    /**
+     * @depends testSetPlainPassword
+     */
     public function testGetUnavailabilities($obj)
     {
         $this->assertInstanceOf(Collection::class, $obj->getUnavailabilities());
     }
 
     /**
-     * @depends testSetCode
+     * @depends testSetPlainPassword
      */
     public function testAddUnavailability($obj)
     {
@@ -247,7 +266,7 @@ class UserTest extends TestCase
     }
 
     /**
-     * @depends testSetCode
+     * @depends testSetPlainPassword
      */
     public function testRemoveUnavailabilityWithoutUnavailability($obj)
     {
@@ -264,7 +283,7 @@ class UserTest extends TestCase
     }
 
     /**
-     * @depends testSetCode
+     * @depends testSetPlainPassword
      */
     public function testGetClientReservations($obj)
     {
@@ -272,7 +291,7 @@ class UserTest extends TestCase
     }
 
     /**
-     * @depends testSetCode
+     * @depends testSetPlainPassword
      */
     public function testAddClientReservation($obj)
     {
@@ -280,7 +299,7 @@ class UserTest extends TestCase
     }
 
     /**
-     * @depends testSetCode
+     * @depends testSetPlainPassword
      */
     public function testRemoveClientReservationWithoutReservation($obj)
     {
@@ -297,7 +316,7 @@ class UserTest extends TestCase
     }
 
     /**
-     * @depends testSetCode
+     * @depends testSetPlainPassword
      */
     public function testGetStaffReservations($obj)
     {
@@ -305,7 +324,7 @@ class UserTest extends TestCase
     }
 
     /**
-     * @depends testSetCode
+     * @depends testSetPlainPassword
      */
     public function testAddStaffReservation($obj)
     {
@@ -313,7 +332,7 @@ class UserTest extends TestCase
     }
 
     /**
-     * @depends testSetCode
+     * @depends testSetPlainPassword
      */
     public function testRemoveStaffReservationWithoutReservation($obj)
     {
