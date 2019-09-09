@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\ForgotType;
 use App\Form\ResetType;
+use App\Mailer\ForgotMailer;
 use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -67,7 +68,7 @@ class ResettingController extends AbstractController
     /**
      * @Route("/forgot", name="resetting_forgot")
      */
-    public function forgot(Request $request, MailerController $mailerController)
+    public function forgot(Request $request, ForgotMailer $mailer)
     {
         $user = new User();
 
@@ -82,7 +83,7 @@ class ResettingController extends AbstractController
                 $this->manager->persist($user);
                 $this->manager->flush();
 
-                $send = $mailerController->sendMail($user->getEmail(),'Reset Password','email/forgot.html.twig',['firstName' => $user->getFirstName(),'url' => $this->generateUrl('resetting_reset',[],0) . '/' . $code]);
+                $send = $mailer->sendMail('Reset Password',$user->getEmail(),['firstName' => $user->getFirstName(),'url' => $this->generateUrl('resetting_reset',[],0) . '/' . $code]);
 
                 if ($send) {
                     $this->addFlash('success', 'An email was sent to ' . $user->getEmail());
