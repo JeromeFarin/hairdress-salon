@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="d-flex">
+        <div>
+            <img width="300px" src="/img/avatar/{{user.avatar}}" alt="{{ user.firstName }}">
+        </div>
+        <div class="ml-3">
+            <h2>{{ user.firstName }}</h2>
+            <h3>{{ user.LastName }}</h3>
+            <p>{{ user.age }}</p>
+            <p>{{ user.gender }}</p>
+            <p>{{ user.phone }}</p>
+            <p>{{ user.email }}</p>
+            <div class="d-flex">
+                <button class="btn btn-primary ml-2">Edit profil</button>
+                <a href="{{ path('resetting_reset') }}" class="btn btn-secondary ml-2">Change password</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

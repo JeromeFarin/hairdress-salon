@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Form\ForgotType;
+use App\Form\FormHandler;
 use App\Form\ResetType;
 use App\Mailer\ForgotMailer;
 use App\Repository\UserRepository;
@@ -21,10 +21,12 @@ class ResettingController extends AbstractController
     private $userRepository;
 
     private $manager;
+    private $form_handler;
 
-    public function __construct(UserRepository $userRepository, ObjectManager $manager) {
+    public function __construct(UserRepository $userRepository, ObjectManager $manager, FormHandler $form_handler) {
         $this->userRepository = $userRepository;
         $this->manager = $manager;
+        $this->form_handler = $form_handler;
     }
 
     /**
@@ -48,21 +50,22 @@ class ResettingController extends AbstractController
             }
         }
 
-        $form = $this->createForm(ResetType::class, $user)->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $form->getData()->setPassword($encoder->encodePassword($form->getData(), $form->getData()->getPlainPassword()));
-            $form->getData()->setCode(null);
+        if ($this->form_handler->formHandle($request,ResetType::class)) {
+            if ($this->form_handler->getData()->getCode() == null) {
+                $this->form_handler->getData()->setLastUpdate(new \DateTime());
+            } else {
+                $this->form_handler->getData()->setCode(null);
+            }
             
-            $this->manager->persist($form->getData());
+            $this->manager->persist($this->form_handler->getData());
             $this->manager->flush();
 
             return $this->redirectToRoute('security_login');
+        } else {
+            return $this->render('resetting/reset.html.twig', [
+                'form' => $this->form_handler->getView()
+            ]);
         }
-
-        return $this->render('resetting/reset.html.twig', [
-            'form' => $form->createView(),
-        ]);
     }
 
     /**
@@ -70,12 +73,8 @@ class ResettingController extends AbstractController
      */
     public function forgot(Request $request, ForgotMailer $mailer)
     {
-        $user = new User();
-
-        $form = $this->createForm(ForgotType::class, $user)->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user = $this->userRepository->findOneByEmail($form->getData()->getEmail());
+        if ($this->form_handler->formHandle($request,ForgotType::class)) {
+            $user = $this->userRepository->findOneByEmail($this->form_handler->getData()->getEmail());
             if ($user) {
                 $code = md5(uniqid());
                 $user->setCode($code);
@@ -91,12 +90,12 @@ class ResettingController extends AbstractController
                     $this->addFlash('error', 'An error was occured, please contact a administrator');
                 }
             } else {
-                $this->addFlash('error', 'No user found for ' . $form->getData()->getEmail());
+                $this->addFlash('error', 'No user found for ' . $this->form_handler->getData()->getEmail());
             }
+        } else {
+            return $this->render('resetting/forgot.html.twig', [
+                'form' => $this->form_handler->getView()
+            ]);
         }
-
-        return $this->render('resetting/forgot.html.twig', [
-            'form' => $form->createView(),
-        ]);
     }
 }

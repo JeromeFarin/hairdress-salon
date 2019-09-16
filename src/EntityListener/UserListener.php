@@ -15,15 +15,20 @@ class UserListener
 
     public function prePersist(User $user)
     {
-        if ($user->getPlainPassword() != null) {
-            $user->setPassword($this->encoder->encodePassword($user, $user->getPlainPassword()));
-        }
+        $this->encodePassword($user);
     }
     
     public function preUpdate(User $user)
     {
+        $this->encodePassword($user);
+    }
+
+    private function encodePassword(User $user)
+    {
         if ($user->getPlainPassword() != null) {
             $user->setPassword($this->encoder->encodePassword($user, $user->getPlainPassword()));
         }
+
+        return $user;
     }
 }

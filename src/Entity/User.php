@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -24,6 +25,8 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank
+     * @Assert\Email
      */
     private $email;
 
@@ -102,12 +105,18 @@ class User implements UserInterface
      */
     private $hireDate;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $last_update;
+
     public function __construct()
     {
         $this->unavailabilities = new ArrayCollection();
         $this->clientReservations = new ArrayCollection();
         $this->staffReservations = new ArrayCollection();
         $this->createdAt = new \DateTime();
+        $this->last_update = new \DateTime();
         $this->avatar = 'default.png';
         $this->roles[] = 'ROLE_CLIENT';
     }
@@ -420,6 +429,18 @@ class User implements UserInterface
 
     public function getAge(): string
     {
-        return (new \DateTime())->diff($this->birthday)->format('%y years old.');
+        return (new \DateTime())->diff($this->birthday)->format('%y years old');
+    }
+
+    public function getLastUpdate(): ?\DateTimeInterface
+    {
+        return $this->last_update;
+    }
+
+    public function setLastUpdate(?\DateTimeInterface $last_update): self
+    {
+        $this->last_update = $last_update;
+
+        return $this;
     }
 }

@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -29,5 +30,16 @@ class UserRepository extends ServiceEntityRepository
         );
 
         return $fileName;
+    }
+
+    public function getStaffs()
+    {
+        $rsm = new ResultSetMappingBuilder($this->_em);
+        $rsm->addRootEntityFromClassMetadata(User::class, 'u');
+        $rsm->addFieldResult('u', 'id', 'id');
+
+        $query = $this->_em->createNativeQuery("select * from user u where JSON_SEARCH(roles, 'all', 'ROLE_STAFF') is not null", $rsm);
+
+        return $query->getResult();
     }
 }

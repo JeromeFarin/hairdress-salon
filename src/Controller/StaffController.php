@@ -23,16 +23,8 @@ class StaffController extends AbstractController
      */
     public function index()
     {
-        $statement = $this->manager->getConnection()->prepare("select id from user where JSON_SEARCH(roles, 'all', 'ROLE_STAFF') is not null");
-        $statement->execute();
-
-        $users = [];
-        foreach ($statement->fetchAll() as $v) {
-            $users[] = $v['id'];
-        }
-        
         return $this->render('staff/index.html.twig', [
-            'users' => $this->userRepository->findById($users)
+            'users' => $this->userRepository->getStaffs()
         ]);
     }
 

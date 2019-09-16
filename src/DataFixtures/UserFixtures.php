@@ -48,7 +48,8 @@ class UserFixtures extends AppFixtures
                  ->setFirstName(($user->getGender() == 'Male') ? $this->faker->firstNameMale : $this->faker->firstNameFemale )
                  ->setLastName($this->faker->lastName)
                  ->setPhone($this->faker->phoneNumber)
-                 ->setBirthday($this->faker->dateTime());
+                 ->setBirthday($this->faker->dateTime())
+                 ->setHireDate($this->faker->dateTime());
 
             $manager->persist($user);
 

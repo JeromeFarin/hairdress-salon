@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -28,6 +29,7 @@ class RegisterType extends AbstractType
                 'expanded' => true,
             ])
             ->add('phone', TelType::class)
+            ->add('birthday', BirthdayType::class)
             ->add('email', EmailType::class)
             ->add('plain_password', RepeatedType::class, [
                 'type' => PasswordType::class,
