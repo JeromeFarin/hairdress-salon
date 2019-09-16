@@ -23,7 +23,6 @@ final class Version20190916162437 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE user ADD last_update DATETIME DEFAULT NULL');
-        $this->addSql('ALTER TABLE salon_option ADD PRIMARY KEY (key)');
     }
 
     public function down(Schema $schema) : void
@@ -31,7 +30,6 @@ final class Version20190916162437 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE salon_option DROP PRIMARY KEY');
         $this->addSql('ALTER TABLE user DROP last_update');
     }
 }
