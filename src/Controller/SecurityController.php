@@ -2,7 +2,8 @@
 
 namespace App\Controller;
 
-use App\Form\FormHandler;
+use App\Entity\User;
+use App\Handler\RegisterHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,27 +17,22 @@ class SecurityController extends AbstractController
 {
     private $manager;
     private $encoder;
-    private $form_handler;
 
-    public function __construct(ObjectManager $manager, UserPasswordEncoderInterface $encoder, FormHandler $form_handler) {
+    public function __construct(ObjectManager $manager, UserPasswordEncoderInterface $encoder) {
         $this->manager = $manager;
         $this->encoder = $encoder;
-        $this->form_handler = $form_handler;
     }
 
     /**
      * @Route("/register", name="security_register")
      */
-    public function register(Request $request)
+    public function register(Request $request, RegisterHandler $formHandler)
     {
-        if ($this->form_handler->formHandle($request,RegisterType::class)) {
-            $this->manager->persist($this->form_handler->getData());
-            $this->manager->flush();
-
+        if ($formHandler->formHandle($request, RegisterType::class, new User())) {
             return $this->redirectToRoute('security_login');
         } else {
             return $this->render('security/register.html.twig', [
-                'form' => $this->form_handler->getView()
+                'form' => $formHandler->getView()
             ]);
         }
     }
