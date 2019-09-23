@@ -232,11 +232,16 @@ class User implements UserInterface
 
     public function getGender(): ?string
     {
-        if ($this->gender === 1) {
+        if ($this->gender == 1) {
             return self::GENDER_MALE;
         } else {
             return self::GENDER_FEMALE;
         }
+    }
+
+    public function getGenderId(): ?int
+    {
+        return $this->gender;
     }
 
     public function setGender(int $gender): self
