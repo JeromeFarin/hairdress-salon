@@ -9,6 +9,7 @@ use App\Handler\ForgotHandler;
 use App\Handler\ResetHandler;
 use App\Mailer\ForgotMailer;
 use App\Repository\UserRepository;
+use App\Validation\UserValidator;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -63,7 +64,7 @@ class ResettingController extends AbstractController
      */
     public function forgot(Request $request, ForgotHandler $formHandler)
     {
-        if ($formHandler->formHandle($request, ForgotType::class, new User())) {
+        if ($formHandler->formHandle($request, ForgotType::class)) {
             return $this->redirectToRoute('resetting_forgot');
         } else {
             return $this->render('resetting/forgot.html.twig', [

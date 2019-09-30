@@ -1,10 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    
     <div class="d-flex">
-        <div>
+        {# todo On click show modal for select new avatar, and send to profil_avatar #}
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Launch
+        </button>
+
+        {# <a href="{{ path('profil_avatar') }}">
             <img width="300px" src="/img/avatar/{{user.avatar}}" alt="{{ user.firstName }}">
-        </div>
+        </a> #}
+
         <div class="ml-3">
             <h2>{{ user.firstName }}</h2>
             <h3>{{ user.LastName }}</h3>

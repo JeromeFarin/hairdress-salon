@@ -25,24 +25,19 @@ class ForgotHandler extends AbstractFormHandler
 
     public function process($data)
     {
-        $user = $this->userRepository->findOneByEmail($data->getEmail());
-            if ($user) {
-                $code = md5(uniqid());
-                $user->setCode($code);
-                
-                $this->manager->persist($user);
-                $this->manager->flush();
+        $code = md5(uniqid());
+        $data->setCode($code);
+        
+        $this->manager->persist($data);
+        $this->manager->flush();
 
-                $send = $this->mailer->sendMail('Reset Password',$user->getEmail(),['firstName' => $user->getFirstName(),'url' => $this->generator->generate('resetting_reset',[],0) . '/' . $code]);
+        $send = $this->mailer->sendMail('Reset Password',$data->getEmail(),['firstName' => $data->getFirstName(),'url' => $this->generator->generate('resetting_reset',[],0) . '/' . $code]);
 
-                if ($send) {
-                    $this->addMessage('success', 'An email was sent to ' . $user->getEmail());
-                } else {
-                    $this->addMessage('error', 'An error was occured, please contact a administrator');
-                }
-            } else {
-                $this->addMessage('error', 'No user found for ' . $data->getEmail());
-            }
+        if ($send) {
+            $this->addMessage('success', 'An email was sent to ' . $data->getEmail());
+        } else {
+            $this->addMessage('error', 'An error was occured, please contact a administrator');
+        }
     }
 
     public function addMessage($type = 'notice', $message, array $parameters = array())

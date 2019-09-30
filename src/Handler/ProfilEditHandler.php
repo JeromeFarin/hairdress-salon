@@ -3,7 +3,7 @@ namespace App\Handler;
 
 use Doctrine\ORM\EntityManagerInterface;
 
-class ProfilHandler extends AbstractFormHandler
+class ProfilEditHandler extends AbstractFormHandler
 {
     protected $manager;
 
