@@ -19,3 +19,5 @@
 ###< symfony/web-server-bundle ###
 
 /coverage/
+public/img/avatar/*
+!public/img/avatar/default.png

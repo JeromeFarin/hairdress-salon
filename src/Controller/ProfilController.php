@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Form\AvatarType;
 use App\Form\ProfilType;
+use App\Handler\AvatarHandler;
 use App\Handler\ProfilEditHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,10 +39,11 @@ class ProfilController extends AbstractController
     /**
      * @Route("/profil/avatar", name="profil_avatar")
      */
-    public function avatar(Request $request)
+    public function avatar(Request $request, AvatarHandler $formHandler)
     {
-        return $this->render('modal/update_avatar.html.twig', []);
-        // dd($request);
-        // return $this->redirectToRoute('profil_index');
+        // dd($request->files->get('file'),$request);
+        $formHandler->formHandle($request, AvatarType::class, $this->getUser());
+        $formHandler->process($formHandler->getData(),['avatar' => $request->files->get('file')]);
+        return $this->json(true);
     }
 }

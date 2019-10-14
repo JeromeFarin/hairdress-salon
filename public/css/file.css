@@ -1,0 +1,21 @@
+#modal_avatar .modal-body {
+    background-color: #b1b1b1;
+}
+#avatar_show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+}
+#avatar_show img {
+    height: 400px;
+    position: absolute;
+    z-index: 100000;
+}
+#input_file_form, #input_file_form input {
+    margin-top: 20px;
+    width: 100%;
+}
+#input_file_form input {
+    margin: 0;
+}
