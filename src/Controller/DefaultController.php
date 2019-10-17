@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Form\ContactType;
+use App\Handler\ContactHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
@@ -18,8 +21,14 @@ class DefaultController extends AbstractController
     /**
      * @Route("/contact", name="contact")
      */
-    public function contact()
+    public function contact(Request $request, ContactHandler $formHandler)
     {
-        return $this->render('default/contact.html.twig', []);
+        if ($formHandler->formHandle($request, ContactType::class)) {
+            return $this->redirectToRoute('contact');
+        } else {
+            return $this->render('default/contact.html.twig', [
+                'form' => $formHandler->getView()
+            ]);
+        }
     }
 }

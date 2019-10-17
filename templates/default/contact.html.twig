@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <p>It's page for commercial or support contact</p>
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary">Send</button>
+    {{ form_end(form) }}
 {% endblock %}
