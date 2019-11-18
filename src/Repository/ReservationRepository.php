@@ -19,6 +19,20 @@ class ReservationRepository extends ServiceEntityRepository
         parent::__construct($registry, Reservation::class);
     }
 
+    public function findAllBetweenDate($start, $end)
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.start >= :start')
+            ->andWhere('r.start <= :end')
+            ->andWhere('r.end >= :start')
+            ->andWhere('r.end <= :end')
+            ->setParameter('start', $start)
+            ->setParameter('end', $end)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Reservation[] Returns an array of Reservation objects
     //  */

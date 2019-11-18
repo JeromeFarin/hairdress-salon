@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use JMS\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -72,16 +73,19 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Unavailability", mappedBy="staff")
+     * @MaxDepth(1)
      */
     private $unavailabilities;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="client")
+     * @MaxDepth(1)
      */
     private $clientReservations;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="staff")
+     * @MaxDepth(1)
      */
     private $staffReservations;
 

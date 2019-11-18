@@ -7,6 +7,8 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use JMS\Serializer\SerializationContext;
+
 
 class StaffController extends AbstractController
 {
@@ -37,5 +39,15 @@ class StaffController extends AbstractController
             'user' => $this->userRepository->find($id),
             'reservations' => $reservationRepository->findByStaff($id)
         ]);
+    }
+
+    /**
+     * @Route("/api/staffs", name="api_staffs")
+     */
+    public function apiStaffs()
+    {
+        $serializer = \JMS\Serializer\SerializerBuilder::create()->build();
+        $jsonContent = $serializer->serialize($this->userRepository->getStaffs(), 'json', SerializationContext::create()->enableMaxDepthChecks());
+        return $this->json($jsonContent);
     }
 }

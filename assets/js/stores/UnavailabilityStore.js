@@ -8,7 +8,7 @@ class UnavailabilityStore {
 
   loadUnavailabilities () {
     autorun(() => {
-      window.fetch('/unavailabilities', {
+      window.fetch('/api/unavailabilities', {
         method: 'POST',
         body: JSON.stringify({
           start: dateStore.date.day(1).startOf('day').format(),

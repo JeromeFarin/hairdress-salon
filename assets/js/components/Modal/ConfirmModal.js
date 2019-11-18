@@ -16,7 +16,7 @@ class ConfirmModal extends Component {
 
   render () {
     let staff = {
-      pseudo: ''
+      first_name: ''
     }
     const { ...place } = this.props.placeStore.place
     if (Object.keys(place).length !== 0) {
@@ -30,7 +30,7 @@ class ConfirmModal extends Component {
         </Modal.Header>
         <Modal.Body>
           <div className='d-flex flex-column align-items-center '>
-            <p>With {staff.pseudo}</p>
+            <p>With {staff.first_name}</p>
             <p>{moment(place.start).format('dddd D MMMM YYYY')}</p>
             <p>From {moment(place.start).format('HH:mm')} To {moment(place.end).format('HH:mm')}</p>
           </div>

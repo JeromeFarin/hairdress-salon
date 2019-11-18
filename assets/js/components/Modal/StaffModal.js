@@ -38,7 +38,7 @@ class StaffModal extends Component {
               value={staff.id}
               className={staff.selected ? 'selected' : ''}
             >
-              {staff.pseudo}
+              {staff.first_name}
             </li>
           ))}
           <em>You have possibility to change after</em>

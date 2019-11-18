@@ -16,4 +16,14 @@ class ReservationController extends AbstractController
             'controller_name' => 'ReservationController',
         ]);
     }
+
+    /**
+     * @Route("/api/reservations", name="api_reservations")
+     */
+    public function apiReservations()
+    {
+        return $this->render('reservation/index.html.twig', [
+            'controller_name' => 'ReservationController',
+        ]);
+    }
 }

@@ -7,7 +7,7 @@ class StaffStore {
   @observable isSelected = true
 
   loadStaffs () {
-    window.fetch('/api/users?page=1', {
+    window.fetch('/api/staffs', {
       headers: {
         Accept: 'application/json'
       }
@@ -15,7 +15,7 @@ class StaffStore {
       .then((response) => response.json())
       .then((data) => {
         autorun(() => {
-          this.staffs = data
+          this.staffs = JSON.parse(data)
         })
       })
       .catch((error) => {

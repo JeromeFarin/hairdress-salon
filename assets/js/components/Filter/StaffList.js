@@ -31,7 +31,7 @@ class StaffList extends Component {
             value={staff.id}
             className={staff.selected ? 'selected' : ''}
           >
-            {staff.pseudo}
+            {staff.first_name}
           </li>
         ))}
       </ul>

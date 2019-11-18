@@ -22,7 +22,7 @@ class PlaceModal extends Component {
   render () {
     let staff = ''
     if (this.props.placeStore.places.length !== 0) {
-      staff = this.props.placeStore.places[0].staff.pseudo
+      staff = this.props.placeStore.places[0].staff.first_name
     }
     return (
       <Modal id='place_modal' show={this.props.modalStore.placeModal} onHide={this.handleClick} centered>

@@ -36,9 +36,8 @@ class UserRepository extends ServiceEntityRepository
     {
         $rsm = new ResultSetMappingBuilder($this->_em);
         $rsm->addRootEntityFromClassMetadata(User::class, 'u');
-        $rsm->addFieldResult('u', 'id', 'id');
 
-        $query = $this->_em->createNativeQuery("select * from user u where JSON_SEARCH(roles, 'all', 'ROLE_STAFF') is not null", $rsm);
+        $query = $this->_em->createNativeQuery("select * from user where JSON_SEARCH(roles, 'all', 'ROLE_STAFF') is not null", $rsm);
 
         return $query->getResult();
     }
