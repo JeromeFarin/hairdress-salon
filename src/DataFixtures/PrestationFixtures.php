@@ -17,7 +17,7 @@ class PrestationFixtures extends Fixture
             $prestation = new Prestation();
 
             $prestation->setName($faker->word)
-                       ->setMakeTime($faker->numberBetween(5,60))
+                       ->setMakeTime((new \DateTime())->setTime(0,$faker->randomElement([10,15,20,30,40,45,50,60])))
                        ->setPrice($faker->numberBetween(5,150));
     
             $manager->persist($prestation);

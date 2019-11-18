@@ -26,7 +26,7 @@ class Prestation
     private $name;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="time")
      */
     private $makeTime;
 
@@ -69,12 +69,12 @@ class Prestation
         return $this;
     }
 
-    public function getMakeTime(): ?int
+    public function getMakeTime(): ?\DateTimeInterface
     {
         return $this->makeTime;
     }
 
-    public function setMakeTime(int $makeTime): self
+    public function setMakeTime(\DateTimeInterface $makeTime): self
     {
         $this->makeTime = $makeTime;
 

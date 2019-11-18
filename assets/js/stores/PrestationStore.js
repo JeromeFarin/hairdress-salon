@@ -57,7 +57,7 @@ class PrestationStore {
     let time = 0
     this.prestations.map((prestation) => {
       if (prestation.selected) {
-        time = time + (moment(prestation.timeMaking).hour() * 3600000) + (moment(prestation.timeMaking).minute() * 60000)
+        time = time + (moment(prestation.makeTime).hour() * 3600000) + (moment(prestation.makeTime).minute() * 60000)
       }
     })
     return time

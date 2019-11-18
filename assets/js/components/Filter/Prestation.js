@@ -24,7 +24,7 @@ class Prestation extends Component {
             value={prestation.id}
             className={prestation.selected ? 'selected' : ''}
           >
-            {prestation.name} ({moment(prestation.timeMaking).format('HH:mm')})
+            {prestation.name} ({moment(prestation.makeTime).format('HH:mm')})
           </li>
         ))}
       </ul>

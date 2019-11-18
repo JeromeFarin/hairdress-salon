@@ -116,6 +116,11 @@ class User implements UserInterface
      */
     private $last_update;
 
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $color;
+
     public function __construct()
     {
         $this->unavailabilities = new ArrayCollection();
@@ -453,5 +458,22 @@ class User implements UserInterface
         $this->last_update = $last_update;
 
         return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(?string $color): self
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    public function getSelected(): bool
+    {
+        return true;
     }
 }

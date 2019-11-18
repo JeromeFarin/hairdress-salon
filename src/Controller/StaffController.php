@@ -47,7 +47,7 @@ class StaffController extends AbstractController
     public function apiStaffs()
     {
         $serializer = SerializerBuilder::create()->build();
-        $jsonContent = $serializer->serialize($this->userRepository->getStaffs(), 'json', SerializationContext::create()->enableMaxDepthChecks());
+        $jsonContent = $serializer->serialize($this->userRepository->getStaffsAPI(), 'json', SerializationContext::create()->enableMaxDepthChecks());
         return $this->json($jsonContent);
     }
 }

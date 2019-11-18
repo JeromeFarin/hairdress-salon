@@ -7,6 +7,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
+
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
  * @method User|null findOneBy(array $criteria, array $orderBy = null)
@@ -34,11 +35,23 @@ class UserRepository extends ServiceEntityRepository
 
     public function getStaffs()
     {
-        $rsm = new ResultSetMappingBuilder($this->_em);
-        $rsm->addRootEntityFromClassMetadata(User::class, 'u');
+        return $this->createQueryBuilder('u')
+            ->where("JSON_SEARCH(u.roles, 'all', :search) IS NOT NULL")
+            ->setParameter('search', 'ROLE_STAFF')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
-        $query = $this->_em->createNativeQuery("select * from user where JSON_SEARCH(roles, 'all', 'ROLE_STAFF') is not null", $rsm);
-
-        return $query->getResult();
+    public function getStaffsAPI()
+    {
+        return $this->_em->createQueryBuilder()
+            ->select('u.id, u.firstName as first_name, u.color, \'true\' as selected')
+            ->from(User::class,'u')
+            ->where("JSON_SEARCH(u.roles, 'all', :search) IS NOT NULL")
+            ->setParameter('search', 'ROLE_STAFF')
+            ->getQuery()
+            ->getResult()
+        ;
     }
 }
