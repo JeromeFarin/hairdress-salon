@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 
+use App\Repository\ReservationRepository;
+use JMS\Serializer\SerializationContext;
+use JMS\Serializer\SerializerBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ReservationController extends AbstractController
@@ -20,10 +24,11 @@ class ReservationController extends AbstractController
     /**
      * @Route("/api/reservations", name="api_reservations")
      */
-    public function apiReservations()
+    public function apiReservations(Request $request ,ReservationRepository $repository)
     {
-        return $this->render('reservation/index.html.twig', [
-            'controller_name' => 'ReservationController',
-        ]);
+        $content = json_decode($request->getContent(), true);
+        $serializer = SerializerBuilder::create()->build();
+        $jsonContent = $serializer->serialize($repository->findAllBetweenDate($content['start'], $content['end']), 'json', SerializationContext::create()->enableMaxDepthChecks());
+        return $this->json($jsonContent);
     }
 }

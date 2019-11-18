@@ -6,36 +6,65 @@ import errorStore from './ErrorStore'
 class UnavailabilityStore {
   @observable unavailabilities = []
 
-  loadUnavailabilities () {
+  noLoaded = []
+
+  load () {
     autorun(() => {
-      window.fetch('/api/unavailabilities', {
-        method: 'POST',
-        body: JSON.stringify({
-          start: dateStore.date.day(1).startOf('day').format(),
-          end: dateStore.date.day(6).endOf('day').format()
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json'
-        }
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          autorun(() => {
-            this.unavailabilities = JSON.parse(data)
-            this.orderUnavailabilities()
-          })
-        })
-        .catch((error) => {
-          console.log(error.message)
-          errorStore.updateErrors()
-        })
+      this.loadUnavailabilities()
+      this.loadReservations()
     })
   }
 
-  orderUnavailabilities () {
+  loadUnavailabilities () {
+    window.fetch('/api/unavailabilities', {
+      method: 'POST',
+      body: JSON.stringify({
+        start: dateStore.date.day(1).startOf('day').format(),
+        end: dateStore.date.day(6).endOf('day').format()
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      }
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        this.orderUnavailabilities(JSON.parse(data))
+      })
+      .catch((error) => {
+        console.log(`loadUnavailabilities : ${error.message}`)
+        errorStore.updateErrors()
+      })
+  }
+
+  loadReservations () {
+    window.fetch('/api/reservations', {
+      method: 'POST',
+      body: JSON.stringify({
+        start: dateStore.date.day(1).startOf('day').format(),
+        end: dateStore.date.day(6).endOf('day').format()
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      }
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        this.orderUnavailabilities(JSON.parse(data))
+      })
+      .catch((error) => {
+        console.log(`loadReservations : ${error.message}`)
+        errorStore.updateErrors()
+      })
+  }
+
+  orderUnavailabilities (data) {
     runInAction(() => {
-      this.unavailabilities = this.unavailabilities.slice().sort((a, b) => moment(a.start).valueOf() - moment(b.start).valueOf())
+      data.map((elt) => {
+        this.noLoaded.push(elt)
+      })
+      this.unavailabilities = this.noLoaded.slice().sort((a, b) => moment(a.start).valueOf() - moment(b.start).valueOf())
     })
   }
 }

@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ReservationRepository")
@@ -21,12 +22,14 @@ class Reservation
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="clientReservations")
      * @ORM\JoinColumn(nullable=false)
+     * @MaxDepth(1)
      */
     private $client;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="staffReservations")
      * @ORM\JoinColumn(nullable=false)
+     * @MaxDepth(1)
      */
     private $staff;
 
@@ -48,11 +51,13 @@ class Reservation
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Status", inversedBy="reservations")
      * @ORM\JoinColumn(nullable=false)
+     * @MaxDepth(1)
      */
     private $status;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ReservationInfo", mappedBy="reservation")
+     * @MaxDepth(1)
      */
     private $reservationInfos;
 

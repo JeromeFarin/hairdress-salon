@@ -7,7 +7,7 @@ import Day from './Calendar/Day'
 class Calendar extends Component {
   componentDidMount () {
     this.props.slotStore.loadSlots()
-    this.props.unavailabilityStore.loadUnavailabilities()
+    this.props.unavailabilityStore.load()
   }
 
   render () {

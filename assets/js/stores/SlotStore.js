@@ -50,7 +50,7 @@ class SlotStore {
             // if no unavailabilities set staff available for all at day
             if (unavailabilityStore.unavailabilities.length > 0) {
               // start unavailabilities loop for staff
-              unavailabilityStore.unavailabilities.filter((unavailability) => unavailability.staff === `/api/users/${staff.id}`).map((unavailability) => {
+              unavailabilityStore.unavailabilities.filter((unavailability) => unavailability.staff === staff.id).map((unavailability) => {
                 // check if unavailability start < end && gStart = gEnd
                 if (moment(unavailability.start).format() < moment(unavailability.end).format()) {
                   // unavailability start <= gStart && unavailability end > gStart

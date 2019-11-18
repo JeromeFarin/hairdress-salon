@@ -18,7 +18,7 @@ class UnavailabilityController extends AbstractController
     {
         $content = json_decode($request->getContent(), true);
         $serializer = SerializerBuilder::create()->build();
-        $jsonContent = $serializer->serialize($repository->findAllBetweenDate('2019-11-18', '2019-11-23'), 'json', SerializationContext::create()->enableMaxDepthChecks());
+        $jsonContent = $serializer->serialize($repository->findAllBetweenDate($content['start'], $content['end']), 'json', SerializationContext::create()->enableMaxDepthChecks());
         return $this->json($jsonContent);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Unavailability;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -21,7 +22,10 @@ class UnavailabilityRepository extends ServiceEntityRepository
 
     public function findAllBetweenDate($start, $end)
     {
-        return $this->createQueryBuilder('u')
+        return $this->_em->createQueryBuilder()
+            ->select('u.id, s.id as staff, u.start, u.end')
+            ->from(Unavailability::class,'u')
+            ->join(User::class,'s','WITH', 's.id = u.staff')
             ->andWhere('u.start >= :start')
             ->andWhere('u.start <= :end')
             ->andWhere('u.end >= :start')
@@ -31,6 +35,17 @@ class UnavailabilityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+
+        // return $this->createQueryBuilder('u')
+        //     ->andWhere('u.start >= :start')
+        //     ->andWhere('u.start <= :end')
+        //     ->andWhere('u.end >= :start')
+        //     ->andWhere('u.end <= :end')
+        //     ->setParameter('start', $start)
+        //     ->setParameter('end', $end)
+        //     ->getQuery()
+        //     ->getResult()
+        // ;
     }
 
     // /**
