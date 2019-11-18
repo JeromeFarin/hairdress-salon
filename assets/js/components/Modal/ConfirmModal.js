@@ -29,7 +29,7 @@ class ConfirmModal extends Component {
           <h4>Reservation resume</h4>
         </Modal.Header>
         <Modal.Body>
-          <div className='d-flex flex-column align-items-center '>
+          <div className='d-flex flex-column align-items-center'>
             <p>With {staff.first_name}</p>
             <p>{moment(place.start).format('dddd D MMMM YYYY')}</p>
             <p>From {moment(place.start).format('HH:mm')} To {moment(place.end).format('HH:mm')}</p>

@@ -37,17 +37,21 @@ class App extends Component {
   }
 }
 
-ReactDOM.render(
-  <Provider
-    staffStore={StaffStore}
-    dateStore={DateStore}
-    prestationStore={PrestationStore}
-    unavailabilityStore={UnavailabilityStore}
-    slotStore={SlotStore}
-    modalStore={ModalStore}
-    placeStore={PlaceStore}
-  >
-    <App />
-  </Provider>,
-  document.getElementById('app_react')
-)
+
+if (document.getElementById('app_react') !== null) {
+  ReactDOM.render(
+    <Provider
+      staffStore={StaffStore}
+      dateStore={DateStore}
+      prestationStore={PrestationStore}
+      unavailabilityStore={UnavailabilityStore}
+      slotStore={SlotStore}
+      modalStore={ModalStore}
+      placeStore={PlaceStore}
+    >
+      <App />
+    </Provider>,
+    document.getElementById('app_react')
+  )
+}
+
