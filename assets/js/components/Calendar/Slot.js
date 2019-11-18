@@ -8,7 +8,11 @@ import { inject, observer } from 'mobx-react'
 class Slot extends Component {
   handleClick = (e) => {
     if (this.props.prestationStore.selectedPrestations().length > 0) {
-      this.props.placeStore.slotId = e.target.dataset.slotId
+      if (isNaN(e.target.dataset.slotId)) {
+        this.props.placeStore.slotId = e.target.parentNode.dataset.slotId
+      } else {
+        this.props.placeStore.slotId = e.target.dataset.slotId
+      }
       this.props.modalStore.togglePlaceModal()
     } else {
       this.props.modalStore.togglePrestationModal()
