@@ -22,7 +22,7 @@ class UnavailabilityStore {
         .then((response) => response.json())
         .then((data) => {
           autorun(() => {
-            this.unavailabilities = data
+            this.unavailabilities = JSON.parse(data)
             this.orderUnavailabilities()
           })
         })

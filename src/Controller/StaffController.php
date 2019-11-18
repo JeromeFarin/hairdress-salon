@@ -8,7 +8,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use JMS\Serializer\SerializationContext;
-
+use JMS\Serializer\SerializerBuilder;
 
 class StaffController extends AbstractController
 {
@@ -46,7 +46,7 @@ class StaffController extends AbstractController
      */
     public function apiStaffs()
     {
-        $serializer = \JMS\Serializer\SerializerBuilder::create()->build();
+        $serializer = SerializerBuilder::create()->build();
         $jsonContent = $serializer->serialize($this->userRepository->getStaffs(), 'json', SerializationContext::create()->enableMaxDepthChecks());
         return $this->json($jsonContent);
     }
