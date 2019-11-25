@@ -2,12 +2,20 @@ import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
 import Day from './Calendar/Day'
 
-@inject('unavailabilityStore', 'slotStore', 'dateStore')
+@inject('unavailabilityStore', 'slotStore', 'dateStore', 'userStore', 'placeStore', 'modalStore')
 @observer
 class Calendar extends Component {
   componentDidMount () {
+    this.props.dateStore.loadOpened()
     this.props.slotStore.loadSlots()
     this.props.unavailabilityStore.load()
+    this.props.userStore.loadUser()
+
+    if (sessionStorage.getItem('place') !== null) {
+      this.props.modalStore.togglePrestationModal()
+      this.props.modalStore.toggleConfirmModal()
+      this.props.placeStore.setPlaceWithStorage()
+    }
   }
 
   render () {

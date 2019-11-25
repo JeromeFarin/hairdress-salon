@@ -48,7 +48,7 @@ class PrestationModal extends Component {
               value={prestation.id}
               className={prestation.selected ? 'selected' : ''}
             >
-              {prestation.name} ({moment(prestation.makeTime).format('HH:mm')})
+              {prestation.name} ({moment(prestation.make_time).format('HH:mm')})
             </li>
           ))}
           <em>You have possibility to change after</em>

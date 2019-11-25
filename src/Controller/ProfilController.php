@@ -6,6 +6,8 @@ use App\Form\AvatarType;
 use App\Form\ProfilType;
 use App\Handler\AvatarHandler;
 use App\Handler\ProfilEditHandler;
+use JMS\Serializer\SerializationContext;
+use JMS\Serializer\SerializerBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -41,9 +43,22 @@ class ProfilController extends AbstractController
      */
     public function avatar(Request $request, AvatarHandler $formHandler)
     {
-        // dd($request->files->get('file'),$request);
         $formHandler->formHandle($request, AvatarType::class, $this->getUser());
         $formHandler->process($formHandler->getData(),['avatar' => $request->files->get('file')]);
         return $this->json(true);
+    }
+
+    /**
+     * @Route("/api/user", name="api_user")
+     */
+    public function apiUser()
+    {
+        if ($this->getUser() !== null) {
+            $serializer = SerializerBuilder::create()->build();
+            $jsonContent = $serializer->serialize($this->getUser(), 'json', SerializationContext::create()->enableMaxDepthChecks());
+        } else {
+            $jsonContent = null;
+        }
+        return $this->json($jsonContent);
     }
 }

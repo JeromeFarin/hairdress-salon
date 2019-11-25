@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Handler\ReservationHandler;
 use App\Repository\ReservationRepository;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerBuilder;
@@ -30,5 +31,13 @@ class ReservationController extends AbstractController
         $serializer = SerializerBuilder::create()->build();
         $jsonContent = $serializer->serialize($repository->findAllBetweenDate($content['start'], $content['end']), 'json', SerializationContext::create()->enableMaxDepthChecks());
         return $this->json($jsonContent);
+    }
+
+    /**
+     * @Route("/api/reserve", name="api_reserve")
+     */
+    public function apiReserve(Request $request, ReservationHandler $handler)
+    {
+        return $this->json($handler->reserve(json_decode($request->getContent(), true)));
     }
 }

@@ -12,6 +12,8 @@ class ModalStore {
 
   @observable confirmModal = false
 
+  @observable flashUserModal = false
+
   @observable staffWay = true
 
   togglePlaceModal () {
@@ -42,6 +44,12 @@ class ModalStore {
   toggleConfirmModal () {
     runInAction(() => {
       this.confirmModal = !this.confirmModal
+    })
+  }
+
+  toggleFlashUserModal () {
+    runInAction(() => {
+      this.flashUserModal = !this.flashUserModal
     })
   }
 }

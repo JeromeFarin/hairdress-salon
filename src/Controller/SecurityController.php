@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\FlashRegisterType;
 use App\Handler\RegisterHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\RegisterType;
+use App\Handler\FlashRegisterHandler;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -52,4 +54,12 @@ class SecurityController extends AbstractController
      * @Route("/logout", name="security_logout")
      */
     public function logout() {}
+
+    /**
+     * @Route("/register/flash", name="security_flash_register")
+     */
+    public function flashRegister(Request $request, FlashRegisterHandler $handler)
+    {
+        return $this->json($handler->createUser(json_decode($request->getContent(), true)));
+    }
 }

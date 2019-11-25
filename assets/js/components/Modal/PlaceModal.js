@@ -17,6 +17,8 @@ class PlaceModal extends Component {
   handleConfirm = () => {
     this.props.modalStore.togglePlaceModal()
     this.props.modalStore.toggleConfirmModal()
+
+    sessionStorage.setItem('place', JSON.stringify(this.props.placeStore.place))
   }
 
   render () {

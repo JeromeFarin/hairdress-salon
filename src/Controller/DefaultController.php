@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\ContactType;
 use App\Handler\ContactHandler;
+use App\Repository\SalonOptionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,5 +31,22 @@ class DefaultController extends AbstractController
                 'form' => $formHandler->getView()
             ]);
         }
+    }
+
+    /**
+     * @Route("/api/opened", name="api_opened")
+     */
+    public function apiOpened(SalonOptionRepository $repository)
+    {
+        $return = [];
+        foreach ($repository->findAll() as $value) {
+            if ($value->getKey() === 'start_opened') {
+                $return['start'] = $value->getValue();
+            }
+            if ($value->getKey() === 'end_opened') {
+                $return['end'] = $value->getValue();
+            }
+        }
+        return $this->json($return);
     }
 }

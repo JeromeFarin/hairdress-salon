@@ -5,14 +5,27 @@ class DateStore {
     @observable date = moment()
 
     @observable opened = {
-      start: {
-        hours: '09',
-        minutes: '00'
-      },
-      end: {
-        hours: '16',
-        minutes: '00'
-      }
+      'start': '10:00:00',
+      'end': '15:00:00'
+    }
+
+    loadOpened () {
+      runInAction (() => {
+        window.fetch('/api/opened', {
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json'
+          }
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            this.opened = data
+          })
+          .catch((error) => {
+            console.log(`loadOpened : ${error.message}`)
+            errorStore.updateErrors()
+          })
+      })
     }
 
     addWeek () {

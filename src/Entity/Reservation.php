@@ -64,6 +64,7 @@ class Reservation
     public function __construct()
     {
         $this->reservationInfos = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
     public function setId(int $id): self

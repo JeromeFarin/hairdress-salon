@@ -35,44 +35,18 @@ class ReservationRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
-        // return $this->createQueryBuilder('r')
-        //     ->andWhere('r.start >= :start')
-        //     ->andWhere('r.start <= :end')
-        //     ->andWhere('r.end >= :start')
-        //     ->andWhere('r.end <= :end')
-        //     ->setParameter('start', $start)
-        //     ->setParameter('end', $end)
-        //     ->getQuery()
-        //     ->getResult()
-        // ;
     }
 
-    // /**
-    //  * @return Reservation[] Returns an array of Reservation objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findAllBetweenDateAndStaff(\DateTime $start, \DateTime $end, int $staff_id)
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('r.staff = :staff')
+            ->andWhere('(:start BETWEEN r.start AND r.end OR :end BETWEEN r.start AND r.end)')
+            ->setParameter('start', $start)
+            ->setParameter('end', $end)
+            ->setParameter('staff', $staff_id)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Reservation
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

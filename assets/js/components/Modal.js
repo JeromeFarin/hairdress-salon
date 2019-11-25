@@ -4,6 +4,7 @@ import MonthModal from './Modal/MonthModal'
 import StaffModal from './Modal/StaffModal'
 import PrestationModal from './Modal/PrestationModal'
 import ConfirmModal from './Modal/ConfirmModal'
+import FlashUserModal from './Modal/FlashUserModal'
 
 export default class Modal extends Component {
   render () {
@@ -14,6 +15,7 @@ export default class Modal extends Component {
         <StaffModal />
         <PrestationModal />
         <ConfirmModal />
+        <FlashUserModal />
       </div>
     )
   }

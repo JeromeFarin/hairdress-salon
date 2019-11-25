@@ -19,32 +19,15 @@ class TaxeRepository extends ServiceEntityRepository
         parent::__construct($registry, Taxe::class);
     }
 
-    // /**
-    //  * @return Taxe[] Returns an array of Taxe objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findTaxe(\Datetime $start)
     {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Taxe
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
+    return $this->createQueryBuilder('t')
+            ->andWhere('t.start <= :start')
+            ->andWhere('t.end >= :start')
+            ->setParameter('start', $start)
+            ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
 }

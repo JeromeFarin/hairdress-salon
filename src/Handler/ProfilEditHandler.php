@@ -13,7 +13,7 @@ class ProfilEditHandler extends AbstractFormHandler
 
     public function process($data)
     {
-        $data->setLastUpdate(new \DateTime());        
+        $data->setLastUpdate(new \DateTime());
         
         $this->manager->persist($data);
         $this->manager->flush();

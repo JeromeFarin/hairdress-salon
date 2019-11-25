@@ -27,7 +27,16 @@ class PlaceStore {
 
   setPlace (id) {
     runInAction(() => {
-      this.place = this.places.find((place) => parseInt(place.id, 10) === parseInt(id, 10))
+      const {...place} = this.places.find((place) => parseInt(place.id, 10) === parseInt(id, 10))
+      place.prestations = prestationStore.selectedPrestations()
+      this.place = place
+
+    })
+  }
+
+  setPlaceWithStorage () {
+    runInAction(() => {
+      this.place = JSON.parse(sessionStorage.getItem('place'))
     })
   }
 }

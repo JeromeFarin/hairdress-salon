@@ -8,15 +8,16 @@ class PrestationStore {
   @observable isSelected = false
 
   loadPrestations () {
-    window.fetch('/api/prestations?page=1', {
+    window.fetch('/api/prestations', {
       headers: {
+        'Content-Type': 'application/json',
         Accept: 'application/json'
       }
     })
       .then((response) => response.json())
       .then((data) => {
         autorun(() => {
-          this.prestations = data
+          this.prestations = JSON.parse(data)
         })
       })
       .catch((error) => {
@@ -57,7 +58,7 @@ class PrestationStore {
     let time = 0
     this.prestations.map((prestation) => {
       if (prestation.selected) {
-        time = time + (moment(prestation.makeTime).hour() * 3600000) + (moment(prestation.makeTime).minute() * 60000)
+        time = time + (moment(prestation.make_time).hour() * 3600000) + (moment(prestation.make_time).minute() * 60000) - 60000
       }
     })
     return time

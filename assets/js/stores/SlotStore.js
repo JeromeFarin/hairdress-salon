@@ -25,10 +25,10 @@ class SlotStore {
   }
 
   getSize (start, end) {
-    const { ...gStart } = dateStore.opened.start
-    const { ...gEnd } = dateStore.opened.end
+    const dateTimeStart = moment(moment(start).format('YYYY-MM-DD') + ' ' + dateStore.opened.start).valueOf()
+    const dateTimeEnd = moment(moment(end).format('YYYY-MM-DD') + ' ' + dateStore.opened.end).valueOf()
 
-    return ((moment(end).valueOf() - moment(start).valueOf()) * 100) / (moment(end).hour(gEnd.hours).minute(gEnd.minutes).valueOf() - moment(start).hour(gStart.hours).minute(gStart.minutes).valueOf())
+    return ((moment(end).valueOf() - moment(start).valueOf()) * 100) / (dateTimeEnd - dateTimeStart)
   }
 
   getSlot (id) {
@@ -39,14 +39,12 @@ class SlotStore {
     autorun(() => {
       observe(unavailabilityStore, () => {
         this.slots = []
-
+        
         for (let d = 1; d < 7; d += 1) {
-          const { ...day } = dateStore.date.day(d)
-          const { ...gEnd } = dateStore.opened.end
-          const { ...gStart } = dateStore.opened.start
+          const day = dateStore.date.day(d).format('YYYY-MM-DD')
           staffStore.staffSelected().map((staff) => {
-            const gEndFormat = moment(day).hour(gEnd.hours).minute(gEnd.minutes).format()
-            let gStartFormat = moment(day).hour(gStart.hours).minute(gStart.minutes).format()
+            let dateTimeStart = moment(day + ' ' + dateStore.opened.start).format()
+            const dateTimeEnd = moment(day + ' ' + dateStore.opened.end).format()
             // if no unavailabilities set staff available for all at day
             if (unavailabilityStore.unavailabilities.length > 0) {
               // start unavailabilities loop for staff
@@ -54,33 +52,33 @@ class SlotStore {
                 // check if unavailability start < end && gStart = gEnd
                 if (moment(unavailability.start).format() < moment(unavailability.end).format()) {
                   // unavailability start <= gStart && unavailability end > gStart
-                  if (moment(unavailability.start).format() <= gStartFormat && moment(unavailability.end).format() > gStartFormat) {
+                  if (moment(unavailability.start).format() <= dateTimeStart && moment(unavailability.end).format() > dateTimeStart) {
                     // unavailability end > gEnd
-                    if (moment(unavailability.end).format() >= gEndFormat) {
-                      this.addSlot('0', staff, d, gStartFormat, gEndFormat)
-                      gStartFormat = gEndFormat
+                    if (moment(unavailability.end).format() >= dateTimeEnd) {
+                      this.addSlot('0', staff, d, dateTimeStart, dateTimeEnd)
+                      dateTimeStart = dateTimeEnd
                     } else {
-                      this.addSlot('0', staff, d, gStartFormat, moment(unavailability.end).format())
-                      gStartFormat = moment(unavailability.end).format()
+                      this.addSlot('0', staff, d, dateTimeStart, moment(unavailability.end).format())
+                      dateTimeStart = moment(unavailability.end).format()
                     }
                   // gStart < gEnd && unavailability end > gStart
-                  } else if (gStartFormat < gEndFormat && moment(unavailability.end).format() > gStartFormat) {
+                  } else if (dateTimeStart < dateTimeEnd && moment(unavailability.end).format() > dateTimeStart) {
                     // unavailability start > gEnd
-                    if (moment(unavailability.start).format() > gEndFormat) {
-                      this.addSlot('1', staff, d, gStartFormat, gEndFormat)
-                      gStartFormat = gEndFormat
+                    if (moment(unavailability.start).format() > dateTimeEnd) {
+                      this.addSlot('1', staff, d, dateTimeStart, dateTimeEnd)
+                      dateTimeStart = dateTimeEnd
                     } else {
-                      this.addSlot('1', staff, d, gStartFormat, moment(unavailability.start).format())
-                      gStartFormat = moment(unavailability.start).format()
+                      this.addSlot('1', staff, d, dateTimeStart, moment(unavailability.start).format())
+                      dateTimeStart = moment(unavailability.start).format()
                     }
                     // unavailability end > gEnd
-                    if (gStartFormat < gEndFormat) {
-                      if (moment(unavailability.end).format() > gEndFormat) {
-                        this.addSlot('0', staff, d, moment(unavailability.start).format(), gEndFormat)
-                        gStartFormat = gEndFormat
+                    if (dateTimeStart < dateTimeEnd) {
+                      if (moment(unavailability.end).format() > dateTimeEnd) {
+                        this.addSlot('0', staff, d, moment(unavailability.start).format(), dateTimeEnd)
+                        dateTimeStart = dateTimeEnd
                       } else {
                         this.addSlot('0', staff, d, moment(unavailability.start).format(), moment(unavailability.end).format())
-                        gStartFormat = moment(unavailability.end).format()
+                        dateTimeStart = moment(unavailability.end).format()
                       }
                     }
                   }
@@ -88,9 +86,9 @@ class SlotStore {
               })
             }
 
-            if (gStartFormat !== gEndFormat) {
-              this.addSlot('1', staff, d, gStartFormat, gEndFormat)
-              gStartFormat = gEndFormat
+            if (dateTimeStart !== dateTimeEnd) {
+              this.addSlot('1', staff, d, dateTimeStart, dateTimeEnd)
+              dateTimeStart = dateTimeEnd
             }
           })
         }

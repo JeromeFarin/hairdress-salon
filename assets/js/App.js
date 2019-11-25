@@ -13,6 +13,7 @@ import ModalStore from './stores/ModalStore'
 import Modal from './components/Modal'
 import ErrorStore from './stores/ErrorStore'
 import PlaceStore from './stores/PlaceStore'
+import UserStore from './stores/UserStore'
 
 class App extends Component {
   render () {
@@ -48,6 +49,7 @@ if (document.getElementById('app_react') !== null) {
       slotStore={SlotStore}
       modalStore={ModalStore}
       placeStore={PlaceStore}
+      userStore={UserStore}
     >
       <App />
     </Provider>,
