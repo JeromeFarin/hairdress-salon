@@ -12,26 +12,26 @@
         <div class="checkbox mb-3">You are logged in as {{ app.user.username }}, <a href="{{ path('security_logout') }}">Logout</a>
     {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail" class="sr-only">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+    <div class="form-group">
+        <label for="inputEmail">Email</label>
+        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+    </div>
+    <div class="form-group">
+        <label for="inputPassword">Password</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" required>
+    </div>
 
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-    <div class="checkbox mb-3">
-        <label>
-            <input type="checkbox" name="_remember_me"> Remember me
-        </label>
+    <div class="checkbox">
+        <input id="checkboxForgotpassword" type="checkbox" name="_remember_me">
+        <label for="checkboxForgotpassword" class="m-0">Remember me</label>
     </div>
 
-    <div>
-        <a href="{{ path('resetting_forgot') }}">Forgot password</a>
-    </div><br>
+    <div class="mb-2">
+        <a class="forgot_password_text" href="{{ path('resetting_forgot') }}">Forgot password</a>
+    </div>
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
+    <button class="btn btn-lg btn-primary" type="submit">Login</button>
 </form>
 {% endblock %}

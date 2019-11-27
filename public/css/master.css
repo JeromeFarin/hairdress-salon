@@ -1,0 +1,108 @@
+html {
+    height: 100%;
+}
+
+#body.container {
+    padding: 50px 0 202px 0;
+}
+
+body {
+    background-color: #c9c9c9;
+    font-family: 'Copse', serif;
+    position: relative;
+    min-height: 100vh;
+}
+
+header .jumbotron {
+    box-shadow: 0 0 5px #000, inset 0 0 15px #000;
+    background-color: #5e3718;
+    color: #a3a3a3;
+    border-radius: 0;
+    margin: 0;
+}
+
+header a {
+    text-shadow: 0 0 5px #000;
+    color: #a3a3a3;
+}
+
+header a:hover {
+    text-shadow: 0 0 10px #000;
+    color: #c9c9c9;
+    text-decoration: none;
+}
+
+footer .jumbotron {
+    box-shadow: 0 0 5px #000, inset 0 0 15px #000;
+    margin: 0;
+    background-color: #5e3718;
+    color: #a3a3a3;
+    border-radius: 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 152px;
+    text-shadow: 0 0 5px #000;
+}
+input, select, textarea {
+    box-shadow: 0 0 5px #5e3718;
+}
+
+input:focus, select:focus, textarea:focus {
+    border: none !important;
+    box-shadow: 0 0 10px #5e3718, inset 0 0 5px #5e3718 !important;
+}
+
+button[type=submit], .btn-primary {
+    border: none !important;
+    background-color: #5e3718 !important;
+    box-shadow: 0 0 5px #5e3718 !important;
+} 
+
+button[type=submit]:hover , button[type=submit]:active, button[type=submit]:focus, .btn-primary:hover, .btn-primary:active, .btn-primary:hover {
+    border: none !important;
+    background-color: #5e3718 !important;
+    box-shadow: 0 0 10px #5e3718 !important;
+    text-shadow: 0 0 3px #000 !important;
+}
+
+button[type=submit]:focus {
+    box-shadow: 0 0 10px #5e3718;
+}
+
+a.forgot_password_text {
+    font-size: 0.7em;
+    color: #000;
+}
+
+a.forgot_password_text:hover {
+    text-decoration: none;
+}
+
+#register_birthday select {
+    margin-right: 10px;
+}
+
+#sharing a i {
+    color: #a3a3a3;
+    font-size: 3em;
+    margin-left: 10px;
+}
+
+#sharing a i:hover {
+    color: #c9c9c9;
+    text-shadow: 0 0 10px #000;
+}
+
+img {
+    box-shadow: 0 0 10px #000;
+    border-radius: 10px;
+}
+
+img:hover {
+    box-shadow: 0 0 20px #000;
+}
+
+#app_react {
+    height: 800px;
+}

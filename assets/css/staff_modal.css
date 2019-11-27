@@ -8,10 +8,10 @@
     cursor: pointer;
 }
 #staff_modal li:hover {
-    background-color: #00c2f3;
+    background-color: #7e5e44;
 }
 #staff_modal li.selected {
-    background-color: #0066ff;
+    background-color: #5e3718;
     color: #fff;
 }
 #staff_modal em {

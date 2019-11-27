@@ -1,4 +1,4 @@
-import { observable, runInAction, autorun } from 'mobx'
+import { observable, runInAction } from 'mobx'
 import errorStore from './ErrorStore'
 
 class UserStore {
