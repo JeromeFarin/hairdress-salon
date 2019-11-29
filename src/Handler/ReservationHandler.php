@@ -25,6 +25,8 @@ class ReservationHandler
 
     private $prestationRepository;
 
+    private $error;
+
     public function __construct(ReservationRepository $reservationRepository, TaxeRepository $taxeRepository, UserRepository $userRepository, EntityManagerInterface $manager, StatusRepository $statusRepository, PrestationRepository $prestationRepository) {
         $this->reservationRepository = $reservationRepository;
         $this->taxeRepository = $taxeRepository;
@@ -35,10 +37,10 @@ class ReservationHandler
     }
 
     
-    public function reserve($data): bool
+    public function reserve($data)
     {
         if (!$this->checkAvalaibility(new \DateTime($data['start']), new \DateTime($data['end']), $data['staff_id'])) {
-            return false;
+            return json_encode($this->error);
         }
 
         $reservation_id = $this->createReservation($data);
@@ -59,7 +61,12 @@ class ReservationHandler
             if (empty($this->reservationRepository->findAllBetweenDateAndStaff($start, $end, $staff_id))) {
                 return true;
             }
+            
+            $this->error = 'Ce créneau n\'est plus disponible, désolé';
+            return false;
         }
+
+        $this->error = 'Euh ..., c\'est mieux une réservation dans le futur non ?';
         return false;
     }
 

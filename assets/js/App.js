@@ -14,6 +14,7 @@ import Modal from './components/Modal'
 import ErrorStore from './stores/ErrorStore'
 import PlaceStore from './stores/PlaceStore'
 import UserStore from './stores/UserStore'
+import ReservationStore from './stores/ReservationStore'
 
 class App extends Component {
   render () {
@@ -50,6 +51,7 @@ if (document.getElementById('app_react') !== null) {
       modalStore={ModalStore}
       placeStore={PlaceStore}
       userStore={UserStore}
+      reservationStore={ReservationStore}
     >
       <App />
     </Provider>,

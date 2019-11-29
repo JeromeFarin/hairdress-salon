@@ -3,7 +3,7 @@ import { Modal, Button } from 'react-bootstrap'
 import { inject, observer } from 'mobx-react'
 import moment from 'moment'
 
-@inject('modalStore', 'placeStore', 'userStore', 'unavailabilityStore')
+@inject('modalStore', 'placeStore', 'userStore', 'reservationStore', )
 @observer
 class ConfirmModal extends Component {
   handleClick = () => {
@@ -16,38 +16,8 @@ class ConfirmModal extends Component {
   }
 
   handleConfirm = () => {
-    const request = {}
-    const { ...place } = this.props.placeStore.place
-    request.start = moment(place.start).format()
-    request.end = moment(place.end).format()
-    request.staff_id = place.staff.id
-    request.client_id = this.props.userStore.connectedUser.id
-    request.prestations = []
-    place.prestations.map((prestation) => {
-      request.prestations.push([prestation.id, prestation.price])
-    })
-    
-
-    window.fetch('/api/reserve', {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify(request)
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data) {
-          sessionStorage.removeItem('place')
-          this.handleClick()
-          this.props.unavailabilityStore.load()
-        }
-      })
-      .catch((error) => {
-        console.log(error.message)
-        errorStore.updateErrors()
-      })
+    this.props.reservationStore.reserve()
+    this.handleClick()
   }
 
   render () {
