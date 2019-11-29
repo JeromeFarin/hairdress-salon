@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Repository\ReservationRepository;
 use App\Repository\UserRepository;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use JMS\Serializer\SerializationContext;
@@ -15,7 +15,7 @@ class StaffController extends AbstractController
     private $userRepository;
     private $manager;
 
-    public function __construct(UserRepository $userRepository, ObjectManager $manager) {
+    public function __construct(UserRepository $userRepository, ManagerRegistry $manager) {
         $this->userRepository = $userRepository;
         $this->manager = $manager;
     }

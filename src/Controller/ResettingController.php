@@ -7,7 +7,7 @@ use App\Form\ResetType;
 use App\Handler\ForgotHandler;
 use App\Handler\ResetHandler;
 use App\Repository\UserRepository;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,7 +21,7 @@ class ResettingController extends AbstractController
 
     private $manager;
 
-    public function __construct(UserRepository $userRepository, ObjectManager $manager) {
+    public function __construct(UserRepository $userRepository, ManagerRegistry $manager) {
         $this->userRepository = $userRepository;
         $this->manager = $manager;
     }

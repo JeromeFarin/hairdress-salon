@@ -3,12 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\FlashRegisterType;
 use App\Handler\RegisterHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\RegisterType;
 use App\Handler\FlashRegisterHandler;
@@ -20,7 +19,7 @@ class SecurityController extends AbstractController
     private $manager;
     private $encoder;
 
-    public function __construct(ObjectManager $manager, UserPasswordEncoderInterface $encoder) {
+    public function __construct(ManagerRegistry $manager, UserPasswordEncoderInterface $encoder) {
         $this->manager = $manager;
         $this->encoder = $encoder;
     }
