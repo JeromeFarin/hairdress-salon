@@ -1,0 +1,93 @@
+.custom-radio-container, .custom-checkbox-container{
+    display: block;
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 10px;
+    /* -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; */
+}
+
+.custom-radio-container label, .custom-checkbox-container label {
+    cursor: pointer;
+}
+
+.custom-radio-container input, .custom-checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.custom-radio-checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 5px #5e3718;
+}
+
+.custom-checkbox-checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border-radius: 10%;
+    box-shadow: 0 0 5px #5e3718;
+}
+
+.custom-radio-container:hover input ~ .custom-radio-checkmark {
+    background-color: #a3a3a3;
+}
+
+.custom-checkbox-container:hover input ~ .custom-checkbox-checkmark {
+    background-color: #a3a3a3;
+}
+
+.custom-radio-container input:checked ~ .custom-radio-checkmark {
+    background-color: #5e3718;
+}
+
+.custom-checkbox-container input:checked ~ .custom-checkbox-checkmark {
+    background-color: #5e3718;
+}
+
+.custom-radio-checkmark:after, .custom-checkbox-checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.custom-radio-container input:checked ~ .custom-radio-checkmark:after {
+    display: block;
+}
+
+.custom-checkbox-container input:checked ~ .custom-checkbox-checkmark:after {
+    display: block;
+}
+
+.custom-radio-container .custom-radio-checkmark:after {
+    top: 7px;
+    left: 7px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #fff;
+}
+
+.custom-checkbox-container .custom-checkbox-checkmark:after {
+    left: 7px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}

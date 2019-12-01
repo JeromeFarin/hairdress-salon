@@ -79,7 +79,7 @@ a.forgot_password_text:hover {
     text-decoration: none;
 }
 
-#register_birthday select {
+#register_birthday select, #profil_birthday select {
     margin-right: 10px;
 }
 
