@@ -18,6 +18,6 @@ class PrestationController extends AbstractController
     {
         $serializer = SerializerBuilder::create()->build();
         $jsonContent = $serializer->serialize($repository->findAll(), 'json', SerializationContext::create()->enableMaxDepthChecks());
-        return $this->json($jsonContent);
+        return $this->json($jsonContent, 200);
     }
 }

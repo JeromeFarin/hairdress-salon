@@ -59,6 +59,6 @@ class SecurityController extends AbstractController
      */
     public function flashRegister(Request $request, FlashRegisterHandler $handler)
     {
-        return $this->json($handler->createUser(json_decode($request->getContent(), true)));
+        return $this->json($handler->createUser(json_decode($request->getContent(), true)), 201);
     }
 }

@@ -30,7 +30,7 @@ class ReservationController extends AbstractController
         $content = json_decode($request->getContent(), true);
         $serializer = SerializerBuilder::create()->build();
         $jsonContent = $serializer->serialize($repository->findAllBetweenDate($content['start'], $content['end']), 'json', SerializationContext::create()->enableMaxDepthChecks());
-        return $this->json($jsonContent);
+        return $this->json($jsonContent, 200);
     }
 
     /**
@@ -38,6 +38,6 @@ class ReservationController extends AbstractController
      */
     public function apiReserve(Request $request, ReservationHandler $handler)
     {
-        return $this->json($handler->reserve(json_decode($request->getContent(), true)));
+        return $this->json($handler->reserve(json_decode($request->getContent(), true)), 201);
     }
 }

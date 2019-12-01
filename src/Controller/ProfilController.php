@@ -59,6 +59,6 @@ class ProfilController extends AbstractController
         } else {
             $jsonContent = null;
         }
-        return $this->json($jsonContent);
+        return $this->json($jsonContent, 200);
     }
 }

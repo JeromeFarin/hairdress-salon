@@ -47,6 +47,6 @@ class DefaultController extends AbstractController
                 $return['end'] = $value->getValue();
             }
         }
-        return $this->json($return);
+        return $this->json($return, 200);
     }
 }
