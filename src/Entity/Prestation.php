@@ -40,9 +40,15 @@ class Prestation
      */
     private $reservationInfos;
 
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private $active;
+
     public function __construct()
     {
         $this->reservationInfos = new ArrayCollection();
+        $this->active = 0;
     }
 
     public function setId(int $id): self
@@ -120,6 +126,18 @@ class Prestation
                 $reservationInfo->setPrestation(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getActive(): ?int
+    {
+        return $this->active;
+    }
+
+    public function setActive(int $active): self
+    {
+        $this->active = $active;
 
         return $this;
     }

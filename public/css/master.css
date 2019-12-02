@@ -103,13 +103,13 @@ img:hover {
     box-shadow: 0 0 20px #000;
 }
 
-#app_react {
+#reservation_app_react {
     height: 800px;
 }
 
 .custom-arrow {
     box-shadow: 0 0 5px #5e3718;
-    margin: 5px;
+    margin: 20px;
     border-radius: 50%;
 }
 

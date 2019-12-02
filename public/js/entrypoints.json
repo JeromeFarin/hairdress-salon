@@ -1,14 +1,14 @@
 {
   "entrypoints": {
-    "App": {
+    "ReservationApp": {
       "js": [
         "/js/runtime.js",
-        "/js/vendors~App.js",
-        "/js/App.js"
+        "/js/vendors~ReservationApp.js",
+        "/js/ReservationApp.js"
       ],
       "css": [
-        "/js/vendors~App.css",
-        "/js/App.css"
+        "/js/vendors~ReservationApp.css",
+        "/js/ReservationApp.css"
       ]
     }
   }

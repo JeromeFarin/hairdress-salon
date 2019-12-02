@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+{% include "admin/admin_header.html.twig" %}
+
+<table class="table text-center">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Making Time</th>
+            <th>Price HT</th>
+            <th>Active</th>
+            <th>Save</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for prestation in prestations %}
+            <tr>
+                <td>{{ prestation.name }}</td>
+                <td>{{ prestation.makeTime | date('H:i') }}</td>
+                <td>{{ prestation.price }}</td>
+                <td>{{ prestation.active == 1 ? 'Yes' : 'No'}}</td>
+                <td><button type="submit" class="btn btn-secondary"><i class="far fa-edit"/></button></td>
+            </tr>
+            {% include "admin/modal/prestation_modal.html.twig" with { prestation: prestation } %}
+        {% endfor %}
+
+    </tbody>
+</table>
+
+<button data-toggle="modal" data-target="#modal_new_prestation" class="btn btn-primary"><i class="fas fa-plus-circle"></i></button>
+
+<div class="modal fade" id="modal_new_prestation" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Create new prestation</h5>
+        </div>
+        <div class="modal-body">
+            <form id="form_new_prestation" action="{{ path('admin_prestation_new') }}" method="post">
+                <div class="form-group">
+                    <label for="prestation_name_input">Name</label>
+                    <input type="text" class="form-control" name="name" id="prestation_name_input" required>
+                </div>
+                <div class="form-group">
+                    <label for="prestation_make_time_input">Making Time</label>
+                    <input type="text" class="form-control" name="make_time" id="prestation_make_time_input" required>
+                </div>
+                <div class="form-group">
+                    <label for="prestation_price_input">Price HT</label>
+                    <input type="number" step="0.01" class="form-control" name="price" id="prestation_price_input" required>
+                </div>
+                <div class="form-check">
+                    <input id="prestation_active_input" type="checkbox" class="form-check-input" name="active" checked>
+                    <label for="prestation_active_input" class="form-check-label">Active</label>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" form="form_new_prestation" class="btn btn-primary">Create</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

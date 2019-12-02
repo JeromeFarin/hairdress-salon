@@ -17,7 +17,7 @@ class PrestationController extends AbstractController
     public function apiPrestation(Request $request, PrestationRepository $repository)
     {
         $serializer = SerializerBuilder::create()->build();
-        $jsonContent = $serializer->serialize($repository->findAll(), 'json', SerializationContext::create()->enableMaxDepthChecks());
+        $jsonContent = $serializer->serialize($repository->findByActive('1'), 'json', SerializationContext::create()->enableMaxDepthChecks());
         return $this->json($jsonContent, 200);
     }
 }
