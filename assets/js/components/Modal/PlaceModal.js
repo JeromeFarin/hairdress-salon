@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import { inject, observer } from 'mobx-react'
-import '../../../css/place_modal.css'
 
 @inject('modalStore', 'placeStore')
 @observer

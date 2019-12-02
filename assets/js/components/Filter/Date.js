@@ -24,14 +24,14 @@ class Date extends Component {
     return (
       <div>
         <div>
-          <Button variant='' onClick={this.handlePreviousWeek}><FontAwesomeIcon icon={faCaretSquareLeft} /></Button>
+          <Button variant='' className='custom-arrow' onClick={this.handlePreviousWeek}><FontAwesomeIcon icon={faCaretSquareLeft} /></Button>
           <Button
             variant='primary'
             onClick={this.handleModal}
           >
             {this.props.dateStore.date.format('MMMM')} week {this.props.dateStore.date.week()}
           </Button>
-          <Button variant='' onClick={this.handleNextWeek}><FontAwesomeIcon icon={faCaretSquareRight} /></Button>
+          <Button variant='' className='custom-arrow' onClick={this.handleNextWeek}><FontAwesomeIcon icon={faCaretSquareRight} /></Button>
         </div>
       </div>
     )

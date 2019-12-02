@@ -106,3 +106,17 @@ img:hover {
 #app_react {
     height: 800px;
 }
+
+.custom-arrow {
+    box-shadow: 0 0 5px #5e3718;
+    margin: 5px;
+    border-radius: 50%;
+}
+
+.custom-arrow:hover {
+    box-shadow: 0 0 10px #5e3718;
+}
+
+.custom-arrow:focus {
+    box-shadow: 0 0 10px #5e3718;
+}

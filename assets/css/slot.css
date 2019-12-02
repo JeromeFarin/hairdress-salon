@@ -9,6 +9,10 @@
     position: relative;
 }
 
+.slot.available {
+    box-shadow: 0 0 5px #5e3718;
+}
+
 .available:hover {
     cursor: pointer;
     z-index: 2;

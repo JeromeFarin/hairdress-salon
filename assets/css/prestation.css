@@ -15,6 +15,11 @@
 }
 
 #prestation li.selected {
-    border: 1px solid #000;
+    box-shadow: 0 0 5px #5e3718;
+    background-color: #d1d1d1;
+}
+
+#prestation li:hover {
+    box-shadow: 0 0 10px #5e3718;
 }
 
