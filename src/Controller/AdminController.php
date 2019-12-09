@@ -3,6 +3,10 @@
 namespace App\Controller;
 
 use App\Repository\SalonOptionRepository;
+use App\Repository\StatusRepository;
+use App\Repository\TaxeRepository;
+use JMS\Serializer\SerializationContext;
+use JMS\Serializer\SerializerBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -13,18 +17,26 @@ class AdminController extends AbstractController
      */
     public function index(SalonOptionRepository $salonOptionRepository)
     {
-        $return = [];
-        foreach ($salonOptionRepository->findAll() as $value) {
-            if ($value->getKey() === 'start_opened') {
-                $return['start'] = $value->getValue();
-            }
-            if ($value->getKey() === 'end_opened') {
-                $return['end'] = $value->getValue();
-            }
-        }
-        
-        return $this->render('admin/index.html.twig', [
-            'opened' => $return,
-        ]);
+        return $this->render('admin/index.html.twig', []);
+    }
+
+    /**
+     * @Route("/api/status", name="api_status")
+     */
+    public function status(StatusRepository $repository)
+    {
+        $serializer = SerializerBuilder::create()->build();
+        $jsonContent = $serializer->serialize($repository->findAll(), 'json', SerializationContext::create()->enableMaxDepthChecks());
+        return $this->json($jsonContent, 200);
+    }
+
+    /**
+     * @Route("/api/taxes", name="api_taxes")
+     */
+    public function taxes(TaxeRepository $repository)
+    {
+        $serializer = SerializerBuilder::create()->build();
+        $jsonContent = $serializer->serialize($repository->findAll(), 'json', SerializationContext::create()->enableMaxDepthChecks());
+        return $this->json($jsonContent, 200);
     }
 }

@@ -3,12 +3,21 @@
     "ReservationApp": {
       "js": [
         "/js/runtime.js",
+        "/js/vendors~ManagerApp~ReservationApp.js",
         "/js/vendors~ReservationApp.js",
         "/js/ReservationApp.js"
       ],
       "css": [
         "/js/vendors~ReservationApp.css",
         "/js/ReservationApp.css"
+      ]
+    },
+    "ManagerApp": {
+      "js": [
+        "/js/runtime.js",
+        "/js/vendors~ManagerApp~ReservationApp.js",
+        "/js/vendors~ManagerApp.js",
+        "/js/ManagerApp.js"
       ]
     }
   }

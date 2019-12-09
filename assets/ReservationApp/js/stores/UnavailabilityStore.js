@@ -32,7 +32,7 @@ class UnavailabilityStore {
         this.orderUnavailabilities(JSON.parse(data))
       })
       .catch((error) => {
-        console.log(`loadUnavailabilities : ${error.message}`)
+        console.error(`loadUnavailabilities : ${error.message}`)
         errorStore.updateErrors()
       })
   }
@@ -54,7 +54,7 @@ class UnavailabilityStore {
         this.orderUnavailabilities(JSON.parse(data))
       })
       .catch((error) => {
-        console.log(`loadReservations : ${error.message}`)
+        console.error(`loadReservations : ${error.message}`)
         errorStore.updateErrors()
       })
   }

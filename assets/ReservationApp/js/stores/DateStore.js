@@ -22,7 +22,7 @@ class DateStore {
             this.opened = data
           })
           .catch((error) => {
-            console.log(`loadOpened : ${error.message}`)
+            console.error(`loadOpened : ${error.message}`)
             errorStore.updateErrors()
           })
       })

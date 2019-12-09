@@ -17,7 +17,7 @@ class UserStore {
           this.connectedUser = JSON.parse(data)
         })
         .catch((error) => {
-          console.log(error.message)
+          console.error(error.message)
           errorStore.updateErrors()
         })
     })
@@ -38,7 +38,7 @@ class UserStore {
           this.connectedUser = data
         })
         .catch((error) => {
-          console.log(error.message)
+          console.error(error.message)
           errorStore.updateErrors()
         })
     })

@@ -8,7 +8,7 @@ class PrestationStore {
   @observable isSelected = false
 
   loadPrestations () {
-    window.fetch('/api/prestations', {
+    window.fetch('/api/prestations/active', {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json'
@@ -21,7 +21,7 @@ class PrestationStore {
         })
       })
       .catch((error) => {
-        console.log(error.message)
+        console.error(error.message)
         errorStore.updateErrors()
       })
   }

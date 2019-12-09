@@ -32,7 +32,7 @@ class Prestation
     /**
      * @ORM\Column(type="float", length=255)
      */
-    private $price;
+    private $price_ht;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ReservationInfo", mappedBy="prestation")
@@ -87,14 +87,14 @@ class Prestation
         return $this;
     }
 
-    public function getPrice(): ?float
+    public function getPriceHR(): ?float
     {
-        return $this->price;
+        return $this->price_ht;
     }
 
-    public function setPrice(float $price): self
+    public function setPriceHT(float $price_ht): self
     {
-        $this->price = $price;
+        $this->price = $price_ht;
 
         return $this;
     }

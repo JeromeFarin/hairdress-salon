@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\StatusRepository")
@@ -25,6 +26,7 @@ class Status
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="status")
+     * @MaxDepth(1)
      */
     private $reservations;
 

@@ -24,9 +24,7 @@ class AdminPrestationController extends AbstractController
      */
     public function prestations()
     {
-        return $this->render('admin/prestations.html.twig', [
-            'prestations' => $this->prestationRepository->findAll()
-        ]);
+        return $this->render('admin/prestations.html.twig', []);
     }
 
     /**

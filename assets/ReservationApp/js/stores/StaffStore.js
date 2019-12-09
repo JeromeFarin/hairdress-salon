@@ -19,7 +19,7 @@ class StaffStore {
         })
       })
       .catch((error) => {
-        console.log(error.message)
+        console.error(error.message)
         errorStore.updateErrors()
       })
   }
