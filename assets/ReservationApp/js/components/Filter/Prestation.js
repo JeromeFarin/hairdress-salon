@@ -7,7 +7,7 @@ import moment from 'moment'
 @observer
 class Prestation extends Component {
   componentDidMount () {
-    this.props.prestationStore.loadPrestations()
+    this.props.prestationStore.loadActivePrestations()
   }
 
   handleClick = (event) => {

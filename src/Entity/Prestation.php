@@ -87,14 +87,14 @@ class Prestation
         return $this;
     }
 
-    public function getPriceHR(): ?float
+    public function getPriceHT(): ?float
     {
         return $this->price_ht;
     }
 
     public function setPriceHT(float $price_ht): self
     {
-        $this->price = $price_ht;
+        $this->price_ht = $price_ht;
 
         return $this;
     }

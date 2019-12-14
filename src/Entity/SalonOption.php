@@ -11,23 +11,41 @@ class SalonOption
 {
     /**
      * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
-    private $key;
+    private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $value;
 
-    public function getKey(): ?string
+    public function setId(int $id): self
     {
-        return $this->key;
+        $this->id= $id;
+        
+        return $this;
     }
 
-    public function setKey(string $key): self
+    public function getId(): ?int
     {
-        $this->key = $key;
+        return $this->id;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
 
         return $this;
     }

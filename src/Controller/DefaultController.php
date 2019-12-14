@@ -40,10 +40,10 @@ class DefaultController extends AbstractController
     {
         $return = [];
         foreach ($repository->findAll() as $value) {
-            if ($value->getKey() === 'start_opened') {
+            if ($value->getTitle() === 'start_opened') {
                 $return['start'] = $value->getValue();
             }
-            if ($value->getKey() === 'end_opened') {
+            if ($value->getTitle() === 'end_opened') {
                 $return['end'] = $value->getValue();
             }
         }

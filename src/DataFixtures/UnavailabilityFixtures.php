@@ -6,7 +6,6 @@ use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\Unavailability;
 use Faker\Factory;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use App\Entity\User;
 
 class UnavailabilityFixtures extends AppFixtures implements DependentFixtureInterface
 {

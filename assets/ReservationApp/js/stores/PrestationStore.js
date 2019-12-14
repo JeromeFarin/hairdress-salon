@@ -7,7 +7,7 @@ class PrestationStore {
 
   @observable isSelected = false
 
-  loadPrestations () {
+  loadActivePrestations () {
     window.fetch('/api/prestations/active', {
       headers: {
         'Content-Type': 'application/json',
