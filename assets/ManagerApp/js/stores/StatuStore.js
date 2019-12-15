@@ -1,5 +1,7 @@
 import { observable, runInAction } from 'mobx'
-class StatuStore {
+import LoadStore from './LoadStore'
+
+class StatuStore extends LoadStore {
   @observable status = []
 
   loadStatus () {
@@ -13,6 +15,9 @@ class StatuStore {
         .then((response) => response.json())
         .then((data) => {
           this.status = JSON.parse(data)
+          this.loadValues(this.status, [
+            {name: 'name', type: 'text'}
+          ])
         })
         .catch((error) => {
           console.error(error.message)

@@ -7,28 +7,36 @@ class EditStore {
   formatValue (td,th) {
     let value = {}
 
-    if (th === 'active') {
-      value.type = 'checkbox'
-      value.defaultChecked = td[th] ? true : false
-      value.defaultValue = td[th]
-    } else if (th === 'make_time') {
-      value.type = 'text'
-      value.defaultValue = moment(td[th]).format('HH:mm:ss')
-      value.placeholder = 'HH:MM:SS'
-    } else if (th === 'price_ht') {
-      value.type = 'number'
-      value.defaultValue = td[th]
-      value.placeholder = th.charAt(0).toUpperCase() + th.slice(1).replace('_', ' ')
-    } else if (th === 'start' || th == 'end') {
-      value.type = 'date'
-      value.defaultValue = moment(td[th]).format('YYYY-MM-DD')
-    } else {
-      value.type = 'text'
-      value.defaultValue = td[th]
-      value.placeholder = th.charAt(0).toUpperCase() + th.slice(1).replace('_', ' ')
+    switch (th.name) {
+      case 'active':
+        value.defaultChecked = td[th.name] ? true : false
+        value.defaultValue = td[th.name]
+        break;
+        
+      case 'make_time':
+        value.defaultValue = moment(td[th.name]).format('HH:mm:ss')
+        value.placeholder = 'HH:MM:SS'
+        break;
+
+      case 'price_ht':
+        value.defaultValue = td[th.name]
+        value.placeholder = th.name.charAt(0).toUpperCase() + th.name.slice(1).replace('_', ' ')
+        break;
+
+      case 'start':
+      case 'end':
+        value.defaultValue = moment(td[th.name]).format('YYYY-MM-DD')
+        break;
+    
+      default:
+        value.defaultValue = td[th.name]
+        value.placeholder = th.name.charAt(0).toUpperCase() + th.name.slice(1).replace('_', ' ')
+        break;
     }
+
+    value.type = th.type
     value['data-id'] = td.id
-    value.name = th
+    value.name = th.name
 
     return value
   }

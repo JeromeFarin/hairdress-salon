@@ -1,5 +1,7 @@
 import { observable, runInAction } from 'mobx'
-class TaxeStore {
+import LoadStore from './LoadStore'
+
+class TaxeStore extends LoadStore {
   @observable taxes = []
 
   loadTaxes () {
@@ -13,6 +15,11 @@ class TaxeStore {
         .then((response) => response.json())
         .then((data) => {
           this.taxes = JSON.parse(data)
+          this.loadValues(this.taxes, [
+            {name: 'value', type: 'text'},
+            {name: 'start', type: 'date'},
+            {name: 'end', type: 'date'}
+          ])
         })
         .catch((error) => {
           console.error(error.message)

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import moment from 'moment'
 
-@inject('editStore', 'validationStore')
+@inject('editStore', 'validationStore', 'prestationStore', 'statuStore', 'taxeStore')
 @observer
 class Table extends Component {
   handleClick = () => {
@@ -54,14 +54,14 @@ class Table extends Component {
         <table className='table text-center'>
           <thead>
             <tr>
-              {this.props.ths.map((th) => <th key={th}>{th.charAt(0).toUpperCase() + th.slice(1).replace('_', ' ')}</th>)}
+              {this.props.ths.map((th) => <th key={th.name}>{th.name.charAt(0).toUpperCase() + th.name.slice(1).replace('_', ' ')}</th>)}
             </tr>
           </thead>
           <tbody>
             {this.props.tds.map((td) => (
                 <tr key={td.id} onChange={this.handleChange}>
                   {this.props.ths.map(th => (
-                      <td key={`${td.id}_${th}`}>
+                      <td key={`${td.id}_${th.name}`}>
                         <input {...this.props.editStore.formatValue(td,th)} />
                       </td>
                   ))}

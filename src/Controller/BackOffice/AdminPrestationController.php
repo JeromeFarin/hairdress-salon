@@ -33,9 +33,6 @@ class AdminPrestationController extends AbstractController
     public function prestationUpdate(Request $request)
     {
         dd($request->getContent());
-        // $prestation = $this->prestationRepository->find($id);
-
-        dd($prestation);
 
         return $this->redirectToRoute('admin_prestations');
     }
@@ -46,9 +43,5 @@ class AdminPrestationController extends AbstractController
     public function prestationNew(Request $request)
     {
         dd($request->getContent());
-
-        dd($prestation);
-
-        return $this->redirectToRoute('admin_prestations');
     }
 }
