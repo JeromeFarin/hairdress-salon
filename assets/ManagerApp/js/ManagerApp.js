@@ -10,6 +10,7 @@ import Table from './components/Table'
 import UserStore from './stores/UserStore'
 import EditRolesModal from './components/Modal/EditRolesModal'
 import ModalStore from './stores/ModalStore'
+import Filter from './components/Filter'
 
 @inject('prestationStore', 'statuStore', 'taxeStore', 'userStore')
 @observer
@@ -36,25 +37,18 @@ class ManagerApp extends Component {
         break;
 
       case 'users':
-          this.props.userStore.loadUsers()
-          this.setState({store : this.props.userStore})
-          break;
+        this.props.userStore.loadUsers()
+        this.setState({store : this.props.userStore})
+        break;
     }
   }
 
   render () {
-    let ths = []
-    let tds = []
-    
-    if (this.state.store.ths != null) {
-      ths = this.state.store.ths
-      tds = this.state.store.tds
-    }
-
     return (
       <div>
         <EditRolesModal/>
-        <Table ths={ths} tds={tds}/>
+        <Filter store={this.state.store}/>
+        <Table ths={this.state.store.ths != null ? this.state.store.ths : []} tds={this.state.store.tds != null ? this.state.store.tds : []}/>
       </div>
     )
   }

@@ -5,6 +5,8 @@ class LoadStore {
 
   @observable tds = []
 
+  @observable tds_loaded = []
+
   loadValues(values, options) {
     runInAction(() => {
       let ths = {}
@@ -22,6 +24,7 @@ class LoadStore {
           }
       })
       
+      this.tds_loaded = values
       this.tds = values
     })
   }
