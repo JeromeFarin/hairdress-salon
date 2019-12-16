@@ -1,42 +1,65 @@
 import { observable, runInAction } from 'mobx'
 import moment from 'moment'
+import modalStore from './ModalStore'
+import UserStore from './UserStore'
 
 class EditStore {
   @observable values = {}
 
+  handleChangeRoles (e) {
+    UserStore.user = e.target.dataset.id
+    modalStore.toggleEditRolesModal()
+  }
+
   formatValue (td,th) {
     let value = {}
-
-    switch (th.name) {
-      case 'active':
-        value.defaultChecked = td[th.name] ? true : false
-        value.defaultValue = td[th.name]
-        break;
-        
-      case 'make_time':
-        value.defaultValue = moment(td[th.name]).format('HH:mm:ss')
-        value.placeholder = 'HH:MM:SS'
-        break;
-
-      case 'price_ht':
-        value.defaultValue = td[th.name]
-        value.placeholder = th.name.charAt(0).toUpperCase() + th.name.slice(1).replace('_', ' ')
-        break;
-
-      case 'start':
-      case 'end':
-        value.defaultValue = moment(td[th.name]).format('YYYY-MM-DD')
-        break;
-    
-      default:
-        value.defaultValue = td[th.name]
-        value.placeholder = th.name.charAt(0).toUpperCase() + th.name.slice(1).replace('_', ' ')
-        break;
-    }
 
     value.type = th.type
     value['data-id'] = td.id
     value.name = th.name
+    value.defaultValue = td[th.name]
+    value.placeholder = th.name.charAt(0).toUpperCase() + th.name.slice(1).replace('_', ' ')
+
+    // specific value
+    switch (th.name) {
+      case 'active':
+        value.defaultChecked = td[th.name] ? true : false
+        break;
+        
+      case 'make_time':
+        if (td[th.name] == null) {
+          value.defaultValue = '00:00:00'
+        } else {
+          value.defaultValue = moment(td[th.name]).format('HH:mm:ss')
+        }
+        value.placeholder = 'HH:MM:SS'
+        break;
+
+      case 'start':
+      case 'end':
+      case 'hire_date':
+        if (td[th.name] == null) {
+          value.defaultValue = ''
+        } else {
+          value.defaultValue = moment(td[th.name]).format('YYYY-MM-DD')
+        }
+        break;
+        
+      case 'color':
+        if (td[th.name] == null) {
+          value.defaultValue = '#000'
+        }
+        break;
+
+      case 'roles':
+        value.onClick = this.handleChangeRoles
+        break;
+
+      case 'first_name':
+      case 'last_name':
+        value.disabled = true
+        break;
+    }
 
     return value
   }

@@ -10,7 +10,6 @@ class Table extends Component {
     if (Object.keys(this.props.validationStore.errors).length == 0 && Object.keys(this.props.editStore.values).length > 0) {
       this.props.editStore.saveValues()
     }
-    
   }
 
   handleChange = (e) => {
@@ -69,7 +68,7 @@ class Table extends Component {
             ))}
           </tbody>
         </table>
-        <i className='fa fa-plus-circle' onClick={this.handleRow} aria-hidden="true"></i><br/>
+        <i className='fa fa-plus-circle' onClick={this.handleRow} style={{ display : this.props.ths.find(th => th.name == 'roles') == null ? 'block' : 'none' }} aria-hidden="true"></i><br/>
         <button className="btn btn-primary" disabled={Object.keys(this.props.validationStore.errors).length == 0 && Object.keys(this.props.editStore.values).length > 0 ? false : true } onClick={this.handleClick}>Save ALL change</button>
       </div>
     )

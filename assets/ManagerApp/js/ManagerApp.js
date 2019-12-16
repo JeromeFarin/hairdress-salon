@@ -7,8 +7,11 @@ import ValidationStore from './stores/ValidationStore'
 import StatuStore from './stores/StatuStore'
 import TaxeStore from './stores/TaxeStore'
 import Table from './components/Table'
+import UserStore from './stores/UserStore'
+import EditRolesModal from './components/Modal/EditRolesModal'
+import ModalStore from './stores/ModalStore'
 
-@inject('prestationStore', 'statuStore', 'taxeStore')
+@inject('prestationStore', 'statuStore', 'taxeStore', 'userStore')
 @observer
 class ManagerApp extends Component {
   state = {
@@ -31,6 +34,11 @@ class ManagerApp extends Component {
         this.props.taxeStore.loadTaxes()
         this.setState({store : this.props.taxeStore})
         break;
+
+      case 'users':
+          this.props.userStore.loadUsers()
+          this.setState({store : this.props.userStore})
+          break;
     }
   }
 
@@ -44,7 +52,10 @@ class ManagerApp extends Component {
     }
 
     return (
-      <Table ths={ths} tds={tds}/>
+      <div>
+        <EditRolesModal/>
+        <Table ths={ths} tds={tds}/>
+      </div>
     )
   }
 }
@@ -57,6 +68,8 @@ if (document.getElementById('manager_app_react') !== null) {
       validationStore={ValidationStore}
       statuStore={StatuStore}
       taxeStore={TaxeStore}
+      userStore={UserStore}
+      modalStore={ModalStore}
     >
       <ManagerApp type={document.getElementById('manager_app_react').dataset.type} />
     </Provider>,

@@ -7,8 +7,16 @@ class LoadStore {
 
   loadValues(values, options) {
     runInAction(() => {
+      let ths = {}
+
+      values.map(value => {
+        if (ths.length < Object.keys(value).length || ths.length == null) {
+          ths = Object.keys(value)
+        }
+      })
+
       options.map(option => {
-        const check = Object.keys(values[0]).find(value => value === option.name)
+        const check = ths.find(value => value === option.name)
           if (check != null) {
             this.ths.push(option)
           }

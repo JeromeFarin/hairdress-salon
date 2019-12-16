@@ -50,7 +50,7 @@ class UserFixtures extends AppFixtures
                  ->setPhone($this->faker->phoneNumber)
                  ->setBirthday($this->faker->dateTime())
                  ->setHireDate($this->faker->dateTime())
-                 ->setColor($this->faker->rgbcolor)
+                 ->setColor($this->faker->hexcolor())
             ;
 
             $manager->persist($user);

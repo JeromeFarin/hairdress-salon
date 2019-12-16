@@ -9,7 +9,7 @@ class ValidationStore {
       const value = e.target.value
       const id = e.target.dataset.id
       
-      if (value == '') {
+      if (value == '' && name != 'hire_date') {
         $(e.target).attr({
           style: 'border: 1px solid #f00 !important',
           title: 'Required'

@@ -15,9 +15,9 @@ class StaffList extends Component {
 
   handleColor (staff) {
     if (staff.selected) {
-      return { backgroundColor: `rgba(${staff.color},1)` }
+      return { backgroundColor: staff.color, opacity: 1 }
     }
-    return { backgroundColor: `rgba(${staff.color},0.4)` }
+    return { backgroundColor: staff.color, opacity: 0.4 }
   }
 
   render () {

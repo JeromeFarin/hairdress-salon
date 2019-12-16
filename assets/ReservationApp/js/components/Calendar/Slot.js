@@ -27,7 +27,7 @@ class Slot extends Component {
           data-slot-id={this.props.id}
           className='slot available'
           style={{
-            backgroundColor: `rgb(${this.props.staff.color})`,
+            backgroundColor: this.props.staff.color,
             height: `${this.props.size}%`
           }}
           onClick={this.handleClick}
