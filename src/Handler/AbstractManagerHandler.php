@@ -5,8 +5,13 @@ abstract class AbstractManagerHandler
 {
     public function process($data)
     {
-        foreach ($data as $key => $value) {
-            $entity = $this->repository->find($key);
+        foreach ($data->value as $key => $value) {
+            if ($key === 'new') {
+                $entity = '\App\Entity\\'.$data->type;
+                $entity = new $entity;
+            } else {
+                $entity = $this->repository->find($key);
+            }
             foreach ($value as $key => $value) {
                 $method = 'set'.str_replace('_','',$key);
                 if (in_array($key, ['make_time','start','end','hire_date'])) {

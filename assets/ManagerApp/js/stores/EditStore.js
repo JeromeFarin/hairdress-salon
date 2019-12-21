@@ -14,6 +14,10 @@ class EditStore {
   formatValue (td,th) {
     let value = {}
 
+    if (td.id === 'new') {
+      value.style = {border: '1px solid #f00'}
+    }
+
     value.type = th.type
     value['data-id'] = td.id
     value.name = th.name

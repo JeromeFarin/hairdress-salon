@@ -26,10 +26,14 @@ class Table extends Component {
       let new_row = {}
       Object.assign(new_row, {id: 'new'})
       this.props.ths.map((th) => {
-        if (th == 'make_time') {
-          Object.assign(new_row, {[th]: moment().hour(0).minute(0).second(0)})
+        if (th.name == 'make_time') {
+          Object.assign(new_row, {[th.name]: moment().hour(0).minute(0).second(0)})
         } else {
-          Object.assign(new_row, {[th]: ''})
+          Object.assign(new_row, {[th.name]: ''})
+        }
+        // exclude field required
+        if (!['active'].includes(th.name)) {
+          this.props.validationStore.addError(`new_${th.name}`, 'Required')
         }
       })
       this.props.tds.push(new_row)

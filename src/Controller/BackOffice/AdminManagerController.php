@@ -21,19 +21,19 @@ class AdminManagerController extends AbstractController
 
         switch ($data->type) {
             case 'prestation':
-                $prestationHandler->process($data->value);
+                $prestationHandler->process($data);
                 break;
             
             case 'taxe':
-                $taxeHandler->process($data->value);
+                $taxeHandler->process($data);
                 break;
                 
             case 'status':
-                $statusHandler->process($data->value);
+                $statusHandler->process($data);
                 break;
                 
             case 'user':
-                $userHandler->process($data->value);
+                $userHandler->process($data);
                 break;
         }
         
