@@ -14,4 +14,14 @@ class UserHandler extends AbstractManagerHandler
         $this->manager = $manager;
         $this->repository = $repository;
     }
+
+    public function updateRoles($data)
+    {
+        $user = $this->repository->find($data->id);
+
+        $user->setRoles($data->value);
+        
+        $this->manager->persist($user);
+        $this->manager->flush();
+    }
 }

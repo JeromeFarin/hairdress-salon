@@ -39,4 +39,16 @@ class AdminManagerController extends AbstractController
         
         return $this->json(true, 200);
     }
+
+    /**
+     * @Route("/admin/api/user/roles", name="admin_user_roles")
+     */
+    public function userRoles(Request $request, UserHandler $userHandler)
+    {
+        $data = json_decode($request->getContent());
+
+        $userHandler->updateRoles($data);
+        
+        return $this->json(true, 200);
+    }
 }

@@ -28,8 +28,27 @@ class EditRolesModal extends Component {
 
   handleConfirm = (e) => {
     e.preventDefault()
-    console.log(this.state.selected, e.target.dataset.id)
-    this.props.modalStore.toggleEditRolesModal()
+    window.fetch('/admin/api/user/roles', {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        id: e.target.dataset.id,
+        value: this.state.selected
+      })
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (JSON.parse(data) == true) {
+          this.props.modalStore.toggleEditRolesModal()
+          location.reload()
+        }
+      })
+      .catch((error) => {
+        console.error(error.message)
+      })
   }
 
   render () {
@@ -52,7 +71,7 @@ class EditRolesModal extends Component {
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant='primary' type='submit' form='edit_roles_form'>Confirm</Button>
+          <Button variant='primary' type='submit' disabled={this.state.selected.length > 0 ? false : true} form='edit_roles_form'>Confirm</Button>
           <Button variant='secondary' onClick={this.handleClick}>Cancel</Button>
         </Modal.Footer>
       </Modal>
