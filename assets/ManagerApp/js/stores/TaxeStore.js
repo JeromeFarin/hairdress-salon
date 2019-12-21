@@ -4,7 +4,7 @@ import LoadStore from './LoadStore'
 class TaxeStore extends LoadStore {
   @observable taxes = []
 
-  loadTaxes () {
+  load () {
     runInAction(() => {
       window.fetch('/api/taxes', {
         headers: {

@@ -4,7 +4,7 @@ import LoadStore from './LoadStore'
 class PrestationStore extends LoadStore {
   @observable prestations = []
 
-  loadPrestations () {
+  load () {
     runInAction(() => {
       window.fetch('/api/prestations', {
         headers: {

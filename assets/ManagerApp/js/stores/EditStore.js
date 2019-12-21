@@ -1,13 +1,13 @@
 import { observable, runInAction } from 'mobx'
 import moment from 'moment'
 import modalStore from './ModalStore'
-import UserStore from './UserStore'
+import userStore from './UserStore'
 
 class EditStore {
   @observable values = {}
 
   handleChangeRoles (e) {
-    UserStore.user = e.target.dataset.id
+    userStore.user = e.target.dataset.id
     modalStore.toggleEditRolesModal()
   }
 
@@ -99,22 +99,25 @@ class EditStore {
     })
   }
 
-  saveValues () {
+  saveValues (type) {
     runInAction(() => {
-      console.log(JSON.stringify(this.values))
-      // window.fetch('/api/prestations', {
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     Accept: 'application/json'
-      //   }
-      // })
-      //   .then((response) => response.json())
-      //   .then((data) => {
-      //     this.prestations = JSON.parse(data)
-      //   })
-      //   .catch((error) => {
-      //     console.error(error.message)
-      //   })
+      window.fetch('/admin/api/manager', {
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify({type: type, value: this.values})
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (JSON.parse(data) == true) {
+            location.reload()
+          }
+        })
+        .catch((error) => {
+          console.error(error.message)
+        })
     })
   }
 }

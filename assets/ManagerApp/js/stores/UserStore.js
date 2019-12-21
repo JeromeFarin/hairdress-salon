@@ -6,7 +6,7 @@ class UserStore extends LoadStore {
 
   @observable user = 0
 
-  loadUsers () {
+  load () {
     runInAction(() => {
       window.fetch('/api/users', {
         headers: {

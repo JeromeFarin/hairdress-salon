@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import moment from 'moment'
 
-@inject('editStore', 'validationStore', 'prestationStore', 'statuStore', 'taxeStore')
+@inject('editStore', 'validationStore', 'prestationStore', 'statusStore', 'taxeStore')
 @observer
 class Table extends Component {
-  handleClick = () => {
+  handleSave = () => {
     $(':focus').blur()
     if (Object.keys(this.props.validationStore.errors).length == 0 && Object.keys(this.props.editStore.values).length > 0) {
-      this.props.editStore.saveValues()
+      this.props.editStore.saveValues(this.props.type)
     }
   }
 
@@ -49,7 +49,7 @@ class Table extends Component {
   render () {
     return (
       <div>
-        <button className="btn btn-primary" onClick={this.handleClick} disabled={Object.keys(this.props.validationStore.errors).length == 0 && Object.keys(this.props.editStore.values).length > 0 ? false : true }>Save ALL change</button>
+        <button className="btn btn-primary" onClick={this.handleSave} disabled={Object.keys(this.props.validationStore.errors).length == 0 && Object.keys(this.props.editStore.values).length > 0 ? false : true }>Save ALL change</button>
         <table className='table text-center'>
           <thead>
             <tr>
@@ -69,7 +69,7 @@ class Table extends Component {
           </tbody>
         </table>
         <i className='fa fa-plus-circle' onClick={this.handleRow} style={{ display : this.props.ths.find(th => th.name == 'roles') == null ? 'block' : 'none' }} aria-hidden="true"></i><br/>
-        <button className="btn btn-primary" disabled={Object.keys(this.props.validationStore.errors).length == 0 && Object.keys(this.props.editStore.values).length > 0 ? false : true } onClick={this.handleClick}>Save ALL change</button>
+        <button className="btn btn-primary" disabled={Object.keys(this.props.validationStore.errors).length == 0 && Object.keys(this.props.editStore.values).length > 0 ? false : true } onClick={this.handleSave}>Save ALL change</button>
       </div>
     )
   }

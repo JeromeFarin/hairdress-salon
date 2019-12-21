@@ -21,7 +21,7 @@ class ValidationStore {
       }
 
       if (name == 'make_time') {
-        if (!value.match(/([0-9]{2}):([0-9]{2}):([0-9]{2})/)) {
+        if (!value.match(/^([0-9]{2}):([0-9]{2}):([0-9]{2})$/)) {
           $(e.target).attr({
             style: 'border: 1px solid #f00! important',
             title: 'Format HH:MM:SS'

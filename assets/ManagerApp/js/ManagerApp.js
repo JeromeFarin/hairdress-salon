@@ -4,7 +4,7 @@ import { Provider, inject, observer } from 'mobx-react'
 import PrestationStore from './stores/PrestationStore'
 import EditStore from './stores/EditStore'
 import ValidationStore from './stores/ValidationStore'
-import StatuStore from './stores/StatuStore'
+import StatusStore from './stores/StatusStore'
 import TaxeStore from './stores/TaxeStore'
 import Table from './components/Table'
 import UserStore from './stores/UserStore'
@@ -12,7 +12,7 @@ import EditRolesModal from './components/Modal/EditRolesModal'
 import ModalStore from './stores/ModalStore'
 import Filter from './components/Filter'
 
-@inject('prestationStore', 'statuStore', 'taxeStore', 'userStore')
+@inject('prestationStore', 'statusStore', 'taxeStore', 'userStore')
 @observer
 class ManagerApp extends Component {
   state = {
@@ -21,23 +21,23 @@ class ManagerApp extends Component {
 
   componentDidMount() {
     switch (this.props.type) {
-      case 'prestations':
-        this.props.prestationStore.loadPrestations()
+      case 'prestation':
+        this.props.prestationStore.load()
         this.setState({store : this.props.prestationStore})
         break;
 
       case 'status':
-        this.props.statuStore.loadStatus()
-        this.setState({store : this.props.statuStore})
+        this.props.statusStore.load()
+        this.setState({store : this.props.statusStore})
         break;
 
-      case 'taxes':
-        this.props.taxeStore.loadTaxes()
+      case 'taxe':
+        this.props.taxeStore.load()
         this.setState({store : this.props.taxeStore})
         break;
 
-      case 'users':
-        this.props.userStore.loadUsers()
+      case 'user':
+        this.props.userStore.load()
         this.setState({store : this.props.userStore})
         break;
     }
@@ -48,7 +48,7 @@ class ManagerApp extends Component {
       <div>
         <EditRolesModal/>
         <Filter store={this.state.store}/>
-        <Table ths={this.state.store.ths != null ? this.state.store.ths : []} tds={this.state.store.tds != null ? this.state.store.tds : []}/>
+        <Table type={this.props.type} ths={this.state.store.ths != null ? this.state.store.ths : []} tds={this.state.store.tds != null ? this.state.store.tds : []}/>
       </div>
     )
   }
@@ -60,7 +60,7 @@ if (document.getElementById('manager_app_react') !== null) {
       prestationStore={PrestationStore}
       editStore={EditStore}
       validationStore={ValidationStore}
-      statuStore={StatuStore}
+      statusStore={StatusStore}
       taxeStore={TaxeStore}
       userStore={UserStore}
       modalStore={ModalStore}

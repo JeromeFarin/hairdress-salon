@@ -1,10 +1,10 @@
 import { observable, runInAction } from 'mobx'
 import LoadStore from './LoadStore'
 
-class StatuStore extends LoadStore {
+class StatusStore extends LoadStore {
   @observable status = []
 
-  loadStatus () {
+  load () {
     runInAction(() => {
       window.fetch('/api/status', {
         headers: {
@@ -26,4 +26,4 @@ class StatuStore extends LoadStore {
   }
 }
 
-export default new StatuStore()
+export default new StatusStore()

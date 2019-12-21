@@ -9,6 +9,9 @@ class LoadStore {
 
   loadValues(values, options) {
     runInAction(() => {
+      this.ths = []
+      this.tds = []
+
       let ths = {}
 
       values.map(value => {
