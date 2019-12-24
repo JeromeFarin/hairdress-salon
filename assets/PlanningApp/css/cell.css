@@ -1,0 +1,9 @@
+.custom_cell {
+  z-index: 1;
+  cursor: pointer;
+}
+
+.custom_cell:hover {
+  z-index: 2;
+  border: 1px solid red;
+}

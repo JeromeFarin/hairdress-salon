@@ -1,0 +1,11 @@
+.custom_cell {
+  z-index: 1;
+  cursor: pointer;
+}
+
+.custom_cell:hover {
+  z-index: 2;
+  border: 1px solid red;
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vY2VsbC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0VBQ1YsZUFBZTtBQUNqQjs7QUFFQTtFQUNFLFVBQVU7RUFDVixxQkFBcUI7QUFDdkIsQyIsImZpbGUiOiJQbGFubmluZ0FwcC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuY3VzdG9tX2NlbGwge1xuICB6LWluZGV4OiAxO1xuICBjdXJzb3I6IHBvaW50ZXI7XG59XG5cbi5jdXN0b21fY2VsbDpob3ZlciB7XG4gIHotaW5kZXg6IDI7XG4gIGJvcmRlcjogMXB4IHNvbGlkIHJlZDtcbn0iXSwic291cmNlUm9vdCI6IiJ9*/

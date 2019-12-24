@@ -3,7 +3,8 @@
     "ReservationApp": {
       "js": [
         "/js/runtime.js",
-        "/js/vendors~ManagerApp~ReservationApp.js",
+        "/js/vendors~ManagerApp~PlanningApp~ReservationApp.js",
+        "/js/vendors~PlanningApp~ReservationApp.js",
         "/js/vendors~ReservationApp.js",
         "/js/ReservationApp.js"
       ],
@@ -15,9 +16,20 @@
     "ManagerApp": {
       "js": [
         "/js/runtime.js",
-        "/js/vendors~ManagerApp~ReservationApp.js",
+        "/js/vendors~ManagerApp~PlanningApp~ReservationApp.js",
         "/js/vendors~ManagerApp.js",
         "/js/ManagerApp.js"
+      ]
+    },
+    "PlanningApp": {
+      "js": [
+        "/js/runtime.js",
+        "/js/vendors~ManagerApp~PlanningApp~ReservationApp.js",
+        "/js/vendors~PlanningApp~ReservationApp.js",
+        "/js/PlanningApp.js"
+      ],
+      "css": [
+        "/js/PlanningApp.css"
       ]
     }
   }
