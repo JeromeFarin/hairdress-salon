@@ -7,6 +7,7 @@ import Column from "./Table/Column";
 @observer
 class Table extends Component {
   componentDidMount () {
+    this.props.dateStore.loadOpened()
     this.props.unavailabilityStore.loadUnavailabilities()
     this.props.reservationStore.loadReservations()
     this.props.slotStore.loadSlots()

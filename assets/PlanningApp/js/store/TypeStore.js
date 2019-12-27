@@ -2,9 +2,9 @@ import { observable, runInAction } from "mobx"
 
 class TypeStore {
   @observable types = [
-    {id: 1, name: 'available', selected: true},
-    {id: 2, name: 'absent', selected: true},
-    {id: 3, name: 'busy', selected: true},
+    {id: 1, name: 'available', color: '', selected: true},
+    {id: 2, name: 'absent', color: '#808080', selected: true},
+    {id: 3, name: 'busy', color: '#ffa500', selected: true},
   ]
 
   updateType (id) {

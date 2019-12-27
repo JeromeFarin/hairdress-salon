@@ -18,7 +18,6 @@ class PlanningApp extends Component {
     return (
       <div>
         <Modal/>
-        <h1>Planning</h1>
         <Filter/>
         <Table/>
       </div>

@@ -7,7 +7,7 @@ import Reserve from "./Filter/Reserve";
 class Filter extends Component {
   render() {
     return (
-      <div className='d-flex justify-content-around col-12'>
+      <div className='d-flex justify-content-around col-12 align-items-center'>
         <Staff/>
         <Date/>
         <Type/>

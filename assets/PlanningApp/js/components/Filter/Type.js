@@ -16,7 +16,12 @@ class Type extends Component {
             <li
               key={type.id}
               style={{
-                border: type.selected ? '1px solid #000' : 'none'
+                backgroundColor: type.color,
+                opacity: type.selected ? 1 : 0.4,
+                margin: '3px',
+                textAlign: 'center',
+                borderRadius: '5px',
+                boxShadow: '0 0 5px #5e3718'
               }}
               onClick={this.handleClick}
               data-id={type.id}

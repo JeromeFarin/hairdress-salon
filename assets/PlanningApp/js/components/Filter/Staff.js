@@ -22,7 +22,11 @@ class Staff extends Component {
                 key={staff.id}
                 style={{
                   backgroundColor: staff.color,
-                  opacity: staff.selected ? 1 : 0.4
+                  opacity: staff.selected ? 1 : 0.4,
+                  borderRadius: '5px',
+                  margin: '3px',
+                  textAlign: 'center',
+                  boxShadow: '0 0 5px #5e3718'
                 }}
                 onClick={this.handleClick}
                 data-id={staff.id}

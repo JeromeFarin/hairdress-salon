@@ -1,9 +1,15 @@
+.cell_container{
+  height: 400px;
+  margin-bottom: 100px;
+}
+
 .custom_cell {
-  z-index: 1;
   cursor: pointer;
+  z-index: 1;
+  box-shadow: 0 0 5px #5e3718;
 }
 
 .custom_cell:hover {
   z-index: 2;
-  border: 1px solid red;
+  box-shadow: 0 0 10px #5e3718;
 }
