@@ -21,7 +21,8 @@ class Type extends Component {
                 margin: '3px',
                 textAlign: 'center',
                 borderRadius: '5px',
-                boxShadow: '0 0 5px #5e3718'
+                boxShadow: '0 0 5px #5e3718',
+                cursor: 'pointer'
               }}
               onClick={this.handleClick}
               data-id={type.id}

@@ -22,7 +22,8 @@ class Staff extends Component {
                   borderRadius: '5px',
                   margin: '3px',
                   textAlign: 'center',
-                  boxShadow: '0 0 5px #5e3718'
+                  boxShadow: '0 0 5px #5e3718',
+                  cursor: 'pointer'
                 }}
                 onClick={this.handleClick}
                 data-id={staff.id}

@@ -3,7 +3,7 @@ import moment from 'moment'
 import '../../../css/cell.css'
 import { inject, observer } from 'mobx-react'
 
-@inject('typeStore','slotStore','modalStore')
+@inject('typeStore','slotStore','modalStore','reserveStore')
 @observer
 class Cell extends Component {
   handleClick = e => {
@@ -28,7 +28,7 @@ class Cell extends Component {
 
       // busy - reservation
       case 3:
-        this.props.modalStore.modal_content = (<p>{value.staff.first_name} is busy with ... from {moment(value.start).format('HH:mm')} to {moment(value.end).format('HH:mm')}</p>)
+        this.props.modalStore.modal_content = (<p>{value.staff.first_name} is busy from {moment(value.start).format('HH:mm')} to {moment(value.end).format('HH:mm')}</p>)
         break;
     }
     this.props.modalStore.toggleDetailModal()
@@ -46,6 +46,15 @@ class Cell extends Component {
         className='cell'
       >
         {this.props.values.map(value => {
+          let isVisible = true
+          if (!this.props.typeStore.types.filter(type => type.selected).find(type => type.id == value.type)) {
+            isVisible = false
+          }
+          
+          if ((moment(value.end).unix() - moment(value.start).unix()) < this.props.reserveStore.time) {
+            isVisible = false
+          }
+          
           return (
             <div
               key={`${value.type}_${value.start}`}
@@ -54,7 +63,7 @@ class Cell extends Component {
                 backgroundColor: value.type == 2 ? 'grey' : value.type == 3 ? 'orange' : value.staff.color,
                 borderRadius: '10px',
                 border: `3px solid ${value.staff.color}`,
-                visibility: this.props.typeStore.types.filter(type => type.selected).find(type => type.id == value.type) ? '' : 'hidden',
+                visibility: isVisible ? 'visible' : 'hidden',
                 position: 'relative'
               }}
               className='d-flex flex-column justify-content-between custom_cell'

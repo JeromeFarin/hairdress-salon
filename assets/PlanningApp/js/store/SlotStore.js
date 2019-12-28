@@ -88,7 +88,7 @@ class SlotStore {
           }
 
           // if no reservations set staff available for all at day
-          if (reservationStore.reservations.length > 0) {
+          if (reservationStore.reservations.length > 0 && dateTimeStart < dateTimeEnd) {
             // start reservations loop for staff
             reservationStore.reservations.filter((reservation) => reservation.staff === staff.id).map((reservation) => {
               // check if reservation start < end && gStart = gEnd
