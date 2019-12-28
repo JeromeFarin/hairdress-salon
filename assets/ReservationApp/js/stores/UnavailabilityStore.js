@@ -1,6 +1,6 @@
 import { observable, autorun, runInAction } from 'mobx'
 import moment from 'moment'
-import dateStore from './DateStore'
+import dateStore from '../../../store/DateStore'
 import errorStore from './ErrorStore'
 
 class UnavailabilityStore {

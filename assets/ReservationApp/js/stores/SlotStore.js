@@ -1,6 +1,6 @@
 import { observable, autorun, observe } from 'mobx'
 import moment from 'moment'
-import dateStore from './DateStore'
+import dateStore from '../../../store/DateStore'
 import staffStore from './StaffStore'
 import unavailabilityStore from './UnavailabilityStore'
 

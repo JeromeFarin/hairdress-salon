@@ -1,5 +1,5 @@
 import { observable, observe } from 'mobx'
-import dateStore from './DateStore'
+import dateStore from '../../../store/DateStore'
 import unavailabilityStore from './UnavailabilityStore'
 
 class ReservationStore {

@@ -7,11 +7,11 @@ import { faCaretSquareLeft, faCaretSquareRight } from '@fortawesome/free-solid-s
 @observer
 class Date extends Component {
   handleAfter = e => {
-    this.props.dateStore.add()
+    this.props.dateStore.addWeek()
   }
 
   handleBefore = e => {
-    this.props.dateStore.remove()
+    this.props.dateStore.removeWeek()
   }
 
   handleMonth = e => {

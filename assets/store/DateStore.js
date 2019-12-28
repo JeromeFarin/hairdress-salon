@@ -23,20 +23,19 @@ class DateStore {
           })
           .catch((error) => {
             console.error(`loadOpened : ${error.message}`)
-            errorStore.updateErrors()
           })
       })
     }
 
     addWeek () {
       runInAction(() => {
-        this.date = moment().week(this.date.week() + 1)
+        this.date = moment(this.date).add(7,'d')
       })
     }
 
     removeWeek () {
       runInAction(() => {
-        this.date = moment().week(this.date.week() - 1)
+        this.date = moment(this.date).subtract(7,'d')
       })
     }
 
