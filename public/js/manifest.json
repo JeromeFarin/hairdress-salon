@@ -10,5 +10,6 @@
   "js/vendors~PlanningApp~ReservationApp.js": "/js/vendors~PlanningApp~ReservationApp.js",
   "js/vendors~ReservationApp.css": "/js/vendors~ReservationApp.css",
   "js/vendors~ReservationApp.js": "/js/vendors~ReservationApp.js",
-  "js/vendors~ManagerApp~ReservationApp.js": "/js/vendors~ManagerApp~ReservationApp.js"
+  "js/ManagerApp~ReservationApp.js": "/js/ManagerApp~ReservationApp.js",
+  "js/ManagerApp~PlanningApp~ReservationApp.js": "/js/ManagerApp~PlanningApp~ReservationApp.js"
 }

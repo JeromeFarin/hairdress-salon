@@ -9,7 +9,7 @@ import TaxeStore from './stores/TaxeStore'
 import Table from './components/Table'
 import UserStore from './stores/UserStore'
 import EditRolesModal from './components/Modal/EditRolesModal'
-import ModalStore from './stores/ModalStore'
+import ModalStore from '../../store/ModalStore'
 import Filter from './components/Filter'
 
 @inject('prestationStore', 'statusStore', 'taxeStore', 'userStore')

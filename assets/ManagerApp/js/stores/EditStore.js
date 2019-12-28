@@ -1,6 +1,6 @@
 import { observable, runInAction } from 'mobx'
 import moment from 'moment'
-import modalStore from './ModalStore'
+import modalStore from '../../../store/ModalStore'
 import userStore from './UserStore'
 
 class EditStore {

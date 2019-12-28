@@ -6,6 +6,7 @@
         "/js/vendors~ManagerApp~PlanningApp~ReservationApp.js",
         "/js/vendors~PlanningApp~ReservationApp.js",
         "/js/vendors~ReservationApp.js",
+        "/js/ManagerApp~PlanningApp~ReservationApp.js",
         "/js/ReservationApp.js"
       ],
       "css": [
@@ -18,6 +19,7 @@
         "/js/runtime.js",
         "/js/vendors~ManagerApp~PlanningApp~ReservationApp.js",
         "/js/vendors~ManagerApp.js",
+        "/js/ManagerApp~PlanningApp~ReservationApp.js",
         "/js/ManagerApp.js"
       ]
     },
@@ -26,6 +28,7 @@
         "/js/runtime.js",
         "/js/vendors~ManagerApp~PlanningApp~ReservationApp.js",
         "/js/vendors~PlanningApp~ReservationApp.js",
+        "/js/ManagerApp~PlanningApp~ReservationApp.js",
         "/js/PlanningApp.js"
       ],
       "css": [
