@@ -6,13 +6,6 @@ import Column from "./Table/Column";
 @inject('dateStore','slotStore','unavailabilityStore','reservationStore')
 @observer
 class Table extends Component {
-  componentDidMount () {
-    this.props.dateStore.loadOpened()
-    this.props.unavailabilityStore.loadUnavailabilities()
-    this.props.reservationStore.loadReservations()
-    this.props.slotStore.loadSlots()
-  }
-  
   render () {
     const columns = []
     for (let i = 1; i < 7; i++) {

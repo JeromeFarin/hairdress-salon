@@ -7,6 +7,7 @@ import { inject, observer } from 'mobx-react'
 class Column extends Component {
   render () {
     const value = this.props.slotStore.slots.filter(slot => slot.day === this.props.date.day())
+    
     return (
       <div className='text-center col-2'>
         <p style={{ fontWeight: 'bold' }}>{this.props.date.format('dd. Do MMM. YYYY')}</p>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import { Provider } from 'mobx-react'
+import { Provider, inject, observer } from 'mobx-react'
 import Filter from './components/Filter'
 import StaffStore from './store/StaffStore'
 import DateStore from './store/DateStore'
@@ -13,7 +13,17 @@ import SlotStore from './store/SlotStore'
 import UnavailabilityStore from './store/UnavailabilityStore'
 import ReservationStore from './store/ReservationStore'
 
+@inject('staffStore','dateStore','slotStore','unavailabilityStore','reservationStore')
+@observer
 class PlanningApp extends Component {
+  componentDidMount () {
+    this.props.staffStore.load()
+    this.props.dateStore.loadOpened()
+    this.props.unavailabilityStore.loadUnavailabilities()
+    this.props.reservationStore.loadReservations()
+    this.props.slotStore.loadSlots()
+  }
+
   render() {
     return (
       <div>

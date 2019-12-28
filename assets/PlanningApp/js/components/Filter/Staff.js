@@ -4,10 +4,6 @@ import { inject, observer } from 'mobx-react'
 @inject('staffStore')
 @observer
 class Staff extends Component {
-  componentDidMount () {
-    this.props.staffStore.load()
-  }
-
   handleClick = e => {
     this.props.staffStore.toggleSelected(e.target.dataset.id)
   }

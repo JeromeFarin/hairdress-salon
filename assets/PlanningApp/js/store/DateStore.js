@@ -1,4 +1,4 @@
-import { observable, runInAction, autorun } from 'mobx'
+import { observable, runInAction } from 'mobx'
 import moment from 'moment'
 
 class DateStore {
@@ -10,7 +10,7 @@ class DateStore {
   }
 
   loadOpened () {
-    autorun (() => {
+    runInAction (() => {
       window.fetch('/api/opened', {
         headers: {
           'Content-Type': 'application/json',

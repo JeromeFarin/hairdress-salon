@@ -1,11 +1,11 @@
-import { observable, autorun } from 'mobx'
+import { observable, observe } from 'mobx'
 import dateStore from './DateStore'
 
 class UnavailabilityStore {
   @observable unavailabilities = []
 
   loadUnavailabilities () {
-    autorun(() => {
+    observe(dateStore, () => {
       window.fetch('/api/unavailabilities', {
         method: 'POST',
         body: JSON.stringify({

@@ -3,7 +3,7 @@ import moment from 'moment'
 import '../../../css/cell.css'
 import { inject, observer } from 'mobx-react'
 
-@inject('typeStore','slotStore')
+@inject('typeStore','slotStore','modalStore')
 @observer
 class Cell extends Component {
   handleClick = e => {
@@ -16,18 +16,22 @@ class Cell extends Component {
 
     const value = this.props.slotStore.slots.find(slot => parseInt(slot.id) === parseInt(id))
     switch (parseInt(value.type)) {
+      // available
       case 1:
-        console.log('libre')
+        this.props.modalStore.modal_content = (<p>{value.staff.first_name} is available from {moment(value.start).format('HH:mm')} to {moment(value.end).format('HH:mm')}</p>)
         break;
 
+      // absent
       case 2:
-        console.log('absent')
+        this.props.modalStore.modal_content = (<p>{value.staff.first_name} is absent from {moment(value.start).format('HH:mm')} to {moment(value.end).format('HH:mm')}</p>)
         break;
 
+      // busy - reservation
       case 3:
-        console.log('reservation')
+        this.props.modalStore.modal_content = (<p>{value.staff.first_name} is busy with ... from {moment(value.start).format('HH:mm')} to {moment(value.end).format('HH:mm')}</p>)
         break;
     }
+    this.props.modalStore.toggleDetailModal()
   }
 
   render () {
