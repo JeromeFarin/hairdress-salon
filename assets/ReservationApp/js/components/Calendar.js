@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
-import Day from './Calendar/Day'
+import Column from './Calendar/Column'
+import moment from 'moment'
 
 @inject('unavailabilityStore', 'slotStore', 'dateStore', 'userStore', 'placeStore', 'modalStore')
 @observer
@@ -19,30 +20,18 @@ class Calendar extends Component {
   }
 
   render () {
-    const { date } = this.props.dateStore
-    const ths = []
-    const tds = []
+    const columns = []
 
     for (let d = 1; d < 7; d += 1) {
-      const day = date.day(d).startOf('day')
-      ths.push(day.format('dddd Do'))
-      tds.push(<Day key={Math.random()} day={d} />)
+      moment(this.props.dateStore.date).day(d)
+      columns.push(moment(this.props.dateStore.date).day(d))
     }
 
     return (
-      <div>
-        <table className='table'>
-          <thead>
-            <tr>
-              {ths.map((th) => <th key={Math.random()}>{th}</th>)}
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              {tds.map((td) => <td key={Math.random()}>{td}</td>)}
-            </tr>
-          </tbody>
-        </table>
+      <div className='col-12 d-flex'>
+        {columns.map((column,i) => {
+          return <Column key={i} date={column} />
+        })}
       </div>
     )
   }
