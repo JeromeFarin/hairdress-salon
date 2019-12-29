@@ -21,6 +21,8 @@
 /coverage/
 public/img/avatar/*
 !public/img/avatar/default.png
+public/js/*
+!public/js/static
 
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
