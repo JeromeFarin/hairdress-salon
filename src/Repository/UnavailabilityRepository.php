@@ -23,7 +23,7 @@ class UnavailabilityRepository extends ServiceEntityRepository
     public function findAllBetweenDate($start, $end)
     {
         return $this->_em->createQueryBuilder()
-            ->select('u.id, s.id as staff, u.start, u.end')
+            ->select('u.id, s.id as staff, u.start, u.end, \'unavailability\' as type')
             ->from(Unavailability::class,'u')
             ->join(User::class,'s','WITH', 's.id = u.staff')
             ->andWhere('u.start >= :start')

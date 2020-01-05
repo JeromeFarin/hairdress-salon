@@ -38,7 +38,6 @@ class SlotStore {
   loadSlots () {
     observe(unavailabilityStore, () => {
       this.slots = []
-      
       for (let d = 1; d < 7; d += 1) {
         const day = dateStore.date.day(d).format('YYYY-MM-DD')
         staffStore.staffSelected().map((staff) => {

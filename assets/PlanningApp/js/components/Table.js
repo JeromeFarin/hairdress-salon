@@ -3,7 +3,7 @@ import { inject, observer } from "mobx-react";
 import moment from "moment";
 import Column from "./Table/Column";
 
-@inject('dateStore','slotStore','unavailabilityStore','reservationStore')
+@inject('dateStore')
 @observer
 class Table extends Component {
   render () {

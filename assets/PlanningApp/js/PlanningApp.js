@@ -11,17 +11,15 @@ import ReserveStore from './store/ReserveStore'
 import Table from './components/Table'
 import SlotStore from './store/SlotStore'
 import UnavailabilityStore from './store/UnavailabilityStore'
-import ReservationStore from './store/ReservationStore'
 import PlaceStore from './store/PlaceStore'
 
-@inject('staffStore','dateStore','slotStore','unavailabilityStore','reservationStore')
+@inject('staffStore','dateStore','slotStore','unavailabilityStore')
 @observer
 class PlanningApp extends Component {
   componentDidMount () {
     this.props.staffStore.load()
     this.props.dateStore.loadOpened()
-    this.props.unavailabilityStore.loadUnavailabilities()
-    this.props.reservationStore.loadReservations()
+    this.props.unavailabilityStore.load()
     this.props.slotStore.loadSlots()
   }
 
@@ -48,7 +46,6 @@ if (container !== null) {
       slotStore={SlotStore}
       modalStore={ModalStore}
       unavailabilityStore={UnavailabilityStore}
-      reservationStore={ReservationStore}
       placeStore={PlaceStore}
     >
       <PlanningApp />

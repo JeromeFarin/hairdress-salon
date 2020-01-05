@@ -3,7 +3,7 @@ import { Modal, Button } from 'react-bootstrap'
 import { inject, observer } from 'mobx-react'
 import moment from 'moment'
 
-@inject('modalStore', 'placeStore', 'reservationStore', )
+@inject('modalStore', 'placeStore')
 @observer
 class ConfirmModal extends Component {
   handleClick = () => {

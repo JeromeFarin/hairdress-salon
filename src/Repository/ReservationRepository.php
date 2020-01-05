@@ -23,7 +23,7 @@ class ReservationRepository extends ServiceEntityRepository
     public function findAllBetweenDate($start, $end)
     {
         return $this->_em->createQueryBuilder()
-            ->select('r.id, s.id as staff, r.start, r.end')
+            ->select('r.id, s.id as staff, r.start, r.end, \'reservation\' as type')
             ->from(Reservation::class,'r')
             ->join(User::class,'s','WITH', 's.id = r.staff')
             ->andWhere('r.start >= :start')

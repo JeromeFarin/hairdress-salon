@@ -3,7 +3,6 @@ import moment from 'moment'
 import dateStore from '../../../store/DateStore'
 import staffStore from './StaffStore'
 import unavailabilityStore from './UnavailabilityStore'
-import reservationStore from './ReservationStore'
 
 class SlotStore {
   @observable slots = []
@@ -38,7 +37,7 @@ class SlotStore {
   }
 
   loadSlots () {
-    observe(reservationStore, () => {
+    observe(unavailabilityStore, () => {
       this.slots = []
       
       for (let d = 1; d < 7; d += 1) {
@@ -56,10 +55,10 @@ class SlotStore {
                 if (moment(unavailability.start).format() <= dateTimeStart && moment(unavailability.end).format() > dateTimeStart) {
                   // unavailability end > gEnd
                   if (moment(unavailability.end).format() >= dateTimeEnd) {
-                    this.addSlot('2', staff, d, dateTimeStart, dateTimeEnd)
+                    this.addSlot(unavailability.type == 'unavailability' ? '2' : '3', staff, d, dateTimeStart, dateTimeEnd)
                     dateTimeStart = dateTimeEnd
                   } else {
-                    this.addSlot('2', staff, d, dateTimeStart, moment(unavailability.end).format())
+                    this.addSlot(unavailability.type == 'unavailability' ? '2' : '3', staff, d, dateTimeStart, moment(unavailability.end).format())
                     dateTimeStart = moment(unavailability.end).format()
                   }
                 // gStart < gEnd && unavailability end > gStart
@@ -75,52 +74,11 @@ class SlotStore {
                   // unavailability end > gEnd
                   if (dateTimeStart < dateTimeEnd) {
                     if (moment(unavailability.end).format() > dateTimeEnd) {
-                      this.addSlot('2', staff, d, moment(unavailability.start).format(), dateTimeEnd)
+                      this.addSlot(unavailability.type == 'unavailability' ? '2' : '3', staff, d, moment(unavailability.start).format(), dateTimeEnd)
                       dateTimeStart = dateTimeEnd
                     } else {
-                      this.addSlot('2', staff, d, moment(unavailability.start).format(), moment(unavailability.end).format())
+                      this.addSlot(unavailability.type == 'unavailability' ? '2' : '3', staff, d, moment(unavailability.start).format(), moment(unavailability.end).format())
                       dateTimeStart = moment(unavailability.end).format()
-                    }
-                  }
-                }
-              }
-            })
-          }
-
-          // if no reservations set staff available for all at day
-          if (reservationStore.reservations.length > 0 && dateTimeStart < dateTimeEnd) {
-            // start reservations loop for staff
-            reservationStore.reservations.filter((reservation) => reservation.staff === staff.id).map((reservation) => {
-              // check if reservation start < end && gStart = gEnd
-              if (moment(reservation.start).format() < moment(reservation.end).format()) {
-                // reservation start <= gStart && reservation end > gStart
-                if (moment(reservation.start).format() <= dateTimeStart && moment(reservation.end).format() > dateTimeStart) {
-                  // reservation end > gEnd
-                  if (moment(reservation.end).format() >= dateTimeEnd) {
-                    this.addSlot('3', staff, d, dateTimeStart, dateTimeEnd)
-                    dateTimeStart = dateTimeEnd
-                  } else {
-                    this.addSlot('3', staff, d, dateTimeStart, moment(reservation.end).format())
-                    dateTimeStart = moment(reservation.end).format()
-                  }
-                // gStart < gEnd && reservation end > gStart
-                } else if (dateTimeStart < dateTimeEnd && moment(reservation.end).format() > dateTimeStart) {
-                  // reservation start > gEnd
-                  if (moment(reservation.start).format() > dateTimeEnd) {
-                    this.addSlot('1', staff, d, dateTimeStart, dateTimeEnd)
-                    dateTimeStart = dateTimeEnd
-                  } else {
-                    this.addSlot('1', staff, d, dateTimeStart, moment(reservation.start).format())
-                    dateTimeStart = moment(reservation.start).format()
-                  }
-                  // reservation end > gEnd
-                  if (dateTimeStart < dateTimeEnd) {
-                    if (moment(reservation.end).format() > dateTimeEnd) {
-                      this.addSlot('3', staff, d, moment(reservation.start).format(), dateTimeEnd)
-                      dateTimeStart = dateTimeEnd
-                    } else {
-                      this.addSlot('3', staff, d, moment(reservation.start).format(), moment(reservation.end).format())
-                      dateTimeStart = moment(reservation.end).format()
                     }
                   }
                 }

@@ -1,11 +1,21 @@
-import { observable, observe } from 'mobx'
+import { observable, autorun, runInAction, observe } from 'mobx'
+import moment from 'moment'
 import dateStore from '../../../store/DateStore'
 
 class UnavailabilityStore {
   @observable unavailabilities = []
 
-  loadUnavailabilities () {
+  noLoaded = []
+
+  load () {
     observe(dateStore, () => {
+      this.loadUnavailabilities()
+      this.loadReservations()
+    })
+  }
+
+  loadUnavailabilities () {
+    runInAction(() => {
       window.fetch('/api/unavailabilities', {
         method: 'POST',
         body: JSON.stringify({
@@ -19,11 +29,43 @@ class UnavailabilityStore {
       })
         .then((response) => response.json())
         .then((data) => {
-          this.unavailabilities = JSON.parse(data)
+          this.orderUnavailabilities(JSON.parse(data))
         })
         .catch((error) => {
           console.error(`loadUnavailabilities : ${error.message}`)
         })
+    })
+  }
+
+  loadReservations () {
+    runInAction(() => {
+      window.fetch('/api/reservations', {
+        method: 'POST',
+        body: JSON.stringify({
+          start: dateStore.date.day(1).startOf('day').format(),
+          end: dateStore.date.day(6).endOf('day').format()
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        }
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          this.orderUnavailabilities(JSON.parse(data))
+        })
+        .catch((error) => {
+          console.error(`loadReservations : ${error.message}`)
+        })
+    })
+  }
+
+  orderUnavailabilities (data) {
+    runInAction(() => {
+      data.map((elt) => {
+        this.noLoaded.push(elt)
+      })
+      this.unavailabilities = this.noLoaded.slice().sort((a, b) => moment(a.start).valueOf() - moment(b.start).valueOf())
     })
   }
 }
