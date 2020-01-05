@@ -1,4 +1,4 @@
-import { observable, autorun, runInAction } from 'mobx'
+import { observable, autorun, runInAction, observe } from 'mobx'
 import moment from 'moment'
 import dateStore from '../../../store/DateStore'
 import errorStore from './ErrorStore'
@@ -9,54 +9,58 @@ class UnavailabilityStore {
   noLoaded = []
 
   load () {
-    autorun(() => {
+    observe(dateStore, () => {
       this.loadUnavailabilities()
       this.loadReservations()
     })
   }
 
   loadUnavailabilities () {
-    window.fetch('/api/unavailabilities', {
-      method: 'POST',
-      body: JSON.stringify({
-        start: dateStore.date.day(1).startOf('day').format(),
-        end: dateStore.date.day(6).endOf('day').format()
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      }
+    runInAction(() => {
+      window.fetch('/api/unavailabilities', {
+        method: 'POST',
+        body: JSON.stringify({
+          start: dateStore.date.day(1).startOf('day').format(),
+          end: dateStore.date.day(6).endOf('day').format()
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        }
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          this.orderUnavailabilities(JSON.parse(data))
+        })
+        .catch((error) => {
+          console.error(`loadUnavailabilities : ${error.message}`)
+          errorStore.updateErrors()
+        })
     })
-      .then((response) => response.json())
-      .then((data) => {
-        this.orderUnavailabilities(JSON.parse(data))
-      })
-      .catch((error) => {
-        console.error(`loadUnavailabilities : ${error.message}`)
-        errorStore.updateErrors()
-      })
   }
 
   loadReservations () {
-    window.fetch('/api/reservations', {
-      method: 'POST',
-      body: JSON.stringify({
-        start: dateStore.date.day(1).startOf('day').format(),
-        end: dateStore.date.day(6).endOf('day').format()
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      }
+    runInAction(() => {
+      window.fetch('/api/reservations', {
+        method: 'POST',
+        body: JSON.stringify({
+          start: dateStore.date.day(1).startOf('day').format(),
+          end: dateStore.date.day(6).endOf('day').format()
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        }
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          this.orderUnavailabilities(JSON.parse(data))
+        })
+        .catch((error) => {
+          console.error(`loadReservations : ${error.message}`)
+          errorStore.updateErrors()
+        })
     })
-      .then((response) => response.json())
-      .then((data) => {
-        this.orderUnavailabilities(JSON.parse(data))
-      })
-      .catch((error) => {
-        console.error(`loadReservations : ${error.message}`)
-        errorStore.updateErrors()
-      })
   }
 
   orderUnavailabilities (data) {

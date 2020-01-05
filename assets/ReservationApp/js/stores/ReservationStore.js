@@ -1,4 +1,4 @@
-import { observable, runInAction } from 'mobx'
+import { runInAction } from 'mobx'
 import errorStore from './ErrorStore'
 import placeStore from './PlaceStore'
 import userStore from './UserStore'
@@ -19,6 +19,7 @@ class ReservationStore {
         request.prestations.push([prestation.id, prestation.price])
       })
       
+      console.log(JSON.stringify(request))
   
       window.fetch('/api/reserve', {
         headers: {

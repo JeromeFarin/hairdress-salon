@@ -13,6 +13,10 @@ class TypeStore {
       type.selected = !type.selected
     })
   }
+
+  getSelected () {
+    return this.types.filter(type => type.selected)
+  }
 }
 
 export default new TypeStore()

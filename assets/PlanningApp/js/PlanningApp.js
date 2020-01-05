@@ -12,6 +12,7 @@ import Table from './components/Table'
 import SlotStore from './store/SlotStore'
 import UnavailabilityStore from './store/UnavailabilityStore'
 import ReservationStore from './store/ReservationStore'
+import PlaceStore from './store/PlaceStore'
 
 @inject('staffStore','dateStore','slotStore','unavailabilityStore','reservationStore')
 @observer
@@ -48,6 +49,7 @@ if (container !== null) {
       modalStore={ModalStore}
       unavailabilityStore={UnavailabilityStore}
       reservationStore={ReservationStore}
+      placeStore={PlaceStore}
     >
       <PlanningApp />
     </Provider>,

@@ -1,5 +1,4 @@
 import { observable, runInAction } from 'mobx'
-import placeStore from '../ReservationApp/js/stores/PlaceStore'
 
 class ModalStore {
   @observable placeModal = false
@@ -24,7 +23,6 @@ class ModalStore {
 
   togglePlaceModal () {
     runInAction(() => {
-      placeStore.loadPlaces()
       this.placeModal = !this.placeModal
     })
   }

@@ -13,6 +13,7 @@ class Cell extends Component {
       } else {
         this.props.placeStore.slotId = e.target.dataset.slotId
       }
+      this.props.placeStore.loadPlaces()
       this.props.modalStore.togglePlaceModal()
     } else {
       this.props.modalStore.togglePrestationModal()
