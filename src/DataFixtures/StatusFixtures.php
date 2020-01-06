@@ -40,6 +40,11 @@ class StatusFixtures extends Fixture
         $manager->persist($status);
         $this->addReference('status_6', $status);
 
+        $status = new Status();
+        $status->setName('Reserved');
+        $manager->persist($status);
+        $this->addReference('status_7', $status);
+
         $manager->flush();
     }
 }

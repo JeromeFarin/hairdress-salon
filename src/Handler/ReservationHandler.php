@@ -81,7 +81,7 @@ class ReservationHandler
 
         $reservation->setStart(new \DateTime($data['start']))
                     ->setEnd(new \DateTime($data['end']))
-                    ->setStatus($this->statusRepository->findOneByName('Done'))
+                    ->setStatus($this->statusRepository->findOneByName('Reserved'))
                     ->setStaff($this->userRepository->find($data['staff_id']))
                     ->setClient($this->userRepository->find($data['client_id']))
         ;

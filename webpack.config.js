@@ -26,6 +26,7 @@ Encore
     .addEntry('ReservationApp', './assets/ReservationApp/js/ReservationApp.js')
     .addEntry('ManagerApp', './assets/ManagerApp/js/ManagerApp.js')
     .addEntry('PlanningApp', './assets/PlanningApp/js/PlanningApp.js')
+    .addEntry('RunnerApp', './assets/RunnerApp/js/RunnerApp.js')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 

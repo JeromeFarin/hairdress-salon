@@ -21,6 +21,8 @@ class ModalStore {
 
   @observable edit_roles_modal = false
 
+  @observable reservation_modal = false
+
   togglePlaceModal () {
     runInAction(() => {
       this.placeModal = !this.placeModal
@@ -66,6 +68,12 @@ class ModalStore {
   toggleEditRolesModal = () => {
     runInAction(() => {
       this.edit_roles_modal = !this.edit_roles_modal
+    })
+  }
+
+  toggleReservationModal = () => {
+    runInAction(() => {
+      this.reservation_modal = !this.reservation_modal
     })
   }
 }

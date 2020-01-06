@@ -4,6 +4,8 @@ import moment from 'moment'
 class DateStore {
     @observable date = moment()
 
+    @observable day = moment()
+
     @observable opened = {
       'start': '10:00:00',
       'end': '15:00:00'
@@ -36,6 +38,18 @@ class DateStore {
     removeWeek () {
       runInAction(() => {
         this.date = moment(this.date).subtract(7,'d')
+      })
+    }
+
+    addDay () {
+      runInAction(() => {
+        this.day = moment(this.day).add(1,'d')
+      })
+    }
+
+    removeDay () {
+      runInAction(() => {
+        this.day = moment(this.day).subtract(1,'d')
       })
     }
 

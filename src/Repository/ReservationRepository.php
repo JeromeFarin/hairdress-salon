@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Reservation;
+use App\Entity\Status;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -23,9 +24,25 @@ class ReservationRepository extends ServiceEntityRepository
     public function findAllBetweenDate($start, $end)
     {
         return $this->_em->createQueryBuilder()
-            ->select('r.id, s.id as staff, r.start, r.end, \'reservation\' as type')
+            ->select('r.id, s.id as staff, c.id as client, r.start, r.end, \'reservation\' as type')
             ->from(Reservation::class,'r')
             ->join(User::class,'s','WITH', 's.id = r.staff')
+            ->join(User::class,'c','WITH', 'c.id = r.client')
+            ->join(Status::class,'st','WITH', 'st.id = r.status')
+            ->andWhere('r.start >= :start')
+            ->andWhere('r.start <= :end')
+            ->andWhere('r.end >= :start')
+            ->andWhere('r.end <= :end')
+            ->setParameter('start', $start)
+            ->setParameter('end', $end)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findAllBetweenDateV2($start, $end)
+    {
+        return $this->createQueryBuilder('r')
             ->andWhere('r.start >= :start')
             ->andWhere('r.start <= :end')
             ->andWhere('r.end >= :start')
