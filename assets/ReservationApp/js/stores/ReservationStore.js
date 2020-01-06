@@ -16,10 +16,8 @@ class ReservationStore {
       request.client_id = userStore.connectedUser.id
       request.prestations = []
       place.prestations.map((prestation) => {
-        request.prestations.push([prestation.id, prestation.price])
+        request.prestations.push([prestation.id, prestation.price_ht])
       })
-      
-      console.log(JSON.stringify(request))
   
       window.fetch('/api/reserve', {
         headers: {
@@ -36,7 +34,7 @@ class ReservationStore {
             alert(result)
           }
           sessionStorage.removeItem('place')
-          unavailabilityStore.load()
+          unavailabilityStore.loadReservations()
         })
         .catch((error) => {
           console.error(error.message)

@@ -12,17 +12,20 @@ class SlotStore {
   addSlot (type, staff, day, start, end) {
     const size = this.getSize(start, end)
     this.slotsId = this.slotsId + 1
-    const id = this.slotsId
+    let id = this.slotsId
 
-    this.slots.push({
-      id,
-      type,
-      staff,
-      day,
-      start,
-      end,
-      size
-    })
+    if (parseInt(type) === 3) {
+      let last_slot = this.slots.find(slot => slot.id === (id - 1))
+      if (parseInt(last_slot.type) === 3 && last_slot.staff.id == staff.id) {
+        this.slotsId = last_slot.id
+        last_slot.end = end
+        last_slot.size = last_slot.size + size
+      } else {
+        this.slots.push({id,type,staff,day,start,end,size})
+      }
+    } else {
+      this.slots.push({id,type,staff,day,start,end,size})
+    }
   }
 
   getSize (start, end) {
