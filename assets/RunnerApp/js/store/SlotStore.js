@@ -3,7 +3,6 @@ import moment from 'moment'
 import dateStore from '../../../store/DateStore'
 import staffStore from './StaffStore'
 import reservationStore from './ReservationStore'
-import userStore from './UserStore'
 
 class SlotStore {
   @observable slots = []

@@ -16,7 +16,8 @@ class StatusStore extends LoadStore {
         .then((data) => {
           this.status = JSON.parse(data)
           this.loadValues(this.status, [
-            {name: 'name', type: 'text'}
+            {name: 'name', type: 'text'},
+            {name: 'color', type: 'color'}
           ])
         })
         .catch((error) => {

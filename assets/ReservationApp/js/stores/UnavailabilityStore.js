@@ -30,7 +30,7 @@ class UnavailabilityStore {
       })
         .then((response) => response.json())
         .then((data) => {
-          this.orderUnavailabilities(JSON.parse(data))
+          this.orderUnavailabilities(JSON.parse(data),'unavailability')
         })
         .catch((error) => {
           console.error(`loadUnavailabilities : ${error.message}`)
@@ -54,7 +54,7 @@ class UnavailabilityStore {
       })
         .then((response) => response.json())
         .then((data) => {
-          this.orderUnavailabilities(JSON.parse(data))
+          this.orderUnavailabilities(JSON.parse(data),'reservation')
         })
         .catch((error) => {
           console.error(`loadReservations : ${error.message}`)
@@ -63,9 +63,10 @@ class UnavailabilityStore {
     })
   }
 
-  orderUnavailabilities (data) {
+  orderUnavailabilities (data,type) {
     runInAction(() => {
       data.map((elt) => {
+        elt.type = type
         this.noLoaded.push(elt)
       })
       this.unavailabilities = this.noLoaded.slice().sort((a, b) => moment(a.start).valueOf() - moment(b.start).valueOf())

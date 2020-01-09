@@ -34,21 +34,18 @@ class ReservationController extends AbstractController
     }
 
     /**
-     * @Route("/api/reservations/v2", name="api_reservations_v2")
-     */
-    public function apiReservationsV2(Request $request ,ReservationRepository $repository)
-    {
-        $content = json_decode($request->getContent(), true);
-        $serializer = SerializerBuilder::create()->build();
-        $jsonContent = $serializer->serialize($repository->findAllBetweenDateV2($content['start'], $content['end']), 'json', SerializationContext::create()->enableMaxDepthChecks());
-        return $this->json($jsonContent, 200);
-    }
-
-    /**
      * @Route("/api/reserve", name="api_reserve")
      */
     public function apiReserve(Request $request, ReservationHandler $handler)
     {
         return $this->json($handler->reserve(json_decode($request->getContent(), true)), 201);
+    }
+
+    /**
+     * @Route("/api/reservation/status/change", name="api_reservation_status_change")
+     */
+    public function apiReservationStatusChange(Request $request, ReservationHandler $handler)
+    {
+        return $this->json($handler->statusChange(json_decode($request->getContent(), true)), 200);
     }
 }

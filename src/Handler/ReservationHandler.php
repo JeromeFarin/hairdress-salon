@@ -53,6 +53,27 @@ class ReservationHandler
         return true;
     }
 
+    public function statusChange($data)
+    {
+        $reservation = $this->reservationRepository->find($data['reservation_id']);
+        $status = $this->statusRepository->find($data['status_id']);
+
+        if ($reservation == null) {
+            return json_encode('No reservation found for ' . $data['reservation_id']);
+        }
+
+        if ($status == null) {
+            return json_encode('No status found for ' . $data['status_id']);
+        }
+
+        $reservation->setStatus($status);
+
+        $this->manager->persist($reservation);
+        $this->manager->flush();
+        
+        return true;
+    }
+
     private function checkAvalaibility(\DateTime $start, \DateTime $end, int $staff_id): bool
     {
         if ($start >= new \DateTime()) {

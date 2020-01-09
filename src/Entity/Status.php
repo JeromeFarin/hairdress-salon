@@ -30,6 +30,11 @@ class Status
      */
     private $reservations;
 
+    /**
+     * @ORM\Column(type="string", length=15)
+     */
+    private $color;
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
@@ -86,6 +91,18 @@ class Status
                 $reservation->setStatus(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(string $color): self
+    {
+        $this->color = $color;
 
         return $this;
     }
