@@ -22,7 +22,7 @@ class UserStore extends LoadStore {
             {name: 'last_name', type: 'text'},
             {name: 'color', type: 'color'},
             {name: 'hire_date', type: 'date'},
-            {name: 'roles', type: 'button'}
+            {name: 'roles', type: 'button', class: 'btn btn-primary'}
           ])
         })
         .catch((error) => {

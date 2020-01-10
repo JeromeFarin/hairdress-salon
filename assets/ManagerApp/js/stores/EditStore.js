@@ -51,12 +51,13 @@ class EditStore {
         
       case 'color':
         if (td[th.name] == null) {
-          value.defaultValue = '#000'
+          value.defaultValue = '#0000ffff'
         }
         break;
 
       case 'roles':
         value.onClick = this.handleChangeRoles
+        value.className = th.class
         break;
 
       case 'first_name':

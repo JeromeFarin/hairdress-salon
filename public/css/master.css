@@ -7,42 +7,62 @@ html {
 }
 
 body {
-    background-color: #fff;
-    font-family: 'Copse', serif;
+    font-family: 'Ubuntu', cursive;
+    font-weight: bold;
     position: relative;
     min-height: 100vh;
+    background-image: url('/img/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    /* color: #5e3718; */
 }
 
 header .jumbotron {
-    box-shadow: 0 0 5px #000, inset 0 0 15px #000;
-    background-color: #5e3718;
-    color: #a3a3a3;
+    box-shadow: 0 0 15px #5e3718;
+    background-color: #ffffffb2;
+    color: #5e3718;
     border-radius: 0;
     margin: 0;
 }
 
 header a {
-    text-shadow: 0 0 5px #000;
-    color: #a3a3a3;
+    text-shadow: 0 0 2px #5e3718;
+    color: #000;
 }
 
 header a:hover {
-    text-shadow: 0 0 10px #000;
-    color: #fff;
+    text-shadow: 0 0 7px #5e3718;
+    color: #525252;
     text-decoration: none;
 }
 
+#fill {
+    background-color: #ffffff8a;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.custom_body {
+    padding: 10px;
+    background-color: #ffffffe5;
+    border-radius: 20px;
+    box-shadow: 0 0 15px #5e3718;
+}
+
 footer .jumbotron {
-    box-shadow: 0 0 5px #000, inset 0 0 15px #000;
+    box-shadow: 0 0 15px #5e3718;
     margin: 0;
-    background-color: #5e3718;
-    color: #a3a3a3;
+    background-color: #ffffffbd;
     border-radius: 0;
     position: absolute;
     bottom: 0;
     width: 100%;
     height: 152px;
-    text-shadow: 0 0 5px #000;
+    text-shadow: 0 0 5px #5e3718;
+    color: #000;
 }
 input, select, textarea {
     box-shadow: 0 0 5px #5e3718;
@@ -84,14 +104,14 @@ a.forgot_password_text:hover {
 }
 
 #sharing a i {
-    color: #a3a3a3;
+    color: #000;
     font-size: 3em;
     margin-left: 10px;
 }
 
 #sharing a i:hover {
-    color: #c9c9c9;
-    text-shadow: 0 0 10px #000;
+    color: #525252;
+    text-shadow: 0 0 7px #000;
 }
 
 img {

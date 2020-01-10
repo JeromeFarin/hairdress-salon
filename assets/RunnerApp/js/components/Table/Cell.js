@@ -17,6 +17,7 @@ class Cell extends Component {
 
   render () {
     const { ...values } = this.props.values
+    console.log(values)
     return (
       <div 
         className='custom_cell d-flex justify-content-around align-items-center'
@@ -24,7 +25,7 @@ class Cell extends Component {
         style={{
           height: `${values.size}%`,
           border: `5px solid ${values.staff.color}`,
-          backgroundColor: values.type == 2 ? 'orange' : 'green',
+          backgroundColor: values.type == 2 ? values.reservation.status.color : '#a1ff9c',
           width: '90%',
           borderRadius: '10px',
           cursor: 'pointer'

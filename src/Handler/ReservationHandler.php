@@ -83,11 +83,11 @@ class ReservationHandler
                 return true;
             }
             
-            $this->error = 'Ce créneau n\'est plus disponible, désolé';
+            $this->error = 'This slot is no longer available, sorry';
             return false;
         }
 
-        $this->error = 'Euh ..., c\'est mieux une réservation dans le futur non ?';
+        $this->error = 'Euh ..., it\'s better to reserved in the future no ?';
         return false;
     }
 

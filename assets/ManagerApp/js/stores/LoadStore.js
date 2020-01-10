@@ -22,9 +22,9 @@ class LoadStore {
 
       options.map(option => {
         const check = ths.find(value => value === option.name)
-          if (check != null) {
-            this.ths.push(option)
-          }
+        if (check != null) {
+          this.ths.push(option)
+        }
       })
       
       this.tds_loaded = values

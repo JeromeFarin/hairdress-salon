@@ -44,7 +44,9 @@ class Filter extends Component {
 
   render () {
     return (
-      <input type='text' placeholder='Filter' onChange={this.handleChange}/>
+      <div>
+        <input type='text' placeholder='Filter' onChange={this.handleChange}/><br/><br/>
+      </div>
     )
   }
 }

@@ -22,7 +22,7 @@ class Date extends Component {
     return (
       <div className='d-flex col-3 justify-content-between'>
         <FontAwesomeIcon onClick={this.handleBefore} icon={faCaretSquareLeft} />
-        <p onClick={this.handleMonth}>Week {this.props.dateStore.date.week()}</p>
+        <p className='btn btn-primary' onClick={this.handleMonth}>Week {this.props.dateStore.date.week()}</p>
         <FontAwesomeIcon onClick={this.handleAfter} icon={faCaretSquareRight} />
       </div>
     )

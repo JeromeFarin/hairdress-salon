@@ -80,12 +80,11 @@ class Cell extends Component {
                 visibility: isVisible ? 'visible' : 'hidden',
                 position: 'relative'
               }}
-              className='d-flex flex-column justify-content-between custom_cell'
+              className='d-flex flex-column justify-content-center custom_cell'
               onClick={this.handleClick}
               data-id={value.id}
             >
-              <span>{moment(value.start).format('HH:mm')}</span>
-              <span>{moment(value.end).format('HH:mm')}</span>
+              <span>{moment(value.start).format('HH:mm')} - {moment(value.end).format('HH:mm')}</span>
             </div>
           )
         })}
