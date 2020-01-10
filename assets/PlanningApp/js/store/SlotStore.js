@@ -15,8 +15,9 @@ class SlotStore {
     let id = this.slotsId
 
     if (parseInt(type) === 3) {
+      
       let last_slot = this.slots.find(slot => slot.id === (id - 1))
-      if (parseInt(last_slot.type) === 3 && last_slot.staff.id == staff.id) {
+      if (last_slot != null && parseInt(last_slot.type) === 3 && last_slot.staff.id == staff.id) {
         this.slotsId = last_slot.id
         last_slot.end = end
         last_slot.size = last_slot.size + size
