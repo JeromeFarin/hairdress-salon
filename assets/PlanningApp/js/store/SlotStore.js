@@ -14,16 +14,11 @@ class SlotStore {
     this.slotsId = this.slotsId + 1
     let id = this.slotsId
 
-    if (parseInt(type) === 3) {
-      
-      let last_slot = this.slots.find(slot => slot.id === (id - 1))
-      if (last_slot != null && parseInt(last_slot.type) === 3 && last_slot.staff.id == staff.id) {
-        this.slotsId = last_slot.id
-        last_slot.end = end
-        last_slot.size = last_slot.size + size
-      } else {
-        this.slots.push({id,type,staff,day,start,end,size})
-      }
+    let last_slot = this.slots.find(slot => slot.id === (id - 1))
+    if (last_slot != null && parseInt(last_slot.type) === parseInt(type) && last_slot.staff.id == staff.id) {
+      this.slotsId = last_slot.id
+      last_slot.end = end
+      last_slot.size = this.getSize(last_slot.start, end)
     } else {
       this.slots.push({id,type,staff,day,start,end,size})
     }
