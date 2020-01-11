@@ -17,7 +17,7 @@ class Satus extends Component {
       <div className='w-100 d-flex flex-column align-items-center'>
         <p>Current status: {this.props.status.name}</p>
         <div>
-          {this.props.statusStore.status.map(status => <Button key={status.id} data-id={status.id} className='status_btn' onClick={this.handleClick}>{status.name}</Button>)}
+          {this.props.statusStore.status.map(status => <Button key={status.id} style={{ color: status.color }} data-id={status.id} className='status_btn' onClick={this.handleClick}>{status.name}</Button>)}
         </div>
       </div>
     )

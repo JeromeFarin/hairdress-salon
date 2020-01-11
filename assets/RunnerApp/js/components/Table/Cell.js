@@ -17,7 +17,6 @@ class Cell extends Component {
 
   render () {
     const { ...values } = this.props.values
-    console.log(values)
     return (
       <div 
         className='custom_cell d-flex justify-content-around align-items-center'
