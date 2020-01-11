@@ -13,13 +13,17 @@ class TaxeFixtures extends Fixture
     {
         $faker = Factory::create('fr_FR');
 
-        for ($i=0; $i < 4; $i++) {
+        $start_date = new \DateTime('2010-01-01');
+
+        for ($i=0; $i < 20; $i++) {
             $taxe = new Taxe();
     
-            $taxe->setValue($faker->randomDigitNotNull)
-                 ->setStart($faker->dateTimeBetween('-60 months'))
-                 ->setEnd($faker->dateTimeBetween($taxe->getStart()));
+            $taxe->setValue($faker->randomFloat(2,2,20))
+                 ->setStart($start_date)
+                 ->setEnd($start_date->add(new \DateInterval('P1Y')))
+            ;
     
+            $start_date = $taxe->getEnd();
             $manager->persist($taxe);
         }
 

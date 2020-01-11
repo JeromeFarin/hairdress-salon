@@ -13,13 +13,26 @@ class PrestationFixtures extends Fixture
     {
         $faker = Factory::create('fr_FR');
 
-        for ($i=0; $i < 5; $i++) {
+        $names = [
+            'shampoo',
+            'man cut',
+            'man cut (long hair)',
+            'woman cut',
+            'woman cut (short hair)',
+            'blow dry',
+            'loop',
+            'smooth',
+            'coloring',
+            'wick'
+        ];
+
+        for ($i=0; $i < count($names); $i++) {
             $prestation = new Prestation();
 
-            $prestation->setName($faker->word)
+            $prestation->setName($names[$i])
                        ->setMakeTime((new \DateTime())->setTime(0,$faker->randomElement([10,15,20,30,40,45,50,60])))
-                       ->setPriceHT($faker->numberBetween(5,150))
-                       ->setActive($faker->boolean(70))
+                       ->setPriceHT($faker->numberBetween(5,50))
+                       ->setActive($faker->boolean(80))
             ;
     
             $manager->persist($prestation);

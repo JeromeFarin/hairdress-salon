@@ -23,14 +23,14 @@ class UserFixtures extends AppFixtures
         for ($i=0; $i < 10; $i++) { 
             $user = new User();
 
-            $user->setEmail(('email+'.$i.'@email.com'))
+            $user->setEmail(('email_client_'.$i.'@email.com'))
                  ->setRoles(['ROLE_CLIENT'])
                  ->setPassword($this->encoder->encodePassword($user, 'password'))
                  ->setGender($this->faker->numberBetween(1,2))
                  ->setFirstName(($user->getGender() == 'Male') ? $this->faker->firstNameMale : $this->faker->firstNameFemale )
                  ->setLastName($this->faker->lastName)
                  ->setPhone($this->faker->phoneNumber)
-                 ->setBirthday($this->faker->dateTime());
+                 ->setBirthday($this->faker->dateTimeBetween('-90 years','-15 years'));
             
 
             $manager->persist($user);
@@ -41,15 +41,15 @@ class UserFixtures extends AppFixtures
         for ($j=0; $j < 3; $j++) { 
             $user = new User();
 
-            $user->setEmail(('email+'.$j.$j.'@email.com'))
+            $user->setEmail(('email_staff'.$j.'@email.com'))
                  ->setRoles(['ROLE_STAFF'])
                  ->setPassword($this->encoder->encodePassword($user, 'password'))
                  ->setGender($this->faker->numberBetween(1,2))
                  ->setFirstName(($user->getGender() == 'Male') ? $this->faker->firstNameMale : $this->faker->firstNameFemale )
                  ->setLastName($this->faker->lastName)
                  ->setPhone($this->faker->phoneNumber)
-                 ->setBirthday($this->faker->dateTime())
-                 ->setHireDate($this->faker->dateTime())
+                 ->setBirthday($this->faker->dateTimeBetween('-90 years','-18 years'))
+                 ->setHireDate($this->faker->dateTimeBetween(date_add($user->getBirthday(), date_interval_create_from_date_string('18 years'))))
                  ->setColor($this->faker->hexcolor())
             ;
 

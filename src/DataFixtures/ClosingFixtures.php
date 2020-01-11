@@ -11,17 +11,17 @@ class ClosingFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        $faker = Factory::create('fr_FR');
+        // $faker = Factory::create('fr_FR');
         
-        for ($i=0; $i < mt_rand(4,10); $i++) {
-            $closing = new Closing();
+        // for ($i=0; $i < mt_rand(4,10); $i++) {
+        //     $closing = new Closing();
     
-            $closing->setStart($faker->dateTimeBetween('-60 days'))
-                    ->setEnd($faker->dateTimeBetween($closing->getStart()));
+        //     $closing->setStart($faker->dateTimeBetween('-60 days'))
+        //             ->setEnd($faker->dateTimeBetween($closing->getStart()));
     
-            $manager->persist($closing);
-        }
+        //     $manager->persist($closing);
+        // }
 
-        $manager->flush();
+        // $manager->flush();
     }
 }
