@@ -33,8 +33,11 @@ class PlaceModal extends Component {
         <Modal.Body className='d-flex flex-column align-items-center'>
           {this.props.placeStore.places.map((place) => (
             <div className='form-check' key={place.id}>
-              <input className='form-check-input' type='radio' name='place_radio' id={`radio_${place.id}`} value={place.id} onClick={this.handleSetValue} />
-              <label className='form-check-label' htmlFor={`radio_${place.id}`}>{place.start.format('HH:mm')} - {place.end.format('HH:mm')}</label>
+              <label className='form-check-label custom-radio-container' htmlFor={`radio_${place.id}`}>
+                {place.start.format('HH:mm')} - {place.end.format('HH:mm')}
+                <input className='form-check-input' type='radio' name='place_radio' id={`radio_${place.id}`} value={place.id} onClick={this.handleSetValue} />
+                <span className='custom-radio-checkmark'></span>
+              </label>
             </div>
           ))}
         </Modal.Body>

@@ -65,7 +65,14 @@ class Table extends Component {
                 <tr key={td.id} onChange={this.handleChange}>
                   {this.props.ths.map(th => (
                       <td key={`${td.id}_${th.name}`}>
-                        <input {...this.props.editStore.formatValue(td,th)} />
+                        {th.type === 'checkbox' ? (
+                          <label className='custom-checkbox-container'>
+                            <input {...this.props.editStore.formatValue(td,th)} />
+                            <span className='custom-checkbox-checkmark'></span>
+                          </label>
+                        ) : (
+                          <input {...this.props.editStore.formatValue(td,th)} />
+                        )}
                       </td>
                   ))}
                 </tr>
