@@ -33,9 +33,13 @@
                     <a class="nav-link" href="{{ path('reservation_index') }}">Reservation</a>
                     <a class="nav-link" href="{{ path('staff_index') }}">Staff</a>
                     <a class="nav-link" href="{{ path('contact') }}">Contact</a>
-                    <a class="nav-link" href="{{ path('planning') }}">Planning</a>
-                    <a class="nav-link" href="{{ path('runner') }}">Runner</a>
-                    <a class="nav-link" href="{{ path('admin_index') }}">Admin</a>
+                    {% if is_granted('ROLE_STAFF') %}
+                        <a class="nav-link" href="{{ path('planning') }}">Planning</a>
+                        <a class="nav-link" href="{{ path('runner') }}">Runner</a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a class="nav-link" href="{{ path('admin_index') }}">Admin</a>
+                        {% endif %}
+                    {% endif %}
                 </nav>
             </div>
         </header>

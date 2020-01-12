@@ -41,7 +41,7 @@ class UserFixtures extends AppFixtures
         for ($j=0; $j < 3; $j++) { 
             $user = new User();
 
-            $user->setEmail(('email_staff'.$j.'@email.com'))
+            $user->setEmail(('email_staff_'.$j.'@email.com'))
                  ->setRoles(['ROLE_STAFF'])
                  ->setPassword($this->encoder->encodePassword($user, 'password'))
                  ->setGender($this->faker->numberBetween(1,2))
