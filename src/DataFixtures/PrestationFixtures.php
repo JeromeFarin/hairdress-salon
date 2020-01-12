@@ -36,6 +36,7 @@ class PrestationFixtures extends Fixture
             ;
     
             $manager->persist($prestation);
+            $this->addReference('prestation_'.$i, $prestation);
         }
 
         $manager->flush();

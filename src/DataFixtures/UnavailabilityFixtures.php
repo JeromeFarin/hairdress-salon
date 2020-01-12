@@ -17,13 +17,13 @@ class UnavailabilityFixtures extends AppFixtures implements DependentFixtureInte
 
     public function load(ObjectManager $manager)
     {
-        for ($i=0; $i < 30; $i++) {
+        for ($i=0; $i < 20; $i++) {
             $start_date = $this->faker->dateTimeBetween('-2 month', '+2 month');
             $start_start_date = new \DateTime($start_date->format('Y-m-d').$this->getReference('start_opened')->getValue());
             $start_end_date = new \DateTime($start_date->format('Y-m-d').$this->getReference('end_opened')->getValue());
             $start_date_final = $this->faker->dateTimeBetween($start_start_date,$start_end_date);
 
-            $end_date = $this->faker->dateTimeBetween($start_date_final, date_add(new \DateTime($start_date_final->format('Y-m-d')), date_interval_create_from_date_string('2 days')));
+            $end_date = $this->faker->dateTimeBetween($start_date_final->format('Y-m-d H:i:s').'+1 hours', date_add(new \DateTime($start_date_final->format('Y-m-d')), date_interval_create_from_date_string('2 days')));
             $end_start_date = new \DateTime($end_date->format('Y-m-d').$start_date_final->format('H').':'.$start_date_final->format('i').':'.$start_date_final->format('s'));
             $end_end_date = new \DateTime($end_date->format('Y-m-d').$this->getReference('end_opened')->getValue());
             $end_date_final = $this->faker->dateTimeBetween($end_start_date,$end_end_date);

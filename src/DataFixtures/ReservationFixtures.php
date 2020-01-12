@@ -17,8 +17,6 @@ class ReservationFixtures extends Fixture implements DependentFixtureInterface
         for ($i=0; $i < 600; $i++) {
             $reservation = new Reservation();
 
-            $this->getReference('unavailability_'.mt_rand(0,29));
-
             $start_date = $faker->dateTimeBetween('-2 month', '+2 month');
             $limite_start_date = new \DateTime($start_date->format('Y-m-d').$this->getReference('start_opened')->getValue());
             $limite_end_date = new \DateTime($start_date->format('Y-m-d').$this->getReference('end_opened')->getValue());
@@ -36,6 +34,8 @@ class ReservationFixtures extends Fixture implements DependentFixtureInterface
                         ->setCreatedAt($faker->dateTimeBetween($start_date_final->format('Y-m-d H:i:s').'-3 days', $start_date_final->format('Y-m-d H:i:s')))
                         ->setStatus($this->getReference('status_'.mt_rand(1,7)))
             ;
+
+            $this->addReference('reservation_'.$i, $reservation);
             
             $manager->persist($reservation);
         }
@@ -47,8 +47,7 @@ class ReservationFixtures extends Fixture implements DependentFixtureInterface
     {
         return array(
             UserFixtures::class,
-            StatusFixtures::class,
-            UnavailabilityFixtures::class
+            StatusFixtures::class
         );
     }
 }

@@ -23,6 +23,7 @@ class TaxeFixtures extends Fixture
                  ->setEnd((new \DateTime($start_date->format('Y-m-d')))->add(new \DateInterval('P1Y')))
             ;
             
+            $this->addReference('taxe_'.$start_date->format('Y'), $taxe);
             $start_date = $taxe->getEnd();
             $manager->persist($taxe);
         }
