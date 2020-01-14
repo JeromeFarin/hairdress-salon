@@ -41,8 +41,14 @@ class UserFixtures extends AppFixtures
         for ($j=0; $j < 3; $j++) { 
             $user = new User();
 
+            if ($j === 0) {
+                $roles = ['ROLE_STAFF','ROLE_ADMIN'];
+            } else {
+                $roles = ['ROLE_STAFF'];
+            }
+
             $user->setEmail(('email_staff_'.$j.'@email.com'))
-                 ->setRoles(['ROLE_STAFF'])
+                 ->setRoles($roles)
                  ->setPassword($this->encoder->encodePassword($user, 'password'))
                  ->setGender($this->faker->numberBetween(1,2))
                  ->setFirstName(($user->getGender() == 'Male') ? $this->faker->firstNameMale : $this->faker->firstNameFemale )
