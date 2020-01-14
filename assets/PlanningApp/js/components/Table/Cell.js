@@ -18,20 +18,19 @@ class Cell extends Component {
     switch (parseInt(value.type)) {
       // available
       case 1:
-        const type = this.props.typeStore.types.filter(type => type.selected === true)
-        if (type.length === 1) {
-          if (type[0].id === 1) {
-            this.props.placeStore.slotId = id
+        // const type = this.props.typeStore.types.filter(type => type.selected === true)
+        // if (type.length === 1) {
+          // if (type[0].id === 1) {
+          //   this.props.placeStore.slotId = id
 
-            this.props.placeStore.loadPlaces()
-            this.props.modalStore.togglePlaceModal()
+          //   this.props.placeStore.loadPlaces()
+            // this.props.modalStore.togglePlaceModal()
             // this.props.modalStore.modal_content = (<p>It's OK</p>)
-            console.log('good way',id)
-          }
-        } else {
+        //   }
+        // } else {
           this.props.modalStore.modal_content = (<p>{value.staff.first_name} is available from {moment(value.start).format('HH:mm')} to {moment(value.end).format('HH:mm')}</p>)
           this.props.modalStore.toggleDetailModal()
-        }
+        // }
         break;
 
       // absent

@@ -31,8 +31,8 @@ class Reserve extends Component {
     }
     return (
       <div className='col-3' style={{ visibility: show ? 'visible' : 'hidden' }} onChange={this.handleChange}>
-        <input type='number' name='hour_reserved' placeholder='Hour'/>
-        <input type='number' name='minute_reserved' placeholder='Minute'/>
+        {/* <input type='number' name='hour_reserved' placeholder='Hour'/>
+        <input type='number' name='minute_reserved' placeholder='Minute'/> */}
       </div>
     )
   }
