@@ -24,7 +24,10 @@ class AdminStatusController extends AbstractController
      */
     public function status()
     {
-        return $this->render('admin/status.html.twig', []);
+        preg_match('/([a-z]*)$/i',$_SERVER['REQUEST_URI'],$matches);
+        return $this->render('admin/status.html.twig', [
+            'type' => $matches[0]
+        ]);
     }
 
     /**

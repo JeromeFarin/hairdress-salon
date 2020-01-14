@@ -24,7 +24,10 @@ class AdminUserController extends AbstractController
      */
     public function user()
     {
-        return $this->render('admin/users.html.twig', []);
+        preg_match('/([a-z]*)$/i',$_SERVER['REQUEST_URI'],$matches);
+        return $this->render('admin/users.html.twig', [
+            'type' => $matches[0]
+        ]);
     }
 
     /**

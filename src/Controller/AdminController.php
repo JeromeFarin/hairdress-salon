@@ -9,6 +9,7 @@ use App\Repository\UserRepository;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AdminController extends AbstractController
@@ -18,7 +19,8 @@ class AdminController extends AbstractController
      */
     public function index(SalonOptionRepository $salonOptionRepository)
     {
-        return $this->render('admin/index.html.twig', []);
+        // dd($_SERVER['REQUEST_URI']);
+        return $this->render('admin/index.html.twig', ['type' => '']);
     }
 
     /**

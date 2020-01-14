@@ -1,10 +1,29 @@
 <div class="container">
     <h1 class="text-center">Administration manager</h1>
+    
+    <nav id="admin-nav" class="nav justify-content-center">
+      {% if type == "prestations" %}
+        <a class="nav-link active" href="{{ path('admin_prestations') }}">Prestations</a>
+      {% else %}
+        <a class="nav-link" href="{{ path('admin_prestations') }}">Prestations</a>      
+      {% endif %}
 
-    <nav class="nav justify-content-center">
-      <a class="nav-link" href="{{ path('admin_prestations') }}">Prestations</a>
-      <a class="nav-link" href="{{ path('admin_status') }}">Status</a>
-      <a class="nav-link" href="{{ path('admin_taxes') }}">Taxes</a>
-      <a class="nav-link" href="{{ path('admin_users') }}">Users</a>
+      {% if type == "status" %}
+        <a class="nav-link active" href="{{ path('admin_status') }}">Status</a>
+      {% else %}
+        <a class="nav-link" href="{{ path('admin_status') }}">Status</a>
+      {% endif %}
+
+      {% if type == "taxes" %}
+        <a class="nav-link active" href="{{ path('admin_taxes') }}">Taxes</a>
+      {% else %}
+        <a class="nav-link" href="{{ path('admin_taxes') }}">Taxes</a>
+      {% endif %}
+
+      {% if type == "users" %}
+        <a class="nav-link active" href="{{ path('admin_users') }}">Users</a>
+      {% else %}
+        <a class="nav-link" href="{{ path('admin_users') }}">Users</a>
+      {% endif %}
     </nav>
 </div>

@@ -24,7 +24,10 @@ class AdminPrestationController extends AbstractController
      */
     public function prestations()
     {
-        return $this->render('admin/prestations.html.twig', []);
+        preg_match('/([a-z]*)$/i',$_SERVER['REQUEST_URI'],$matches);
+        return $this->render('admin/prestations.html.twig', [
+            'type' => $matches[0]
+        ]);
     }
 
     /**

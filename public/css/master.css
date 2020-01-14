@@ -144,3 +144,20 @@ img:hover {
 input:focus {
     outline: none;
 }
+
+#admin-nav .nav-link {
+    box-shadow: 0 0 5px #5e3718;
+    margin: 10px;
+    border-radius: 5px;
+    color: #000;
+}
+
+#admin-nav .nav-link.active {
+    background-color: #5e3718;
+    color: #fff;
+}
+
+#admin-nav .nav-link:hover {
+    box-shadow: 0 0 10px #5e3718;
+    background-color: #5e38186e;
+}
