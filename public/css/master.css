@@ -161,3 +161,7 @@ input:focus {
     box-shadow: 0 0 10px #5e3718;
     background-color: #5e38186e;
 }
+
+#unavailability_end select, #unavailability_start select {
+    margin: 0 5px 0 5px;
+}

@@ -24,9 +24,9 @@ abstract class AbstractFormHandler
     public function formHandle(Request $request, string $type, $data = null)
     {
         $this->form = $this->formFactory->create($type,$data)->handleRequest($request);
-
+        
         if ($this->form->isSubmitted() && $this->form->isValid()) {
-            $this->process($data);
+            $this->process($this->form->getData());
             return true;
         }
 

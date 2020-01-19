@@ -33,4 +33,15 @@ class UnavailabilityRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    public function findCurrent()
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.start >= :date')
+            ->setParameter('date', new \DateTime())
+            ->orderBy('u.start', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

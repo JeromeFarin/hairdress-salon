@@ -6,6 +6,7 @@ use App\Form\AvatarType;
 use App\Form\ProfilType;
 use App\Handler\AvatarHandler;
 use App\Handler\ProfilEditHandler;
+use App\Repository\UnavailabilityRepository;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,10 +18,11 @@ class ProfilController extends AbstractController
     /**
      * @Route("/profil", name="profil_index")
      */
-    public function index()
+    public function index(UnavailabilityRepository $unavailabilityRepository)
     {
         return $this->render('profil/index.html.twig', [
             'user' => $this->getUser(),
+            'unavailabilities' => $unavailabilityRepository->findCurrent()
         ]);
     }
 

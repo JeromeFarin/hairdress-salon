@@ -34,3 +34,7 @@ yarn-error.log
 composer.lock
 symfony.lock
 package-lock.json
+###> squizlabs/php_codesniffer ###
+/.phpcs-cache
+/phpcs.xml
+###< squizlabs/php_codesniffer ###

@@ -18,6 +18,18 @@
                 <a href="{{ path('profil_edit') }}" class="btn btn-primary mr-2">Edit profil</a>
                 <a href="{{ path('resetting_reset') }}" class="btn btn-secondary">Change password</a>
             </div>
+            <br><br>
+            {% if is_granted('ROLE_STAFF') %}
+                <div id="unavailabilities_view">
+                    <h3>Unavailabilities</h3>
+                    <ul>
+                        {% for unavailability in unavailabilities %}
+                            <li><a class="btn btn-secondary" href="{{ path('unavailability_delete', {id: unavailability.id}) }}">Delete</a> From {{ unavailability.start | date }} to {{ unavailability.end | date }}</li><br>
+                        {% endfor %}
+                    </ul>
+                    <a class="btn btn-primary" href="{{ path('unavailability_add') }}">New unavailability</a>
+                </div>
+            {% endif %}
         </div>
     </div>
 
