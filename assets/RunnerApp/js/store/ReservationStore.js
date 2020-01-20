@@ -1,10 +1,13 @@
 import { observable, runInAction, observe } from 'mobx'
 import dateStore from '../../../store/DateStore'
+import moment from 'moment'
 
 class ReservationStore {
   @observable reservations = []
 
   reservation = []
+
+  noLoaded = []
 
   loadReservations () {
     observe(dateStore, () => {
@@ -21,11 +24,21 @@ class ReservationStore {
       })
         .then((response) => response.json())
         .then((data) => {
-          this.reservations = JSON.parse(data)
+          this.orderReservations(JSON.parse(data),'reservation')
         })
         .catch((error) => {
           console.error(`loadReservations : ${error.message}`)
         })
+    })
+  }
+
+  orderReservations (data,type) {
+    runInAction(() => {
+      data.map((elt) => {
+        elt.type = type
+        this.noLoaded.push(elt)
+      })
+      this.reservations = this.noLoaded.slice().sort((a, b) => moment(a.start).valueOf() - moment(b.start).valueOf())
     })
   }
 }

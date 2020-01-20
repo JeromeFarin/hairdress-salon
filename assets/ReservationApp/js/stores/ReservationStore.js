@@ -32,6 +32,8 @@ class ReservationStore {
           const result = JSON.parse(data)
           if (result !== true) {
             alert(result)
+          } else {
+            alert('Your booking will be accepted')
           }
           sessionStorage.removeItem('place')
           unavailabilityStore.loadReservations()

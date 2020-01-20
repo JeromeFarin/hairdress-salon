@@ -48,7 +48,6 @@ class ReservationHandler
         foreach ($data['prestations'] as $value) {
             $this->createReservationInfo(new \DateTime($data['start']), $value[1], $value[0], $reservation_id);
         }
-
         
         return true;
     }

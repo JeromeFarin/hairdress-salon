@@ -36,4 +36,4 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/planning, roles: ROLE_STAFF }
         - { path: ^/runner, roles: ROLE_STAFF }
-        - { path: ^/staff, roles: ROLE_STAFF }
+        - { path: ^/staff/unavailabilities/, roles: ROLE_STAFF }

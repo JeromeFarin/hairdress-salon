@@ -25,8 +25,10 @@ class DefaultController extends AbstractController
     public function contact(Request $request, ContactHandler $formHandler)
     {
         if ($formHandler->formHandle($request, ContactType::class)) {
+            $this->addFlash('success', 'Email sent');
             return $this->redirectToRoute('contact');
         } else {
+            $this->addFlash('success', 'Email sent');
             return $this->render('default/contact.html.twig', [
                 'form' => $formHandler->getView()
             ]);
