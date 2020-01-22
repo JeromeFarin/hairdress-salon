@@ -28,7 +28,6 @@ class DefaultController extends AbstractController
             $this->addFlash('success', 'Email sent');
             return $this->redirectToRoute('contact');
         } else {
-            $this->addFlash('success', 'Email sent');
             return $this->render('default/contact.html.twig', [
                 'form' => $formHandler->getView()
             ]);

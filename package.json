@@ -22,7 +22,7 @@
         "dev": "encore dev",
         "watch": "encore dev --watch --watch-poll",
         "build": "encore production",
-        "devTool": "symfony server:stop & encore dev --watch --watch-poll & symfony server:start"
+        "devTool": "symfony server:stop & encore dev --watch & symfony server:start"
     },
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^1.2.25",
