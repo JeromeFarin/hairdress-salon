@@ -2,7 +2,7 @@
 
 {% block body %}
     
-    <div class="d-flex">
+    <div class="d-flex profil">
         <img height="300px" src="/img/avatar/{{user.avatar}}" alt="{{ user.firstName }}" data-toggle="modal" data-target="#modal_avatar">
 
         {% include "modal/update_avatar.html.twig" %}

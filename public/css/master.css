@@ -37,6 +37,10 @@ header a:hover {
     text-decoration: none;
 }
 
+#header-reponsive {
+    display: none;
+}
+
 #fill {
     background-color: #ffffff8a;
     position: absolute;

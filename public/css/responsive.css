@@ -1,0 +1,38 @@
+@media screen and (max-width: 800px) {
+    #header {
+        display: none;
+    }
+
+    #header-reponsive {
+        display: block;
+    }
+
+    header .jumbotron {
+        padding: 10px !important;
+    }
+
+    .staff img {
+        width: 100px;
+    }
+
+    .staff-show, .profil {
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .staff-show img, .profil img {
+        margin-bottom: 30px;
+     }
+
+    .navbar-responsive {
+        border-radius: 5px;
+        width: 100px;
+        margin: 10px;
+        background-color: #5e3718;
+        box-shadow: 0 0 15px #5e3718;
+    }
+
+    footer .container {
+        flex-direction: column;
+    }
+}
