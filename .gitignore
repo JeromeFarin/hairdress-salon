@@ -31,10 +31,9 @@ npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
-composer.lock
-symfony.lock
 package-lock.json
 ###> squizlabs/php_codesniffer ###
 /.phpcs-cache
 /phpcs.xml
-###< squizlabs/php_codesniffer ###
+###< squizlabs/php_codesniffer ###dir_name
+.vscode
